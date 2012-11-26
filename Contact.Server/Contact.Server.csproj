@@ -44,10 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountControll.cs" />
+    <Compile Include="GameException.cs" />
     <Compile Include="GameService.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="IGameService.cs" />
+    <Compile Include="LogSaver.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Room.cs" />
+    <Compile Include="RoomControll.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

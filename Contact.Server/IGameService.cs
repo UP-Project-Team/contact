@@ -6,12 +6,18 @@ using System.ServiceModel;
 
 namespace Contact.Server
 {
-    [ServiceContract(SessionMode = SessionMode.Required, CallbackContract = typeof(IGameServiceCallback))]
+    [ServiceContract(SessionMode = SessionMode.Required, CallbackContract = typeof (IGameServiceCallback))]
     public interface IGameService
     {
         [OperationContract(IsInitiating = true)]
-        bool Login(string name, string password);
+        [FaultContract(typeof(GameException))]
+        void Login(string name, string password);
 
+        [OperationContract(IsTerminating = true, IsInitiating = false, IsOneWay = true)]
+        void Logoff();
+
+        [OperationContract(IsInitiating = false, IsTerminating = false)]
+        GameState GetState();
     }
 
 

@@ -11,10 +11,26 @@ namespace Contact.Server
     [ServiceBehaviorAttribute(InstanceContextMode = InstanceContextMode.PerSession)]
     public class GameService : IGameService
     {
+        // Id of user who started this session
+        private int UserId;
 
-        public bool Login(string name, string password)
+        public void Login(string name, string password)
         {
-            throw new NotImplementedException();
+            LogSaver.Log("Attempt to login. name="+name+" password="+password);
+            UserId = AccountControll.LoginUser(name, password);
+            LogSaver.Log("Loged in successfully. UserId="+UserId);
+        }
+
+        public void Logoff()
+        {
+            LogSaver.Log("Logoff userId="+UserId);
+            RoomControll.DeleteOnlineUser(UserId);
+        }
+
+        public GameState GetState()
+        {
+            LogSaver.Log("GetState asked userId="+UserId);
+            return RoomControll.GetState(UserId);
         }
     }
 }
