@@ -3,6 +3,26 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.Resources>
+            <DataTemplate x:Key="UserItemTemplate">
+                <WrapPanel>
+                    <TextBlock Text ="{Binding Path=Id}"></TextBlock>
+                    <TextBlock Text=" "></TextBlock>
+                    <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                </WrapPanel>
+            </DataTemplate>
+        </Grid.Resources>
         
+        <StackPanel Grid.Column="1">
+            <Button Margin="10" MinWidth="93" x:Name="btnGetState" Click="btnGetState_Click">Get State</Button>
+            <ListBox Name="lstUsersOnline" ItemsSource="{Binding}" ItemTemplate="{StaticResource UserItemTemplate}"></ListBox>
+        </StackPanel>
+
     </Grid>
 </Window>

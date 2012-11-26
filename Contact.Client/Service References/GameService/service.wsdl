@@ -36,8 +36,8 @@
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import namespace="http://tempuri.org/" />
-      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import namespace="http://schemas.datacontract.org/2004/07/Contact.Server" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IGameService_Login_InputMessage">
@@ -46,6 +46,18 @@
   <wsdl:message name="IGameService_Login_OutputMessage">
     <wsdl:part name="parameters" element="tns:LoginResponse" />
   </wsdl:message>
+  <wsdl:message name="IGameService_Login_GameExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q1:GameException" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_Logoff_InputMessage">
+    <wsdl:part name="parameters" element="tns:Logoff" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_GetState_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetState" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_GetState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStateResponse" />
+  </wsdl:message>
   <wsdl:message name="IGameService_Notify_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:Notify" />
   </wsdl:message>
@@ -53,6 +65,14 @@
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Login">
       <wsdl:input wsaw:Action="http://tempuri.org/IGameService/Login" message="tns:IGameService_Login_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IGameService/LoginResponse" message="tns:IGameService_Login_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IGameService/LoginGameExceptionFault" name="GameExceptionFault" message="tns:IGameService_Login_GameExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="true" name="Logoff">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/Logoff" message="tns:IGameService_Logoff_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/GetState" message="tns:IGameService_GetState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/GetStateResponse" message="tns:IGameService_GetState_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Notify">
       <wsdl:output wsaw:Action="http://tempuri.org/IGameService/Notify" message="tns:IGameService_Notify_OutputCallbackMessage" />
@@ -64,6 +84,24 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="Login">
       <soap12:operation soapAction="http://tempuri.org/IGameService/Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GameExceptionFault">
+        <soap12:fault use="literal" name="GameExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Logoff">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/Logoff" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="GetState">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/GetState" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
