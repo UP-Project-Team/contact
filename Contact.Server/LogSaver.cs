@@ -20,8 +20,13 @@ namespace Contact.Server
                                         msg
                                         );
 
-            Console.WriteLine(record);
-            LogWriter.WriteLine(record);
+
+            lock (LogWriter)
+            {
+                Console.WriteLine(record);
+                LogWriter.WriteLine(record);
+                LogWriter.Flush();
+            }
         }
     }
 }

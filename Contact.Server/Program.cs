@@ -19,6 +19,7 @@ namespace Contact.Server
             LogSaver.Log("Server started");
             Console.ReadLine();
             service.Close();
+            LogSaver.Log("Server shut down");
         }
     }
 }
