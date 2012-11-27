@@ -22,32 +22,29 @@ namespace Contact.Client
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly ClientControll clientControll;
 
-        //temporary solution
-        private GameServiceClient proxy;
-
-        public MainWindow()
+        public MainWindow(ClientControll clientControll)
         {
             InitializeComponent();
-            this.Closed += MainWindow_Closed;
+            //TODO: move this in XAML
+            Closed += MainWindow_Closed;
 
-            //create coonection to server
-            var instanceContext = new InstanceContext(new ClientCallback());
-            proxy = new GameServiceClient(instanceContext);
+            this.clientControll = clientControll;
 
+            //TODO: this not supposed to be here
             // "Login"
-            proxy.Login("dumb", "asd123");
+            clientControll.Login();
         }
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
-            proxy.Logoff();
+            clientControll.Logoff();
         }
 
         private void btnGetState_Click(object sender, RoutedEventArgs e)
         {
-            var result = proxy.GetState();
-            lstUsersOnline.DataContext = result.Users;
+            clientControll.GetState();
         }
     }
 }
