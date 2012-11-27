@@ -40,12 +40,35 @@ namespace Contact.Server
         }
 
         [DataMember]
-        private ActionType actionType;
+        public ActionType actionType { get; private set; }
 
         [DataMember] 
-        private ActionAgrument actionAgrument;
+        public ActionAgrument actionAgrument { get; private set; }
+
+
+        public static GameMessage UserLeftRoomMessage(User user)
+        {
+            var args = new UserData {user = user};
+            return new GameMessage {actionType = ActionType.UserLeftRoom, actionAgrument = args};
+        }
+
+        public static GameMessage UserJoinedRoomMessage(User user)
+        {
+            var args = new UserData {user = user};
+            return new GameMessage {actionType = ActionType.UserJoinedRoom, actionAgrument = args};
+        }
     }
 
     [DataContract]
+    [KnownType(typeof(UserData))]
     public abstract class ActionAgrument {}
+
+    //Возможно стоит просто занаследовать юзера от ActionArgument и не городит огород
+    //Пока оставляю для единообразия
+    [DataContract]
+    public class UserData : ActionAgrument
+    {
+        [DataMember]
+        public User user { get; set; }
+    }
 }

@@ -58,6 +58,7 @@
     <Compile Include="ClientCallback.cs" />
     <Compile Include="ClientControll.cs" />
     <Compile Include="GameView.cs" />
+    <Compile Include="LogSaver.cs" />
     <Compile Include="Service References\GameService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

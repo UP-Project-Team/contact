@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Contact.Client.GameService;
 
 namespace Contact.Client
 {
@@ -14,9 +15,10 @@ namespace Contact.Client
             this.controll = controll;
         }
 
-        public void Notify(GameService.GameMessage msg)
+        public void Notify(GameMessage msg)
         {
-            throw new NotImplementedException();
+            LogSaver.Log("Callback invoked");
+            controll.ChangeClientView(msg);
         }
     }
 }

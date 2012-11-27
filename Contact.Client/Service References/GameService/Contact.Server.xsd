@@ -36,6 +36,16 @@
     <xs:sequence />
   </xs:complexType>
   <xs:element name="ActionAgrument" nillable="true" type="tns:ActionAgrument" />
+  <xs:complexType name="UserData">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ActionAgrument">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="user" nillable="true" type="tns:User" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UserData" nillable="true" type="tns:UserData" />
   <xs:simpleType name="GameMessage.ActionType">
     <xs:restriction base="xs:string">
       <xs:enumeration value="UserLeftRoom" />

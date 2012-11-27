@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,11 +19,16 @@ namespace Contact.Server
 
         public int RoomId { get; set; }
 
+        public IGameServiceCallback Callback { get; private set; }
+
         // TODO: add construction from DB row
         public User(int id, string name)
         {
             Id = id;
             Name = name;
+
+            // get and store callback on users side
+            Callback = OperationContext.Current.GetCallbackChannel<IGameServiceCallback>();
         }
     }
 }

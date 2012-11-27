@@ -28,5 +28,17 @@ namespace Contact.Client
                 users.Add(user);
             }
         }
+
+        public void AddUser(User user)
+        {
+            // TODO: synchronization?
+            users.Add(user);
+        }
+
+        public void RemoveUser(User user)
+        {
+            var res = from t in users where t.Id == user.Id select t;
+            users.Remove(res.First());
+        }
     }
 }

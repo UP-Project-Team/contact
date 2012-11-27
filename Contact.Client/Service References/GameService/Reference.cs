@@ -240,6 +240,7 @@ namespace Contact.Client.GameService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ActionAgrument", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
     [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.UserData))]
     public partial class ActionAgrument : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -261,6 +262,29 @@ namespace Contact.Client.GameService {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserData", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
+    [System.SerializableAttribute()]
+    public partial class UserData : Contact.Client.GameService.ActionAgrument {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Contact.Client.GameService.User userField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Contact.Client.GameService.User user {
+            get {
+                return this.userField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.userField, value) != true)) {
+                    this.userField = value;
+                    this.RaisePropertyChanged("user");
+                }
             }
         }
     }

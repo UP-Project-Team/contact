@@ -56,13 +56,21 @@ namespace Contact.Server
         {
             var user = GetUserById(userId);
 
-            Rooms[user.RoomId].LeaveRoom(user);
-
             lock (OnlineUsers)
             {
                 //TODO: error handling?
-                OnlineUsers.Remove(user);
+                try
+                {
+                    OnlineUsers.Remove(user);
+                }
+                catch (Exception e)
+                {
+                    LogSaver.Log("Tried to delete user "+user.Id+" but it is not online");
+                    //throw;
+                }
             }
+            
+            Rooms[user.RoomId].LeaveRoom(user);
         }
 
         public static GameState GetState(int userId)

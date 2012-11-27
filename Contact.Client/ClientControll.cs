@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Contact.Client.GameService;
 
 namespace Contact.Client
@@ -31,7 +32,15 @@ namespace Contact.Client
 
         public void Login()
         {
-            proxy.Login("dumb", "asd123");
+            LogSaver.Log("Trying to login");
+            try
+            {
+                proxy.Login("dumb", "asd123");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         public void Logoff()
@@ -42,6 +51,27 @@ namespace Contact.Client
         public void GetState()
         {
             gameState.UpdateFromGameState(proxy.GetState());
+        }
+
+        public void ChangeClientView(GameMessage message)
+        {
+            // temporary solution
+            // TODO: do delegate
+            switch (message.actionType)
+            {
+                case GameMessage.ActionType.UserJoinedRoom:
+                    gameState.AddUser((message.actionAgrument as UserData).user);
+                    LogSaver.Log("User enter room ");
+                    break;
+
+                case GameMessage.ActionType.UserLeftRoom:
+                    gameState.RemoveUser((message.actionAgrument as UserData).user);
+                    LogSaver.Log("User left room");
+                    break;
+
+                default:
+                    throw new NotImplementedException("GameMessage with actionType="+message.actionType+"not Implemented");
+            }
         }
     }
 }
