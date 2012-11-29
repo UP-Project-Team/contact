@@ -13,5 +13,13 @@ namespace Contact.Server
         [DataMember]
         public readonly List<User> Users = new List<User>();
 
+        public enum State
+        {
+            HaveCurrentWord,
+            HaveCurrentWordVariant
+        }
+
+        [DataMember]
+        public State state { get; set; }
     }
 }

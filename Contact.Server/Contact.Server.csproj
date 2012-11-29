@@ -54,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="RoomControll.cs" />
+    <Compile Include="Timing.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>

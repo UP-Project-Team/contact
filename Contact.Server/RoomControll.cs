@@ -16,6 +16,10 @@ namespace Contact.Server
         {
             var newRoomId = roomsCount++;
             Rooms.Add(new Room(newRoomId, name));
+
+            //TODO: remove this
+            Rooms[0].StartGame();
+
             return newRoomId;
         }
 

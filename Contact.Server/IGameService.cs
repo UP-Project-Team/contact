@@ -31,44 +31,38 @@ namespace Contact.Server
 
     // User callback Message
     [DataContract]
+    [KnownType(typeof(User))]
+    [KnownType(typeof(GameState.State))]
     public class GameMessage
     {
         public enum ActionType
         {
             UserLeftRoom,
-            UserJoinedRoom
+            UserJoinedRoom,
+            StateChanged
         }
 
         [DataMember]
         public ActionType actionType { get; private set; }
 
         [DataMember] 
-        public ActionAgrument actionAgrument { get; private set; }
+        public object actionAgrument { get; private set; }
 
-
+        #region Message Constructors
         public static GameMessage UserLeftRoomMessage(User user)
         {
-            var args = new UserData {user = user};
-            return new GameMessage {actionType = ActionType.UserLeftRoom, actionAgrument = args};
+            return new GameMessage {actionType = ActionType.UserLeftRoom, actionAgrument = user};
         }
 
         public static GameMessage UserJoinedRoomMessage(User user)
         {
-            var args = new UserData {user = user};
-            return new GameMessage {actionType = ActionType.UserJoinedRoom, actionAgrument = args};
+            return new GameMessage {actionType = ActionType.UserJoinedRoom, actionAgrument = user};
         }
-    }
 
-    [DataContract]
-    [KnownType(typeof(UserData))]
-    public abstract class ActionAgrument {}
-
-    //Возможно стоит просто занаследовать юзера от ActionArgument и не городит огород
-    //Пока оставляю для единообразия
-    [DataContract]
-    public class UserData : ActionAgrument
-    {
-        [DataMember]
-        public User user { get; set; }
+        public static GameMessage StateChangedMessage(GameState.State state)
+        {
+            return new GameMessage {actionType = ActionType.StateChanged, actionAgrument = state};
+        }
+        #endregion
     }
 }
