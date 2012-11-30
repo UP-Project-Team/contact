@@ -9,6 +9,7 @@
   <xs:complexType name="GameState">
     <xs:sequence>
       <xs:element minOccurs="0" name="Users" nillable="true" type="tns:ArrayOfUser" />
+      <xs:element minOccurs="0" name="state" type="tns:GameState.State" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GameState" nillable="true" type="tns:GameState" />
@@ -25,31 +26,25 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="User" nillable="true" type="tns:User" />
+  <xs:simpleType name="GameState.State">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="HaveCurrentWord" />
+      <xs:enumeration value="HaveCurrentWordVariant" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="GameState.State" nillable="true" type="tns:GameState.State" />
   <xs:complexType name="GameMessage">
     <xs:sequence>
-      <xs:element minOccurs="0" name="actionAgrument" nillable="true" type="tns:ActionAgrument" />
+      <xs:element minOccurs="0" name="actionAgrument" nillable="true" type="xs:anyType" />
       <xs:element minOccurs="0" name="actionType" type="tns:GameMessage.ActionType" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GameMessage" nillable="true" type="tns:GameMessage" />
-  <xs:complexType name="ActionAgrument">
-    <xs:sequence />
-  </xs:complexType>
-  <xs:element name="ActionAgrument" nillable="true" type="tns:ActionAgrument" />
-  <xs:complexType name="UserData">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:ActionAgrument">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="user" nillable="true" type="tns:User" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="UserData" nillable="true" type="tns:UserData" />
   <xs:simpleType name="GameMessage.ActionType">
     <xs:restriction base="xs:string">
       <xs:enumeration value="UserLeftRoom" />
       <xs:enumeration value="UserJoinedRoom" />
+      <xs:enumeration value="StateChanged" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="GameMessage.ActionType" nillable="true" type="tns:GameMessage.ActionType" />

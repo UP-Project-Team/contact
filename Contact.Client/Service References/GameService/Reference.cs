@@ -70,6 +70,9 @@ namespace Contact.Client.GameService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Contact.Client.GameService.User[] UsersField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Contact.Client.GameService.GameState.State stateField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -93,6 +96,19 @@ namespace Contact.Client.GameService {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Contact.Client.GameService.GameState.State state {
+            get {
+                return this.stateField;
+            }
+            set {
+                if ((this.stateField.Equals(value) != true)) {
+                    this.stateField = value;
+                    this.RaisePropertyChanged("state");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -100,6 +116,17 @@ namespace Contact.Client.GameService {
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+        [System.Runtime.Serialization.DataContractAttribute(Name="GameState.State", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
+        public enum State : int {
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            HaveCurrentWord = 0,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            HaveCurrentWordVariant = 1,
         }
     }
     
@@ -168,13 +195,19 @@ namespace Contact.Client.GameService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="GameMessage", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
     [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.GameException))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.GameState))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.User[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.User))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.GameState.State))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.GameMessage.ActionType))]
     public partial class GameMessage : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Contact.Client.GameService.ActionAgrument actionAgrumentField;
+        private object actionAgrumentField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Contact.Client.GameService.GameMessage.ActionType actionTypeField;
@@ -190,7 +223,7 @@ namespace Contact.Client.GameService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Contact.Client.GameService.ActionAgrument actionAgrument {
+        public object actionAgrument {
             get {
                 return this.actionAgrumentField;
             }
@@ -233,59 +266,9 @@ namespace Contact.Client.GameService {
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
             UserJoinedRoom = 1,
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ActionAgrument", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
-    [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.UserData))]
-    public partial class ActionAgrument : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UserData", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
-    [System.SerializableAttribute()]
-    public partial class UserData : Contact.Client.GameService.ActionAgrument {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Contact.Client.GameService.User userField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Contact.Client.GameService.User user {
-            get {
-                return this.userField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.userField, value) != true)) {
-                    this.userField = value;
-                    this.RaisePropertyChanged("user");
-                }
-            }
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            StateChanged = 2,
         }
     }
     

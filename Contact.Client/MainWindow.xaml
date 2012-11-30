@@ -19,6 +19,8 @@
             </DataTemplate>
         </Grid.Resources>
         
+        <TextBox Name="txtState" Grid.Column="0" Height="20" Margin="10" Text="{Binding Mode=OneWay}"></TextBox>
+        
         <StackPanel Grid.Column="1">
             <Button Margin="10" MinWidth="93" x:Name="btnGetState" Click="btnGetState_Click">Get State</Button>
             <ListBox Name="lstUsersOnline" ItemsSource="{Binding}" ItemTemplate="{StaticResource UserItemTemplate}"></ListBox>

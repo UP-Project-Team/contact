@@ -11,11 +11,13 @@ namespace Contact.Client
     class GameView
     {
         private readonly ObservableCollection<User> users = new ObservableCollection<User>();
+        public string State { get; set; } // TODO: store it as enum, not as string
 
         public GameView(MainWindow window)
         {
             //bind data to window
             window.lstUsersOnline.DataContext = users;
+            window.txtState.DataContext = State;
         }
 
         public void UpdateFromGameState(GameState state)
