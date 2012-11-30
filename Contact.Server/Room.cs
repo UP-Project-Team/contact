@@ -108,7 +108,5 @@ namespace Contact.Server
                 RoomControll.DeleteOnlineUser(deadUser.Id);
             }
         }
-        
-
     }
 }

@@ -9,16 +9,16 @@ namespace Contact.Server
     class RoomControll
     {
         private static int roomsCount;
-        private static readonly List<Room> Rooms = new List<Room>();
+        private static readonly Dictionary<int, Room> Rooms = new Dictionary<int, Room>();
         private static readonly List<User> OnlineUsers = new List<User>();
 
         public static int AddRoom(string name)
         {
             var newRoomId = roomsCount++;
-            Rooms.Add(new Room(newRoomId, name));
+            Rooms.Add(newRoomId, new Room(newRoomId, name));
 
             //TODO: remove this
-            Rooms[0].StartGame();
+            Rooms[newRoomId].StartGame();
 
             return newRoomId;
         }
@@ -34,11 +34,12 @@ namespace Contact.Server
                 }
                 catch (Exception e)
                 {
-                    //Not sure that this can happen
-                    LogSaver.Log("FAIL!!! Tried to GeyUserById wher user not online. userId="+userId);
+                    //It should be ok even if this happens
+                    LogSaver.Log("Tried to GetUserById wher user not online. userId="+userId);
                     throw;
                 }
             }
+
             return user;
         }
 
@@ -58,7 +59,16 @@ namespace Contact.Server
         
         public static void DeleteOnlineUser(int userId)
         {
-            var user = GetUserById(userId);
+            User user;
+            try
+            {
+                user = GetUserById(userId);
+            }
+            catch (Exception e)
+            {
+                // user already offline
+                return;
+            }
 
             lock (OnlineUsers)
             {
