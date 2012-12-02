@@ -15,29 +15,21 @@ namespace Contact.Server
         public List<string> UsedWords = new List<string>();
         public string ChiefWord;
         public string Question;
-        public List<char> LettersOfPrimaryWord = new List<char>();
 
+
+        public void AddWordToUsedlist(string a)
+        {
+            UsedWords.Add(a);
+        }
 
         public bool CheckUsedWords()
         {
-            foreach (string a in UsedWords)
-            {
-                if (CurrentWord == a)
-                    return true;
-            }
-            return false;
+            return UsedWords.Any(a => CurrentWord == a);
         }
 
-        public void AddToTheOpenChars(char a)
+        public void ViewOpenChars()
         {
-            LettersOfPrimaryWord.Add(a);
-        }
-
-        public bool CompareWithPrimaryWord()
-        {
-            if ((CurrentWord == PrimaryWord) && (VarOfCurWord == PrimaryWord))
-                return true;
-            return false;
+            string s = PrimaryWord.Substring(0, length: CountOfOpenChars);
         }
     }
 }
