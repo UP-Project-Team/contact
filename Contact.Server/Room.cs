@@ -72,8 +72,9 @@ namespace Contact.Server
             {
                 gameState.state = state;
                 SetStateTimer(state);
-                BroadcastMessage(GameMessage.StateChangedMessage(state));
             }
+
+            BroadcastMessage(GameMessage.StateChangedMessage(state));
         }
 
         private void BroadcastMessage(GameMessage message)

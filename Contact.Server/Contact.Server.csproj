@@ -56,7 +56,6 @@
     <Compile Include="RoomControll.cs" />
     <Compile Include="Timing.cs" />
     <Compile Include="User.cs" />
-    <Compile Include="WordProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
