@@ -68,7 +68,25 @@ namespace Contact.Client.GameService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ChiefWordField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CountOfOpenCharsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CurrentWordField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string QuestionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string[] UsedWordsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Contact.Client.GameService.User[] UsersField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string VarOfCurWordField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Contact.Client.GameService.GameState.State stateField;
@@ -84,6 +102,71 @@ namespace Contact.Client.GameService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ChiefWord {
+            get {
+                return this.ChiefWordField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ChiefWordField, value) != true)) {
+                    this.ChiefWordField = value;
+                    this.RaisePropertyChanged("ChiefWord");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CountOfOpenChars {
+            get {
+                return this.CountOfOpenCharsField;
+            }
+            set {
+                if ((this.CountOfOpenCharsField.Equals(value) != true)) {
+                    this.CountOfOpenCharsField = value;
+                    this.RaisePropertyChanged("CountOfOpenChars");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CurrentWord {
+            get {
+                return this.CurrentWordField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CurrentWordField, value) != true)) {
+                    this.CurrentWordField = value;
+                    this.RaisePropertyChanged("CurrentWord");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Question {
+            get {
+                return this.QuestionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.QuestionField, value) != true)) {
+                    this.QuestionField = value;
+                    this.RaisePropertyChanged("Question");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string[] UsedWords {
+            get {
+                return this.UsedWordsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsedWordsField, value) != true)) {
+                    this.UsedWordsField = value;
+                    this.RaisePropertyChanged("UsedWords");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public Contact.Client.GameService.User[] Users {
             get {
                 return this.UsersField;
@@ -92,6 +175,19 @@ namespace Contact.Client.GameService {
                 if ((object.ReferenceEquals(this.UsersField, value) != true)) {
                     this.UsersField = value;
                     this.RaisePropertyChanged("Users");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string VarOfCurWord {
+            get {
+                return this.VarOfCurWordField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.VarOfCurWordField, value) != true)) {
+                    this.VarOfCurWordField = value;
+                    this.RaisePropertyChanged("VarOfCurWord");
                 }
             }
         }
@@ -123,10 +219,19 @@ namespace Contact.Client.GameService {
         public enum State : int {
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
-            HaveCurrentWord = 0,
+            NotStarted = 0,
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
-            HaveCurrentWordVariant = 1,
+            HaveCurrentWord = 1,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            HaveCurrentWordVariant = 2,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            VotingForHostWord = 3,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            VotingForPlayersWords = 4,
         }
     }
     
@@ -201,6 +306,7 @@ namespace Contact.Client.GameService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.User))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.GameState.State))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.GameMessage.ActionType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(string[]))]
     public partial class GameMessage : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]

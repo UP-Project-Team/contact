@@ -26,6 +26,7 @@
     <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="dc160ea1-8dcd-4c38-aa2a-b0f8a9df6515" SourceId="1" SourceUrl="net.tcp://localhost:4348/ContactGameService/mex" />
     <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="2f6aaff5-21b4-4231-9762-d2a683abd3b7" SourceId="1" SourceUrl="net.tcp://localhost:4348/ContactGameService/mex" />
     <MetadataFile FileName="Contact.Server1.xsd" MetadataType="Schema" ID="31406365-9668-496c-ac6f-5aeb321a9e58" SourceId="1" SourceUrl="net.tcp://localhost:4348/ContactGameService/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="eabc2bbb-095d-4ea1-b5cf-cb3d254d06ca" SourceId="1" SourceUrl="net.tcp://localhost:4348/ContactGameService/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

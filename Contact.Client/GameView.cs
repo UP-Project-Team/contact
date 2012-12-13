@@ -5,42 +5,68 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Contact.Client.GameService;
+using System.ComponentModel;
 
 namespace Contact.Client
 {
-    class GameView
+    class GameView : INotifyPropertyChanged
     {
-        private readonly ObservableCollection<User> users = new ObservableCollection<User>();
-        public string State { get; set; } // TODO: store it as enum, not as string
+        public ObservableCollection<User> Users { get; private set; }
 
-        public GameView(MainWindow window)
-        {
-            //bind data to window
-            window.lstUsersOnline.DataContext = users;
-            window.txtState.DataContext = State;
+        private GameState.State state;
+        public GameState.State State { 
+            get { return state; }
+            set
+            {
+                if (value == state) return;
+                state = value;
+                OnPropertyChanged("State");
+            }
         }
+
+        #region Implementation of InotifyPropertyCHanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string propertyName)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
+
+        public GameView()
+        {
+            Users = new ObservableCollection<User>();
+            state = GameState.State.NotStarted;
+        }
+
 
         public void UpdateFromGameState(GameState state)
         {
             // Update online users
             // Not sure that this is an optimal way. collection notifies listBox on every add operation
-            users.Clear();
+            Users.Clear();
             foreach (var user in state.Users)
             {
-                users.Add(user);
+                Users.Add(user);
             }
+
+            State = state.state;
         }
 
         public void AddUser(User user)
         {
             // TODO: synchronization?
-            users.Add(user);
+            Users.Add(user);
         }
 
         public void RemoveUser(User user)
         {
-            var res = from t in users where t.Id == user.Id select t;
-            users.Remove(res.First());
+            var res = from t in Users where t.Id == user.Id select t;
+            Users.Remove(res.First());
         }
     }
 }

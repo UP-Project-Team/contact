@@ -26,7 +26,8 @@ namespace Contact.Client
 
             // create and show main window
             mainWindow = new MainWindow(this);
-            gameState = new GameView(mainWindow);
+            gameState = new GameView();
+            mainWindow.DataContext = gameState;
 
             mainWindow.Show();
         }
@@ -51,7 +52,8 @@ namespace Contact.Client
 
         public void GetState()
         {
-            gameState.UpdateFromGameState(proxy.GetState(token));
+            var state = proxy.GetState(token);
+            gameState.UpdateFromGameState(state);
         }
 
         public void ChangeClientView(GameMessage message)
@@ -72,7 +74,8 @@ namespace Contact.Client
 
                 case GameMessage.ActionType.StateChanged:
                     // TODO: do not change textbox directly, use binding
-                    mainWindow.txtState.Text = ((GameState.State)message.actionAgrument).ToString();
+                   // mainWindow.txtState.Text = ((GameState.State)message.actionAgrument).ToString();
+                    gameState.State = (GameState.State) message.actionAgrument;
                     LogSaver.Log("State changed. New = "+gameState.State);
                     break;
 

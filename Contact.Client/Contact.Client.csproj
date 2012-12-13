@@ -100,6 +100,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\GameService\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\GameService\Contact.Client.GameService.GameState.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
