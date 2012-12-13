@@ -14,6 +14,7 @@ namespace Contact.Client
         private GameServiceClient proxy;
         private MainWindow mainWindow;
         private GameView gameState;
+        private Guid token;
 
         // actual application start point at the moment
         // MOVE IT SOMEWHERE ELSE?
@@ -30,12 +31,12 @@ namespace Contact.Client
             mainWindow.Show();
         }
 
-        public void Login()
+        public async void Login()
         {
             LogSaver.Log("Trying to login");
             try
             {
-                proxy.Login("dumb", "asd123");
+                token = await proxy.LoginAsync("dumb", "asd123");
             }
             catch (Exception e)
             {
@@ -45,12 +46,12 @@ namespace Contact.Client
 
         public void Logoff()
         {
-            proxy.Logoff();
+            proxy.Logoff(token);
         }
 
         public void GetState()
         {
-            gameState.UpdateFromGameState(proxy.GetState());
+            gameState.UpdateFromGameState(proxy.GetState(token));
         }
 
         public void ChangeClientView(GameMessage message)

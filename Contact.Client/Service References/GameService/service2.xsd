@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:import namespace="http://schemas.datacontract.org/2004/07/Contact.Server" />
   <xs:element name="Login">
     <xs:complexType>
@@ -11,30 +12,36 @@
   </xs:element>
   <xs:element name="LoginResponse">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="LoginResult" type="q1:guid" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="Logoff">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q2:guid" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetState">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q3:guid" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetStateResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Contact.Server" minOccurs="0" name="GetStateResult" nillable="true" type="q1:GameState" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Contact.Server" minOccurs="0" name="GetStateResult" nillable="true" type="q4:GameState" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="Notify">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Contact.Server" minOccurs="0" name="msg" nillable="true" type="q2:GameMessage" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Contact.Server" minOccurs="0" name="msg" nillable="true" type="q5:GameMessage" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -12,6 +12,21 @@ namespace Contact.Server
         private static readonly Dictionary<int, Room> Rooms = new Dictionary<int, Room>();
         private static readonly List<User> OnlineUsers = new List<User>();
 
+        public static User GetUserByToken(Guid token)
+        {
+
+            lock (OnlineUsers)
+            {
+                foreach (var user in OnlineUsers.Where(user => user.Token == token))
+                {
+                    return user;
+                }
+            }
+
+            LogSaver.Log("Asked for user with unknown GUID");
+            throw new AccessViolationException("Asked for user with unknown GUID");
+        }
+
         public static int AddRoom(string name)
         {
             var newRoomId = roomsCount++;
@@ -57,19 +72,8 @@ namespace Contact.Server
             Rooms[0].EnterRoom(user);
         }
         
-        public static void DeleteOnlineUser(int userId)
+        public static void DeleteOnlineUser(User user)
         {
-            User user;
-            try
-            {
-                user = GetUserById(userId);
-            }
-            catch (Exception e)
-            {
-                // user already offline
-                return;
-            }
-
             lock (OnlineUsers)
             {
                 //TODO: error handling?
@@ -87,9 +91,8 @@ namespace Contact.Server
             Rooms[user.RoomId].LeaveRoom(user);
         }
 
-        public static GameState GetState(int userId)
+        public static GameState GetState(User user)
         {
-            var user = GetUserById(userId);
             return Rooms[user.RoomId].GetState();
         }
 

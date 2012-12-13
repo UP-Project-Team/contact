@@ -19,13 +19,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="net.tcp://localhost:4342/ContactGameService/mex" Protocol="mex" SourceId="1" />
+    <MetadataSource Address="net.tcp://localhost:4348/ContactGameService/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="1d393207-9a1d-40da-95b9-fec64ae41be7" SourceId="1" SourceUrl="net.tcp://localhost:4342/ContactGameService/mex" />
-    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="ca3f31f0-9e2c-47e1-b596-ae5194f1ed65" SourceId="1" SourceUrl="net.tcp://localhost:4342/ContactGameService/mex" />
-    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="63d6a616-8d06-4893-9fc7-7165f2791448" SourceId="1" SourceUrl="net.tcp://localhost:4342/ContactGameService/mex" />
-    <MetadataFile FileName="Contact.Server.xsd" MetadataType="Schema" ID="6743bd2f-7db0-480f-98ee-d76ad37149d1" SourceId="1" SourceUrl="net.tcp://localhost:4342/ContactGameService/mex" />
+    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="a5290557-230d-4c9d-ace9-8a38a43d40b5" SourceId="1" SourceUrl="net.tcp://localhost:4348/ContactGameService/mex" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="dc160ea1-8dcd-4c38-aa2a-b0f8a9df6515" SourceId="1" SourceUrl="net.tcp://localhost:4348/ContactGameService/mex" />
+    <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="2f6aaff5-21b4-4231-9762-d2a683abd3b7" SourceId="1" SourceUrl="net.tcp://localhost:4348/ContactGameService/mex" />
+    <MetadataFile FileName="Contact.Server1.xsd" MetadataType="Schema" ID="31406365-9668-496c-ac6f-5aeb321a9e58" SourceId="1" SourceUrl="net.tcp://localhost:4348/ContactGameService/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

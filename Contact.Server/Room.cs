@@ -38,7 +38,7 @@ namespace Contact.Server
                 gameState.Users.Add(user);
             }
 
-            BroadcastMessage(GameMessage.UserJoinedRoomMessage(user), user);
+            BroadcastMessage(GameMessage.UserJoinedRoomMessage(user));
         }
 
         public void LeaveRoom(User user)
@@ -48,7 +48,7 @@ namespace Contact.Server
                 gameState.Users.Remove(user);
             }
 
-            BroadcastMessage(GameMessage.UserLeftRoomMessage(user), user);
+            BroadcastMessage(GameMessage.UserLeftRoomMessage(user));
         }
 
         public GameState GetState()
@@ -63,28 +63,26 @@ namespace Contact.Server
         public void StartGame()
         {
             //TODO: start with normal state
-            ChangeState(GameState.State.HaveCurrentWord, null);
+            ChangeState(GameState.State.HaveCurrentWord);
         }
 
-        public void ChangeState(GameState.State state, User invoker)
+        public void ChangeState(GameState.State state)
         {
             lock (gameState)
             {
                 gameState.state = state;
                 SetStateTimer(state);
-                BroadcastMessage(GameMessage.StateChangedMessage(state), invoker);
+                BroadcastMessage(GameMessage.StateChangedMessage(state));
             }
         }
 
-        private void BroadcastMessage(GameMessage message, User exclusion)
+        private void BroadcastMessage(GameMessage message)
         {
             var deadUsers = new List<User>();
             lock (gameState)
             {
                 foreach (var user in gameState.Users)
                 {
-                    if (user == exclusion) continue; // Do not notify this user
-                    
                     try
                     {
                         user.Callback.Notify(message);
@@ -92,6 +90,7 @@ namespace Contact.Server
                     catch (CommunicationException e)
                     {
                         // assume that client is down. we can't logof it now - deadlock
+                        LogSaver.Log(e.Message);
                         deadUsers.Add(user);
                     }
                     catch (Exception e)
@@ -105,7 +104,7 @@ namespace Contact.Server
             foreach (var deadUser in deadUsers)
             {
                 LogSaver.Log("User "+deadUser.Id+" is dead. Logoff");
-                RoomControll.DeleteOnlineUser(deadUser.Id);
+                RoomControll.DeleteOnlineUser(deadUser);
             }
         }
     }

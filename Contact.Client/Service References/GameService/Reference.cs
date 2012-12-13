@@ -278,22 +278,22 @@ namespace Contact.Client.GameService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGameService/Login", ReplyAction="http://tempuri.org/IGameService/LoginResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(Contact.Client.GameService.GameException), Action="http://tempuri.org/IGameService/LoginGameExceptionFault", Name="GameException", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
-        void Login(string name, string password);
+        System.Guid Login(string name, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGameService/Login", ReplyAction="http://tempuri.org/IGameService/LoginResponse")]
-        System.Threading.Tasks.Task LoginAsync(string name, string password);
+        System.Threading.Tasks.Task<System.Guid> LoginAsync(string name, string password);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, IsTerminating=true, IsInitiating=false, Action="http://tempuri.org/IGameService/Logoff")]
-        void Logoff();
+        void Logoff(System.Guid token);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, IsTerminating=true, IsInitiating=false, Action="http://tempuri.org/IGameService/Logoff")]
-        System.Threading.Tasks.Task LogoffAsync();
+        System.Threading.Tasks.Task LogoffAsync(System.Guid token);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/GetState", ReplyAction="http://tempuri.org/IGameService/GetStateResponse")]
-        Contact.Client.GameService.GameState GetState();
+        Contact.Client.GameService.GameState GetState(System.Guid token);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/GetState", ReplyAction="http://tempuri.org/IGameService/GetStateResponse")]
-        System.Threading.Tasks.Task<Contact.Client.GameService.GameState> GetStateAsync();
+        System.Threading.Tasks.Task<Contact.Client.GameService.GameState> GetStateAsync(System.Guid token);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -331,28 +331,28 @@ namespace Contact.Client.GameService {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void Login(string name, string password) {
-            base.Channel.Login(name, password);
+        public System.Guid Login(string name, string password) {
+            return base.Channel.Login(name, password);
         }
         
-        public System.Threading.Tasks.Task LoginAsync(string name, string password) {
+        public System.Threading.Tasks.Task<System.Guid> LoginAsync(string name, string password) {
             return base.Channel.LoginAsync(name, password);
         }
         
-        public void Logoff() {
-            base.Channel.Logoff();
+        public void Logoff(System.Guid token) {
+            base.Channel.Logoff(token);
         }
         
-        public System.Threading.Tasks.Task LogoffAsync() {
-            return base.Channel.LogoffAsync();
+        public System.Threading.Tasks.Task LogoffAsync(System.Guid token) {
+            return base.Channel.LogoffAsync(token);
         }
         
-        public Contact.Client.GameService.GameState GetState() {
-            return base.Channel.GetState();
+        public Contact.Client.GameService.GameState GetState(System.Guid token) {
+            return base.Channel.GetState(token);
         }
         
-        public System.Threading.Tasks.Task<Contact.Client.GameService.GameState> GetStateAsync() {
-            return base.Channel.GetStateAsync();
+        public System.Threading.Tasks.Task<Contact.Client.GameService.GameState> GetStateAsync(System.Guid token) {
+            return base.Channel.GetStateAsync(token);
         }
     }
 }

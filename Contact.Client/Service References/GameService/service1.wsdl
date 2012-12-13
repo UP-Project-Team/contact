@@ -3,6 +3,12 @@
   <wsp:Policy wsu:Id="NetTcpBindingEndPoint_policy">
     <wsp:ExactlyOne>
       <wsp:All>
+        <wsrm:RMAssertion xmlns:wsrm="http://schemas.xmlsoap.org/ws/2005/02/rm/policy">
+          <wsrm:InactivityTimeout Milliseconds="1200000">
+          </wsrm:InactivityTimeout>
+          <wsrm:AcknowledgementInterval Milliseconds="200">
+          </wsrm:AcknowledgementInterval>
+        </wsrm:RMAssertion>
         <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
         </msb:BinaryEncoding>
         <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -118,9 +124,9 @@
   </wsdl:binding>
   <wsdl:service name="GameService">
     <wsdl:port name="NetTcpBindingEndPoint" binding="tns:NetTcpBindingEndPoint">
-      <soap12:address location="net.tcp://localhost:4342/ContactGameService" />
+      <soap12:address location="net.tcp://localhost:4342/ContactGameService/tcp" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:4342/ContactGameService</wsa10:Address>
+        <wsa10:Address>net.tcp://localhost:4342/ContactGameService/tcp</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
           <Dns>localhost</Dns>
         </Identity>

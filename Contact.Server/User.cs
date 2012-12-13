@@ -20,13 +20,14 @@ namespace Contact.Server
         public int RoomId { get; set; }
 
         public IGameServiceCallback Callback { get; private set; }
+        public Guid Token { get; private set; }
 
         // TODO: add construction from DB row
         public User(int id, string name)
         {
             Id = id;
             Name = name;
-
+            Token = Guid.NewGuid();
             // get and store callback on users side
             Callback = OperationContext.Current.GetCallbackChannel<IGameServiceCallback>();
         }

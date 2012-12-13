@@ -7,30 +7,31 @@ using System.Text;
 
 namespace Contact.Server
 {
-    
-    [ServiceBehaviorAttribute(InstanceContextMode = InstanceContextMode.PerSession)]
+
+
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple, UseSynchronizationContext = false)]
     public class GameService : IGameService
     {
-        // Id of user who started this session
-        private int UserId;
-
-        public void Login(string name, string password)
+        public Guid Login(string name, string password)
         {
             LogSaver.Log("Attempt to login. name="+name+" password="+password);
-            UserId = AccountControll.LoginUser(name, password);
-            LogSaver.Log("Loged in successfully. UserId="+UserId);
+            var token = AccountControll.LoginUser(name, password);
+            LogSaver.Log("Loged in successfully. UserId=");
+            return token;
         }
 
-        public void Logoff()
+        public void Logoff(Guid token)
         {
-            LogSaver.Log("Logoff userId="+UserId);
-            RoomControll.DeleteOnlineUser(UserId);
+            var user = RoomControll.GetUserByToken(token);
+            LogSaver.Log("Logoff userId=" + user.Id);
+            RoomControll.DeleteOnlineUser(user);
         }
 
-        public GameState GetState()
+        public GameState GetState(Guid token)
         {
-            LogSaver.Log("GetState asked userId="+UserId);
-            return RoomControll.GetState(UserId);
+            var user = RoomControll.GetUserByToken(token);
+            LogSaver.Log("GetState asked userId=" + user.Id);
+            return RoomControll.GetState(user);
         }
     }
 }

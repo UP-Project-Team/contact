@@ -65,14 +65,14 @@ namespace Contact.Server
         {
             LogSaver.Log("HaveCurrentWord Timeout");
             //TODO: remove stub and do actual logic
-            ChangeState(GameState.State.HaveCurrentWordVariant, null);
+            ChangeState(GameState.State.HaveCurrentWordVariant);
         }
 
         private void HaveCurrentWordVariantTimeout()
         {
             LogSaver.Log("HaveCurrentWordVariant Timeout");
             //TODO: remove stub and do actual logic
-            ChangeState(GameState.State.HaveCurrentWord, null);
+            ChangeState(GameState.State.HaveCurrentWord);
         }
         #endregion
     }

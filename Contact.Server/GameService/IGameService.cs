@@ -11,13 +11,13 @@ namespace Contact.Server
     {
         [OperationContract(IsInitiating = true)]
         [FaultContract(typeof(GameException))]
-        void Login(string name, string password);
+        Guid Login(string name, string password);
 
         [OperationContract(IsTerminating = true, IsInitiating = false, IsOneWay = true)]
-        void Logoff();
+        void Logoff(Guid token);
 
-        [OperationContract(IsInitiating = false, IsTerminating = false)]
-        GameState GetState();
+        [OperationContract(IsInitiating = false, IsTerminating = false, IsOneWay=false)]
+        GameState GetState(Guid token);
     }
 
 

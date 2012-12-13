@@ -16,12 +16,19 @@ namespace Contact.Server
          * @return UserId
          */
         private static int userCnt; // remove this when DB support will be added
-        public static int LoginUser(string name, string password)
+
+        private static object syncObject = new object();
+        public static Guid LoginUser(string name, string password)
         {
+            User user;
             // TODO: add actual DB support (now it accepts everything and gives consecutive user ids)
-            var user = new User(userCnt++, name);
+            lock (syncObject) //добавлено чтобы не путать OperatinContext, хотя не понятно насколько работает
+            {
+                user = new User(userCnt++, name);
+            }
             RoomControll.AddOnlineUser(user);
-            return user.Id;
+
+            return user.Token;
         }
 
     }
