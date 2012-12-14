@@ -18,6 +18,12 @@ namespace Contact.Server
 
         [OperationContract(IsInitiating = false, IsTerminating = false, IsOneWay=false)]
         GameState GetState(Guid token);
+
+        [OperationContract(IsInitiating = false, IsOneWay = true, IsTerminating = false)]
+        void StartGame(Guid token);
+
+        [OperationContract(IsInitiating = false, IsOneWay = true, IsTerminating = false)]
+        void GiveCurrentWordVariant(Guid token, string word);
     }
 
 

@@ -67,6 +67,12 @@ namespace Contact.Server
         public GameState()
         {
             state = State.NotStarted;
+
+            //TODO: remove this
+            PrimaryWord = "железа";
+            NumberOfOpenChars = 2;
+            Question = "Куй!";
+            CurrentWord = "железо";   
         }
 
     }

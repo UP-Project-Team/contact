@@ -32,9 +32,6 @@ namespace Contact.Server
             var newRoomId = roomsCount++;
             Rooms.Add(newRoomId, new Room(newRoomId, name));
 
-            //TODO: remove this
-            Rooms[newRoomId].StartGame();
-
             return newRoomId;
         }
 
@@ -94,6 +91,16 @@ namespace Contact.Server
         public static GameState GetState(User user)
         {
             return Rooms[user.RoomId].GetState();
+        }
+
+        public static void StartGame(User user)
+        {
+            Rooms[user.RoomId].StartGame();
+        }
+
+        public static void GiveCurrentWordVariant(User user, string word)
+        {
+            Rooms[user.RoomId].AcceptCurrentWordVariant(user, word);
         }
 
     }

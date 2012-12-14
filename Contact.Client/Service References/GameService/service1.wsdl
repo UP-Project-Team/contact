@@ -65,6 +65,12 @@
   <wsdl:message name="IGameService_GetState_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetStateResponse" />
   </wsdl:message>
+  <wsdl:message name="IGameService_StartGame_InputMessage">
+    <wsdl:part name="parameters" element="tns:StartGame" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_GiveCurrentWordVariant_InputMessage">
+    <wsdl:part name="parameters" element="tns:GiveCurrentWordVariant" />
+  </wsdl:message>
   <wsdl:message name="IGameService_Notify_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:Notify" />
   </wsdl:message>
@@ -80,6 +86,12 @@
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetState">
       <wsdl:input wsaw:Action="http://tempuri.org/IGameService/GetState" message="tns:IGameService_GetState_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IGameService/GetStateResponse" message="tns:IGameService_GetState_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="StartGame">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/StartGame" message="tns:IGameService_StartGame_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GiveCurrentWordVariant">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/GiveCurrentWordVariant" message="tns:IGameService_GiveCurrentWordVariant_InputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Notify">
       <wsdl:output wsaw:Action="http://tempuri.org/IGameService/Notify" message="tns:IGameService_Notify_OutputCallbackMessage" />
@@ -115,6 +127,18 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartGame">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/StartGame" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="GiveCurrentWordVariant">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/GiveCurrentWordVariant" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
     </wsdl:operation>
     <wsdl:operation name="Notify">
       <soap12:operation soapAction="http://tempuri.org/IGameService/Notify" style="document" />

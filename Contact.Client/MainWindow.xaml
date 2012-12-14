@@ -22,14 +22,14 @@
             Grid.Column="0" 
             MaxHeight="20" MaxWidth="100" 
             Name="btnStartGame"
-            Style="{DynamicResource ShowOnNotStarted}">Go</Button>
+            Style="{DynamicResource ShowOnNotStarted}" Click="btnStartGame_Click">Go</Button>
 
         <StackPanel Grid.Column="0" Style="{DynamicResource ShowOnHaveCurrentWord}">
             <Label Content="{Binding Path=PrimaryWordKnownLetters}"/>
             <Label Content="{Binding Path=Question}"></Label>
             <StackPanel Orientation="Horizontal">
                 <TextBox Name="txtAnswer" MinWidth="300"></TextBox>
-                <Button Name="btnSubmitAnswer" Padding="10,0,10,0" Margin="20,0,0,0">go</Button>
+                <Button Name="btnSubmitAnswer" Padding="10,0,10,0" Margin="20,0,0,0" Click="btnSubmitAnswer_Click">go</Button>
             </StackPanel>
         </StackPanel>
 

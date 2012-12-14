@@ -33,5 +33,20 @@ namespace Contact.Server
             LogSaver.Log("GetState asked userId=" + user.Id);
             return RoomControll.GetState(user);
         }
+
+
+        public void StartGame(Guid token)
+        {
+            var user = RoomControll.GetUserByToken(token);
+            LogSaver.Log("Start Game userId=" + user.Id);
+            RoomControll.StartGame(user);
+        }
+
+        public void GiveCurrentWordVariant(Guid token, string word)
+        {
+            var user = RoomControll.GetUserByToken(token);
+            LogSaver.Log("GiveCurrentWordVariant userId="+user.Id);
+            RoomControll.GiveCurrentWordVariant(user, word);
+        }
     }
 }

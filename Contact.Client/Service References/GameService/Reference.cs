@@ -416,6 +416,18 @@ namespace Contact.Client.GameService {
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/GetState", ReplyAction="http://tempuri.org/IGameService/GetStateResponse")]
         System.Threading.Tasks.Task<Contact.Client.GameService.GameState> GetStateAsync(System.Guid token);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, IsInitiating=false, Action="http://tempuri.org/IGameService/StartGame")]
+        void StartGame(System.Guid token);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, IsInitiating=false, Action="http://tempuri.org/IGameService/StartGame")]
+        System.Threading.Tasks.Task StartGameAsync(System.Guid token);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, IsInitiating=false, Action="http://tempuri.org/IGameService/GiveCurrentWordVariant")]
+        void GiveCurrentWordVariant(System.Guid token, string word);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, IsInitiating=false, Action="http://tempuri.org/IGameService/GiveCurrentWordVariant")]
+        System.Threading.Tasks.Task GiveCurrentWordVariantAsync(System.Guid token, string word);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -475,6 +487,22 @@ namespace Contact.Client.GameService {
         
         public System.Threading.Tasks.Task<Contact.Client.GameService.GameState> GetStateAsync(System.Guid token) {
             return base.Channel.GetStateAsync(token);
+        }
+        
+        public void StartGame(System.Guid token) {
+            base.Channel.StartGame(token);
+        }
+        
+        public System.Threading.Tasks.Task StartGameAsync(System.Guid token) {
+            return base.Channel.StartGameAsync(token);
+        }
+        
+        public void GiveCurrentWordVariant(System.Guid token, string word) {
+            base.Channel.GiveCurrentWordVariant(token, word);
+        }
+        
+        public System.Threading.Tasks.Task GiveCurrentWordVariantAsync(System.Guid token, string word) {
+            return base.Channel.GiveCurrentWordVariantAsync(token, word);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Contact.Client
         private Guid token;
 
         // actual application start point at the moment
-        // MOVE IT SOMEWHERE ELSE?
+        // MOVE IT SOMEWHERE ELSE? maybe make it static?
         public ClientControll()
         {
             // create connection to server and callback
@@ -38,6 +38,9 @@ namespace Contact.Client
             try
             {
                 token = await proxy.LoginAsync("dumb", "asd123");
+                
+                // TODO: do this not here
+                GetState();
             }
             catch (Exception e)
             {
@@ -54,6 +57,16 @@ namespace Contact.Client
         {
             var state = proxy.GetState(token);
             gameState.UpdateFromGameState(state);
+        }
+
+        public void StartGame()
+        {
+            proxy.StartGame(token);
+        }
+
+        public void GiveCurrentWordVariant(string answer)
+        {
+            proxy.GiveCurrentWordVariant(token, answer);
         }
 
         public void ChangeClientView(GameMessage message)

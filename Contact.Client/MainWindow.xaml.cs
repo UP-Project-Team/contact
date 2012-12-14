@@ -41,5 +41,15 @@ namespace Contact.Client
         {
             clientControll.Logoff();
         }
+
+        private void btnStartGame_Click(object sender, RoutedEventArgs e)
+        {
+            clientControll.StartGame();
+        }
+
+        private void btnSubmitAnswer_Click(object sender, RoutedEventArgs e)
+        {
+            clientControll.GiveCurrentWordVariant(txtAnswer.Text);
+        }
     }
 }

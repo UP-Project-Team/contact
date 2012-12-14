@@ -60,6 +60,17 @@ namespace Contact.Server
             }
         }
 
+        public void AcceptCurrentWordVariant(User user, string word)
+        {
+            lock (gameState)
+            {
+                if (!word.StartsWith(gameState.PrimaryWordKnownLetters)) return;
+
+                gameState.VarOfCurWord = word;
+                ChangeState(GameState.State.HaveCurrentWordVariant);
+            }
+        }
+
         public void StartGame()
         {
             //TODO: start with normal state

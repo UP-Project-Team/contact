@@ -14,8 +14,9 @@ namespace Contact.Server
         // State => duration (in milliseconds)
         private static readonly Dictionary<GameState.State, int> StateDurationTime = new Dictionary<GameState.State, int>
             {
-                {GameState.State.HaveCurrentWord, 2*1000},
-                {GameState.State.HaveCurrentWordVariant, 8*1000}
+                {GameState.State.NotStarted, Int32.MaxValue},
+                {GameState.State.HaveCurrentWord, 20*1000},
+                {GameState.State.HaveCurrentWordVariant, 5*1000}
             };
 
         public static int Duration(GameState.State state)
@@ -61,18 +62,19 @@ namespace Contact.Server
         }
 
         #region State timeout functions
+
         private void HaveCurrentWordTimeout()
         {
             LogSaver.Log("HaveCurrentWord Timeout");
             //TODO: remove stub and do actual logic
-            ChangeState(GameState.State.HaveCurrentWordVariant);
+            ChangeState(GameState.State.NotStarted);
         }
 
         private void HaveCurrentWordVariantTimeout()
         {
             LogSaver.Log("HaveCurrentWordVariant Timeout");
             //TODO: remove stub and do actual logic
-            ChangeState(GameState.State.HaveCurrentWord);
+            ChangeState(GameState.State.NotStarted);
         }
         #endregion
     }
