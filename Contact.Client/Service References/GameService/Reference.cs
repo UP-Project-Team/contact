@@ -71,10 +71,13 @@ namespace Contact.Client.GameService {
         private string ChiefWordField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CountOfOpenCharsField;
+        private string CurrentWordField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CurrentWordField;
+        private int NumberOfOpenCharsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PrimaryWordKnownLettersField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string QuestionField;
@@ -115,19 +118,6 @@ namespace Contact.Client.GameService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CountOfOpenChars {
-            get {
-                return this.CountOfOpenCharsField;
-            }
-            set {
-                if ((this.CountOfOpenCharsField.Equals(value) != true)) {
-                    this.CountOfOpenCharsField = value;
-                    this.RaisePropertyChanged("CountOfOpenChars");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string CurrentWord {
             get {
                 return this.CurrentWordField;
@@ -136,6 +126,32 @@ namespace Contact.Client.GameService {
                 if ((object.ReferenceEquals(this.CurrentWordField, value) != true)) {
                     this.CurrentWordField = value;
                     this.RaisePropertyChanged("CurrentWord");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NumberOfOpenChars {
+            get {
+                return this.NumberOfOpenCharsField;
+            }
+            set {
+                if ((this.NumberOfOpenCharsField.Equals(value) != true)) {
+                    this.NumberOfOpenCharsField = value;
+                    this.RaisePropertyChanged("NumberOfOpenChars");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PrimaryWordKnownLetters {
+            get {
+                return this.PrimaryWordKnownLettersField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PrimaryWordKnownLettersField, value) != true)) {
+                    this.PrimaryWordKnownLettersField = value;
+                    this.RaisePropertyChanged("PrimaryWordKnownLetters");
                 }
             }
         }

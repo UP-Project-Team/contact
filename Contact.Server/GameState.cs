@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
@@ -23,33 +24,35 @@ namespace Contact.Server
         public State state { get; set; }
 
 
-        public string PrimaryWord; //не передавать юзерам ключевое слово целиком
+        public string PrimaryWord=""; //не передавать юзерам ключевое слово целиком
 
         [DataMember]
-        public string CurrentWord;
+        public string CurrentWord = "";
 
         [DataMember]
-        public string VarOfCurWord;
+        public string VarOfCurWord = "";
 
         [DataMember]
-        public int CountOfOpenChars=0;
+        public int NumberOfOpenChars=0;
 
         [DataMember]
         public List<string> UsedWords = new List<string>();
 
         [DataMember]
-        public string ChiefWord;
+        public string ChiefWord = "";
 
         [DataMember]
-        public string Question;
+        public string Question = "";
 
-        /*
+        
         [DataMember]
         public string PrimaryWordKnownLetters
         {
-            get { return PrimaryWord.Substring(0, CountOfOpenChars); }
+            get { return PrimaryWord.Substring(0, NumberOfOpenChars); }
+
+            private set { }  // need this for WCF. do not use and do not remove
         }
-        */
+        
 
         public void AddWordToUsedlist(string a)
         {

@@ -10,8 +10,9 @@
   <xs:complexType name="GameState">
     <xs:sequence>
       <xs:element minOccurs="0" name="ChiefWord" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CountOfOpenChars" type="xs:int" />
       <xs:element minOccurs="0" name="CurrentWord" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumberOfOpenChars" type="xs:int" />
+      <xs:element minOccurs="0" name="PrimaryWordKnownLetters" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Question" nillable="true" type="xs:string" />
       <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="UsedWords" nillable="true" type="q1:ArrayOfstring" />
       <xs:element minOccurs="0" name="Users" nillable="true" type="tns:ArrayOfUser" />

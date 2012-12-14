@@ -41,10 +41,5 @@ namespace Contact.Client
         {
             clientControll.Logoff();
         }
-
-        private void btnGetState_Click(object sender, RoutedEventArgs e)
-        {
-            clientControll.GetState();
-        }
     }
 }

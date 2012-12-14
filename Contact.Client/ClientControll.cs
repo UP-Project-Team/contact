@@ -63,19 +63,20 @@ namespace Contact.Client
             switch (message.actionType)
             {
                 case GameMessage.ActionType.UserJoinedRoom:
-                    gameState.AddUser(message.actionAgrument as User);
+                    mainWindow.Dispatcher.Invoke(()=>gameState.AddUser(message.actionAgrument as User));
                     LogSaver.Log("User enter room ");
                     break;
 
                 case GameMessage.ActionType.UserLeftRoom:
-                    gameState.RemoveUser(message.actionAgrument as User);
+                    mainWindow.Dispatcher.Invoke(()=>gameState.RemoveUser(message.actionAgrument as User));
                     LogSaver.Log("User left room");
                     break;
 
                 case GameMessage.ActionType.StateChanged:
-                    // TODO: do not change textbox directly, use binding
-                   // mainWindow.txtState.Text = ((GameState.State)message.actionAgrument).ToString();
-                    gameState.State = (GameState.State) message.actionAgrument;
+                    mainWindow.Dispatcher.Invoke(() =>
+                        {
+                            gameState.State = (GameState.State) message.actionAgrument;
+                        });
                     LogSaver.Log("State changed. New = "+gameState.State);
                     break;
 
