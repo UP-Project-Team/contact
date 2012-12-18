@@ -22,9 +22,9 @@
             Grid.Column="0" 
             MaxHeight="20" MaxWidth="100" 
             Name="btnStartGame"
-            Style="{DynamicResource ShowOnNotStarted}" Click="btnStartGame_Click">Go</Button>
+            Click="btnStartGame_Click">Go</Button>
 
-        <StackPanel Grid.Column="0" Style="{DynamicResource ShowOnHaveCurrentWord}">
+        <StackPanel Grid.Column="0" Name="HaveCurrentWord">
             <Label Content="{Binding Path=PrimaryWordKnownLetters}"/>
             <Label Content="{Binding Path=Question}"></Label>
             <StackPanel Orientation="Horizontal">
@@ -33,7 +33,7 @@
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Grid.Column="0" Style="{DynamicResource ShowOnHaveCurrentWordVariant}">
+        <StackPanel Grid.Column="0" Name="HaveCurrentWordVariant">
             <Label>Есть контакт!</Label>
         </StackPanel>
         

@@ -13,8 +13,8 @@ namespace Contact.Client
     {
         private static GameServiceClient proxy;
         private static MainWindow mainWindow;
-        private static GameView gameState;
-        private static UserData me;
+        public static GameView gameState;
+        public static UserData Me { get; private set; }
 
         // actual application start point at the moment
         // MOVE IT SOMEWHERE ELSE? maybe make it static?
@@ -28,6 +28,7 @@ namespace Contact.Client
             mainWindow = new MainWindow();
             gameState = new GameView();
             mainWindow.DataContext = gameState;
+            gameState.PropertyChanged += mainWindow.gameState_PropertyChanged;
 
             mainWindow.Show();
         }
@@ -37,7 +38,7 @@ namespace Contact.Client
             LogSaver.Log("Trying to login");
             try
             {
-                me = await proxy.LoginAsync("dumb", "asd123");
+                Me = await proxy.LoginAsync("dumb", "asd123");
                 
                 // TODO: do this not here
                 GetState();
@@ -50,23 +51,23 @@ namespace Contact.Client
 
         public static void Logoff()
         {
-            proxy.Logoff(me.Token);
+            proxy.Logoff(Me.Token);
         }
 
         public static void GetState()
         {
-            var state = proxy.GetState(me.Token);
+            var state = proxy.GetState(Me.Token);
             gameState.UpdateFromGameState(state);
         }
 
         public static void StartGame()
         {
-            proxy.StartGame(me.Token);
+            proxy.StartGame(Me.Token);
         }
 
         public static void GiveCurrentWordVariant(string answer)
         {
-            proxy.GiveCurrentWordVariant(me.Token, answer);
+            proxy.GiveCurrentWordVariant(Me.Token, answer);
         }
 
         public static void ChangeClientView(GameMessage message)

@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace Contact.Client
 {
-    class GameView : INotifyPropertyChanged
+    public class GameView : INotifyPropertyChanged
     {
         #region Observable properties
         private ObservableCollection<User> _users = new ObservableCollection<User>();
