@@ -11,7 +11,7 @@ namespace Contact.Server
     {
         [OperationContract(IsInitiating = true)]
         [FaultContract(typeof(GameException))]
-        Guid Login(string name, string password);
+        UserData Login(string name, string password);
 
         [OperationContract(IsTerminating = true, IsInitiating = false, IsOneWay = true)]
         void Logoff(Guid token);

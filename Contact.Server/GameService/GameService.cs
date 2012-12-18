@@ -12,12 +12,12 @@ namespace Contact.Server
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple, UseSynchronizationContext = false)]
     public class GameService : IGameService
     {
-        public Guid Login(string name, string password)
+        public UserData Login(string name, string password)
         {
             LogSaver.Log("Attempt to login. name="+name+" password="+password);
-            var token = AccountControll.LoginUser(name, password);
+            var user = AccountControll.LoginUser(name, password);
             LogSaver.Log("Loged in successfully. UserId=");
-            return token;
+            return user;
         }
 
         public void Logoff(Guid token)

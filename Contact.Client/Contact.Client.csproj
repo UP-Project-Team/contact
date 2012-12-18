@@ -106,6 +106,9 @@
     <None Include="Service References\GameService\Contact.Client.GameService.GameState.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\GameService\Contact.Client.GameService.UserData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\GameService\Contact.Server1.xsd">
       <SubType>Designer</SubType>
     </None>

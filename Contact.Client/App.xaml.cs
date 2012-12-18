@@ -18,7 +18,7 @@ namespace Contact.Client
         void AppStartup(object sender, StartupEventArgs args)
         {
             ConstructStyles();
-            var app = new ClientControll();
+            ClientControll.Run();
         }
 
         private static void ConstructStyles()

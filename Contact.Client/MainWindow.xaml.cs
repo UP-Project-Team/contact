@@ -22,34 +22,30 @@ namespace Contact.Client
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly ClientControll clientControll;
-
-        public MainWindow(ClientControll clientControll)
+        public MainWindow()
         {
             InitializeComponent();
             //TODO: move this in XAML
             Closed += MainWindow_Closed;
 
-            this.clientControll = clientControll;
-
             //TODO: this not supposed to be here
             // "Login"
-            clientControll.Login();
+            ClientControll.Login();
         }
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
-            clientControll.Logoff();
+            ClientControll.Logoff();
         }
 
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
-            clientControll.StartGame();
+            ClientControll.StartGame();
         }
 
         private void btnSubmitAnswer_Click(object sender, RoutedEventArgs e)
         {
-            clientControll.GiveCurrentWordVariant(txtAnswer.Text);
+            ClientControll.GiveCurrentWordVariant(txtAnswer.Text);
         }
     }
 }

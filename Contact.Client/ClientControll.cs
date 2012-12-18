@@ -9,35 +9,35 @@ using Contact.Client.GameService;
 
 namespace Contact.Client
 {
-    public sealed class ClientControll
+    public static class ClientControll
     {
-        private GameServiceClient proxy;
-        private MainWindow mainWindow;
-        private GameView gameState;
-        private Guid token;
+        private static GameServiceClient proxy;
+        private static MainWindow mainWindow;
+        private static GameView gameState;
+        private static UserData me;
 
         // actual application start point at the moment
         // MOVE IT SOMEWHERE ELSE? maybe make it static?
-        public ClientControll()
+        public static void Run()
         {
             // create connection to server and callback
-            var instanceContext = new InstanceContext(new ClientCallback(this));
+            var instanceContext = new InstanceContext(new ClientCallback());
             proxy = new GameServiceClient(instanceContext);
 
             // create and show main window
-            mainWindow = new MainWindow(this);
+            mainWindow = new MainWindow();
             gameState = new GameView();
             mainWindow.DataContext = gameState;
 
             mainWindow.Show();
         }
 
-        public async void Login()
+        public static async void Login()
         {
             LogSaver.Log("Trying to login");
             try
             {
-                token = await proxy.LoginAsync("dumb", "asd123");
+                me = await proxy.LoginAsync("dumb", "asd123");
                 
                 // TODO: do this not here
                 GetState();
@@ -48,28 +48,28 @@ namespace Contact.Client
             }
         }
 
-        public void Logoff()
+        public static void Logoff()
         {
-            proxy.Logoff(token);
+            proxy.Logoff(me.Token);
         }
 
-        public void GetState()
+        public static void GetState()
         {
-            var state = proxy.GetState(token);
+            var state = proxy.GetState(me.Token);
             gameState.UpdateFromGameState(state);
         }
 
-        public void StartGame()
+        public static void StartGame()
         {
-            proxy.StartGame(token);
+            proxy.StartGame(me.Token);
         }
 
-        public void GiveCurrentWordVariant(string answer)
+        public static void GiveCurrentWordVariant(string answer)
         {
-            proxy.GiveCurrentWordVariant(token, answer);
+            proxy.GiveCurrentWordVariant(me.Token, answer);
         }
 
-        public void ChangeClientView(GameMessage message)
+        public static void ChangeClientView(GameMessage message)
         {
             // temporary solution
             // TODO: do delegate

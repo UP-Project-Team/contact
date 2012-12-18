@@ -18,7 +18,7 @@ namespace Contact.Server
         private static int userCnt; // remove this when DB support will be added
 
         private static object syncObject = new object();
-        public static Guid LoginUser(string name, string password)
+        public static UserData LoginUser(string name, string password)
         {
             User user;
             // TODO: add actual DB support (now it accepts everything and gives consecutive user ids)
@@ -28,7 +28,7 @@ namespace Contact.Server
             }
             RoomControll.AddOnlineUser(user);
 
-            return user.Token;
+            return new UserData(user);
         }
 
     }

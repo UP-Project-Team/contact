@@ -11,6 +11,15 @@ namespace Contact.Server
     [DataContract]
     public class User
     {
+
+        public enum Role
+        {
+            Host, Qwestioner, Contacter, None
+        }
+
+        [DataMember]
+        public Role role { get; set; }
+
         [DataMember]
         public int Id { get; private set; }
 
@@ -20,6 +29,7 @@ namespace Contact.Server
         public int RoomId { get; set; }
 
         public IGameServiceCallback Callback { get; private set; }
+
         public Guid Token { get; private set; }
 
         // TODO: add construction from DB row
@@ -32,4 +42,37 @@ namespace Contact.Server
             Callback = OperationContext.Current.GetCallbackChannel<IGameServiceCallback>();
         }
     }
+
+    /*
+     * Класс передающий ВСЕ данные пользователя
+     */
+    [DataContract]
+    public class UserData
+    {
+        [DataMember]
+        public User.Role role { get; set; }
+
+        [DataMember]
+        public int Id { get; private set; }
+
+        [DataMember]
+        public string Name { get; private set; }
+        
+        [DataMember]
+        public int RoomId { get; set; }
+
+        [DataMember]
+        public Guid Token { get; private set; }
+        
+        public UserData(User user)
+        {
+            role = user.role;
+            Id = user.Id;
+            Name = user.Name;
+            RoomId = user.RoomId;
+            Token = user.Token;
+        }
+    }
+
+
 }
