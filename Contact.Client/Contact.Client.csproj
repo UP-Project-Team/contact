@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ClientCallback.cs" />
+    <Compile Include="ClientCallbackActions.cs" />
     <Compile Include="ClientControll.cs" />
     <Compile Include="GameView.cs" />
     <Compile Include="LogSaver.cs" />

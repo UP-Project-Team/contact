@@ -9,7 +9,7 @@ using Contact.Client.GameService;
 
 namespace Contact.Client
 {
-    public static class ClientControll
+    public static partial class ClientControll
     {
         private static GameServiceClient proxy;
         private static MainWindow mainWindow;
@@ -70,33 +70,6 @@ namespace Contact.Client
             proxy.GiveCurrentWordVariant(Me.Token, answer);
         }
 
-        public static void ChangeClientView(GameMessage message)
-        {
-            // temporary solution
-            // TODO: do delegate
-            switch (message.actionType)
-            {
-                case GameMessage.ActionType.UserJoinedRoom:
-                    mainWindow.Dispatcher.Invoke(()=>gameState.AddUser(message.actionAgrument as User));
-                    LogSaver.Log("User enter room ");
-                    break;
-
-                case GameMessage.ActionType.UserLeftRoom:
-                    mainWindow.Dispatcher.Invoke(()=>gameState.RemoveUser(message.actionAgrument as User));
-                    LogSaver.Log("User left room");
-                    break;
-
-                case GameMessage.ActionType.StateChanged:
-                    mainWindow.Dispatcher.Invoke(() =>
-                        {
-                            gameState.State = (GameState.State) message.actionAgrument;
-                        });
-                    LogSaver.Log("State changed. New = "+gameState.State);
-                    break;
-
-                default:
-                    throw new NotImplementedException("GameMessage with actionType="+message.actionType+"not Implemented");
-            }
-        }
+        
     }
 }
