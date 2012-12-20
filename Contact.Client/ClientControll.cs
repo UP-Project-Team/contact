@@ -65,9 +65,17 @@ namespace Contact.Client
             proxy.StartGame(Me.Token);
         }
 
-        public static void GiveCurrentWordVariant(string answer)
+        public static async void GiveCurrentWordVariant(string answer)
         {
-            proxy.GiveCurrentWordVariant(Me.Token, answer);
+
+            try
+            {
+                await proxy.GiveCurrentWordVariantAsync(Me.Token, answer);
+            }
+            catch (Exception e) //TODO: catch real exceptions
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         

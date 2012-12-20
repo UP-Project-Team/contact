@@ -567,10 +567,11 @@ namespace Contact.Client.GameService {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, IsInitiating=false, Action="http://tempuri.org/IGameService/StartGame")]
         System.Threading.Tasks.Task StartGameAsync(System.Guid token);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, IsInitiating=false, Action="http://tempuri.org/IGameService/GiveCurrentWordVariant")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/GiveCurrentWordVariant", ReplyAction="http://tempuri.org/IGameService/GiveCurrentWordVariantResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Contact.Client.GameService.GameException), Action="http://tempuri.org/IGameService/GiveCurrentWordVariantGameExceptionFault", Name="GameException", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
         void GiveCurrentWordVariant(System.Guid token, string word);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, IsInitiating=false, Action="http://tempuri.org/IGameService/GiveCurrentWordVariant")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/GiveCurrentWordVariant", ReplyAction="http://tempuri.org/IGameService/GiveCurrentWordVariantResponse")]
         System.Threading.Tasks.Task GiveCurrentWordVariantAsync(System.Guid token, string word);
     }
     

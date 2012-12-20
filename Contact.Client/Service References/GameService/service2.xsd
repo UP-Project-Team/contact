@@ -53,6 +53,11 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GiveCurrentWordVariantResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="Notify">
     <xs:complexType>
       <xs:sequence>

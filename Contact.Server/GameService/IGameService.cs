@@ -22,7 +22,8 @@ namespace Contact.Server
         [OperationContract(IsInitiating = false, IsOneWay = true, IsTerminating = false)]
         void StartGame(Guid token);
 
-        [OperationContract(IsInitiating = false, IsOneWay = true, IsTerminating = false)]
+        [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]
+        [FaultContract(typeof(GameException))]
         void GiveCurrentWordVariant(Guid token, string word);
     }
 
