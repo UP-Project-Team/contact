@@ -40,17 +40,18 @@ namespace Contact.Client
 
 
         #region States Activate Actions 
-        private readonly List<Tuple<string, Func<bool>>> StateActivateActionsList = new List<Tuple<string, Func<bool>>>
-            {
-                new Tuple<string, Func<bool>>("btnStartGame", () => ClientControll.gameState.State==GameService.GameState.State.NotStarted),
-                new Tuple<string, Func<bool>>("HaveCurrentWord", () => ClientControll.gameState.State==GameService.GameState.State.HaveCurrentWord),
-                new Tuple<string, Func<bool>>("HaveCurrentWordVariant", () => ClientControll.gameState.State==GameService.GameState.State.HaveCurrentWordVariant)
-            };
-        private readonly List<UIElement> StateControlsList = new List<UIElement>();
 
+        private List<Tuple<UIElement, Func<bool>>> StateActivateActionsList;
+        
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            FillStateActions();
+            StateActivateActionsList = new List<Tuple<UIElement, Func<bool>>>
+            {
+                new Tuple<UIElement, Func<bool>>(btnStartGame, () => ClientControll.gameState.State==GameService.GameState.State.NotStarted),
+                new Tuple<UIElement, Func<bool>>(HaveCurrentWord, () => ClientControll.gameState.State==GameService.GameState.State.HaveCurrentWord),
+                new Tuple<UIElement, Func<bool>>(HaveCurrentWordVariant, () => ClientControll.gameState.State==GameService.GameState.State.HaveCurrentWordVariant)
+            };
+            UpdateStatesVisibility();
         }
 
         public void gameState_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -61,67 +62,10 @@ namespace Contact.Client
 
         void UpdateStatesVisibility()
         {
-            for (var i = 0; i < StateControlsList.Count; ++i)
+            foreach (var t in StateActivateActionsList)
             {
-                if (StateActivateActionsList[i].Item2())
-                    StateControlsList[i].Visibility = Visibility.Visible;
-                else
-                    StateControlsList[i].Visibility = Visibility.Collapsed;
+                t.Item1.Visibility = t.Item2() ? Visibility.Visible : Visibility.Collapsed;
             }
-        }
-
-        private void FillStateActions()
-        {
-            foreach (var action in StateActivateActionsList)
-            {
-                var c = FindChild<UIElement>(this, action.Item1);
-                if(c==null) throw new Exception("Failed to init State show actions");
-                StateControlsList.Add(c);
-            }
-
-            UpdateStatesVisibility();
-        }
-
-        /// <summary>
-        /// Finds a Child of a given item in the visual tree. 
-        /// </summary>
-        /// <param name="parent">A direct parent of the queried item.</param>
-        /// <typeparam name="T">The type of the queried item.</typeparam>
-        /// <param name="childName">x:Name or Name of child. </param>
-        /// <returns>The first parent item that matches the submitted type parameter. 
-        /// If not matching item can be found, 
-        /// a null parent is being returned.</returns>
-        public static T FindChild<T>(DependencyObject parent, string childName)
-           where T : DependencyObject
-        {
-            // Confirm parent and childName are valid. 
-            if (parent == null) return null;
-
-            T foundChild = null;
-
-            int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
-            for (int i = 0; i < childrenCount; i++)
-            {
-                var child = VisualTreeHelper.GetChild(parent, i);
-
-                var frameworkElement = child as FrameworkElement;
-                if (frameworkElement != null && frameworkElement.Name == childName)
-                {
-                    // if the child's name is of the request name
-                    foundChild = (T) child;
-                    break;
-                }
-                else
-                {
-                    // recursively drill down the tree
-                    foundChild = FindChild<T>(child, childName);
-
-                    // If the child is found, break so we do not overwrite the found child. 
-                    if (foundChild != null) break;
-                }
-            }
-
-            return foundChild;
         }
 
         #endregion
