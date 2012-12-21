@@ -33,13 +33,12 @@ namespace Contact.Client
             mainWindow.Show();
         }
 
-        public static async void Login()
+        public static async void Login(string name, string password)
         {
             LogSaver.Log("Trying to login");
             try
             {
-                Me = await proxy.LoginAsync("dumb", "asd123");
-                
+                Me = await proxy.LoginAsync(name, password);                
                 // TODO: do this not here
                 GetState();
             }
@@ -47,6 +46,8 @@ namespace Contact.Client
             {
                 MessageBox.Show(e.Message);
             }
+            if (Me.Id == -1)
+            mainWindow.Close();
         }
 
         public static void Logoff()

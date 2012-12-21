@@ -20,7 +20,10 @@ namespace Contact.Client
 
             //TODO: this not supposed to be here
             // "Login"
-            ClientControll.Login();
+            string name, password;
+            name = "login";
+            password = "password";
+            ClientControll.Login(name,password);
         }
 
         private void MainWindow_Closed(object sender, EventArgs e)

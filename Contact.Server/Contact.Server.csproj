@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountControll.cs" />
+    <Compile Include="DBAccess.cs" />
     <Compile Include="GameService\GameException.cs" />
     <Compile Include="GameService\GameService.cs" />
     <Compile Include="GameState.cs" />
