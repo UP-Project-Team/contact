@@ -17,7 +17,7 @@ namespace Contact.Server
             string sql = "SELECT * FROM Users WHERE [Имя]='"+username+"'"; //SQL-query
             
             //connection options
-            string connectionString = "Provider=Microsoft.Ace.OLEDB.12.0;" + "Data Source= /../Users.accdb"; 
+            string connectionString = "Provider=Microsoft.Ace.OLEDB.12.0;" + "Data Source= Users.accdb"; 
             OleDbConnection connection = new OleDbConnection(connectionString);
             connection.Open();
             OleDbCommand command = new OleDbCommand(sql, connection);
@@ -63,7 +63,7 @@ namespace Contact.Server
         public static int UserReg(string username, string password)
         {
             string sql = "SELECT * FROM Users WHERE [Имя]='" + CheckWord(username) + "'"; //SQL-query
-            string connectionString = "Provider=Microsoft.Ace.OLEDB.12.0;" + "Data Source= /GameService/Users.accdb"; 
+            string connectionString = "Provider=Microsoft.Ace.OLEDB.12.0;" + "Data Source= Users.accdb"; 
             OleDbConnection connection = new OleDbConnection(connectionString);
             connection.Open();
             OleDbCommand command = new OleDbCommand(sql, connection);
