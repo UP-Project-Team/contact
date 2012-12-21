@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Contact.Server
 {
+    // it's room controll
     class RoomControll
     {
         private static int roomsCount;
@@ -31,7 +32,7 @@ namespace Contact.Server
         {
             var newRoomId = roomsCount++;
             Rooms.Add(newRoomId, new Room(newRoomId, name));
-
+            
             return newRoomId;
         }
 
