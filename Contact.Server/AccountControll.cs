@@ -27,7 +27,10 @@ namespace Contact.Server
                 //if y wanna reg user - uncomment this
                 //DBAccess.UserReg(name, password);
 
-                user = DBAccess.CheckUser(name, password);
+                //TODO: research how to get it works to anyone
+                //user = DBAccess.CheckUser(name, password);
+
+                user = new User(userCnt++, name);
             }
             RoomControll.AddOnlineUser(user);
 

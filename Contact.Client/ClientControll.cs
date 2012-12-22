@@ -46,6 +46,8 @@ namespace Contact.Client
             {
                 MessageBox.Show(e.Message);
             }
+
+            //TODO: do exception instead of this
             if (Me.Id == -1)
             mainWindow.Close();
         }
