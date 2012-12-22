@@ -15,7 +15,6 @@ namespace Contact.Server
 
         public static User GetUserByToken(Guid token)
         {
-
             lock (OnlineUsers)
             {
                 foreach (var user in OnlineUsers.Where(user => user.Token == token))
@@ -58,7 +57,6 @@ namespace Contact.Server
 
         public static void AddOnlineUser(User user)
         {
-            
             lock (OnlineUsers)
             {
                 //TODO: what if user already online?
@@ -97,6 +95,11 @@ namespace Contact.Server
         public static void StartGame(User user)
         {
             Rooms[user.RoomId].StartGame();
+        }
+
+        public static void GiveQuestion(User user, string word)
+        {
+            Rooms[user.RoomId].AcceptQuestion(user, word);
         }
 
         public static void GiveCurrentWordVariant(User user, string word)

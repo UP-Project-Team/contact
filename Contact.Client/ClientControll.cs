@@ -49,7 +49,7 @@ namespace Contact.Client
 
             //TODO: do exception instead of this
             if (Me.Id == -1)
-            mainWindow.Close();
+                mainWindow.Close();
         }
 
         public static void Logoff()
@@ -68,9 +68,28 @@ namespace Contact.Client
             proxy.StartGame(Me.Token);
         }
 
+        public static async void GiveQuestion(string question)
+        {
+            if (Me.role == User.Role.None)
+            {
+                try
+                {
+                    await proxy.GiveQuestionAsync(Me.Token, question);
+                    //Me.role = User.Role.Qwestioner;
+                }
+                catch (Exception e) //TODO: catch real exceptions
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ошибка!", "Вас опередили");
+            }
+        }
+
         public static async void GiveCurrentWordVariant(string answer)
         {
-
             try
             {
                 await proxy.GiveCurrentWordVariantAsync(Me.Token, answer);
@@ -80,7 +99,5 @@ namespace Contact.Client
                 MessageBox.Show(e.Message);
             }
         }
-
-        
     }
 }

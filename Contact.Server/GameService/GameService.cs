@@ -7,8 +7,6 @@ using System.Text;
 
 namespace Contact.Server
 {
-
-
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple, UseSynchronizationContext = false)]
     public class GameService : IGameService
     {
@@ -40,6 +38,13 @@ namespace Contact.Server
             var user = RoomControll.GetUserByToken(token);
             LogSaver.Log("Start Game userId=" + user.Id);
             RoomControll.StartGame(user);
+        }
+
+        public void GiveCurrentWord(Guid token, string word)
+        {
+            var user = RoomControll.GetUserByToken(token);
+            LogSaver.Log("GiveCurrentWordVariant userId=" + user.Id);
+            RoomControll.GiveQuestion(user, word);
         }
 
         public void GiveCurrentWordVariant(Guid token, string word)

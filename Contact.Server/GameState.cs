@@ -11,6 +11,7 @@ namespace Contact.Server
         public enum State
         {
             NotStarted,
+            HaveNoCurrentWord,
             HaveCurrentWord,
             HaveCurrentWordVariant,
             VotingForHostWord,

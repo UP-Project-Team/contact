@@ -573,6 +573,13 @@ namespace Contact.Client.GameService {
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/GiveCurrentWordVariant", ReplyAction="http://tempuri.org/IGameService/GiveCurrentWordVariantResponse")]
         System.Threading.Tasks.Task GiveCurrentWordVariantAsync(System.Guid token, string word);
+
+        [System.ServiceModel.OperationContractAttribute(IsInitiating = false, Action = "http://tempuri.org/IGameService/GiveQuestion", ReplyAction = "http://tempuri.org/IGameService/GiveQuestion")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Contact.Client.GameService.GameException), Action = "http://tempuri.org/IGameService/GiveQuestionGameExceptionFault", Name = "GameException", Namespace = "http://schemas.datacontract.org/2004/07/Contact.Server")]
+        void GiveQuestion(Guid token, string word);
+
+        [System.ServiceModel.OperationContractAttribute(IsInitiating = false, Action = "http://tempuri.org/IGameService/GiveQuestion", ReplyAction = "http://tempuri.org/IGameService/GiveQuestionResponse")]
+        System.Threading.Tasks.Task GiveQuestionAsync(Guid token, string word);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -641,13 +648,25 @@ namespace Contact.Client.GameService {
         public System.Threading.Tasks.Task StartGameAsync(System.Guid token) {
             return base.Channel.StartGameAsync(token);
         }
-        
-        public void GiveCurrentWordVariant(System.Guid token, string word) {
+
+        public void GiveCurrentWordVariant(System.Guid token, string word)
+        {
             base.Channel.GiveCurrentWordVariant(token, word);
         }
-        
-        public System.Threading.Tasks.Task GiveCurrentWordVariantAsync(System.Guid token, string word) {
+
+        public System.Threading.Tasks.Task GiveCurrentWordVariantAsync(System.Guid token, string word)
+        {
             return base.Channel.GiveCurrentWordVariantAsync(token, word);
+        }
+
+        public void GiveQuestion(System.Guid token, string word)
+        {
+            base.Channel.GiveQuestion(token, word);
+        }
+
+        public System.Threading.Tasks.Task GiveQuestionAsync(System.Guid token, string word)
+        {
+            return base.Channel.GiveQuestionAsync(token, word);
         }
     }
 }
