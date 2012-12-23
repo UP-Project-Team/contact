@@ -67,7 +67,7 @@ namespace Contact.Server
                 if (!question.StartsWith(gameState.PrimaryWordKnownLetters)) return;
 
                 gameState.Question = question;
-                ChangeState(GameState.State.HaveCurrentWord);
+                ChangeState(GameState.State.HaveNoCurrentWord);
             }
         }
 

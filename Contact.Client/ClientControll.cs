@@ -75,7 +75,7 @@ namespace Contact.Client
                 try
                 {
                     await proxy.GiveQuestionAsync(Me.Token, question);
-                    //Me.role = User.Role.Qwestioner;
+                    Me.role = User.Role.Qwestioner;
                 }
                 catch (Exception e) //TODO: catch real exceptions
                 {
