@@ -16,14 +16,7 @@ namespace Contact.Client
             InitializeComponent();
             //TODO: move this in XAML
             Closed += MainWindow_Closed;
-            Loaded += MainWindow_Loaded;
-
-            //TODO: this not supposed to be here
-            // "Login"
-            string name, password;
-            name = "login";
-            password = "password";
-            ClientControll.Login(name,password);
+            Loaded += MainWindow_Loaded;     
         }
 
         private void MainWindow_Closed(object sender, EventArgs e)
