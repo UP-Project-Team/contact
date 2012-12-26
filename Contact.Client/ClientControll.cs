@@ -24,20 +24,29 @@ namespace Contact.Client
             var instanceContext = new InstanceContext(new ClientCallback());
             proxy = new GameServiceClient(instanceContext);
 
-            // create and show main window
             mainWindow = new MainWindow();
             gameState = new GameView();
             mainWindow.DataContext = gameState;
             gameState.PropertyChanged += mainWindow.gameState_PropertyChanged;
-
             mainWindow.Show();
+
+            //create login form
+            LoginWindow loginWindow = new LoginWindow(mainWindow);
+            loginWindow.Show();         
+            
+            // create and show main window
+            
+            loginWindow.Focus();
+            mainWindow.IsEnabled = false;
+
         }
 
         public static async void Login(string name, string password)
         {
-            LogSaver.Log("Trying to login");
+            
+            LogSaver.Log("Trying to login");            
             try
-            {
+            {                
                 Me = await proxy.LoginAsync(name, password);                
                 // TODO: do this not here
                 GetState();
