@@ -40,7 +40,11 @@ namespace Contact.Client
             mainWindow.IsEnabled = false;
 
         }
-
+        public static async void Registration(string name, string password)
+        {
+            LogSaver.Log("Trying to registr");             
+            await proxy.RegistrationAsync(name, password);            
+        } 
         public static async void Login(string name, string password)
         {
             

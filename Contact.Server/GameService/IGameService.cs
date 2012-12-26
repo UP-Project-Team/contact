@@ -19,6 +19,11 @@ namespace Contact.Server
         [OperationContract(IsInitiating = false, IsTerminating = false, IsOneWay=false)]
         GameState GetState(Guid token);
 
+        [OperationContract(IsInitiating = true, IsTerminating = false, IsOneWay=true)]
+        //[FaultContract(typeof(GameException))]
+        void Registration(string name, string password);
+
+
         [OperationContract(IsInitiating = false, IsOneWay = true, IsTerminating = false)]
         void StartGame(Guid token);
 

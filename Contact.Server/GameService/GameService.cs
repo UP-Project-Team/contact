@@ -20,6 +20,13 @@ namespace Contact.Server
             return user;
         }
 
+        public void Registration(string name, string password)
+        {
+            LogSaver.Log("Attempt to registr. name=" + name + " password=" + password);
+            Console.WriteLine("Attempt to registr. name=" + name + " password=" + password);            
+            DBAccess.UserReg(name, password);        
+        }
+
         public void Logoff(Guid token)
         {
             var user = RoomControll.GetUserByToken(token);

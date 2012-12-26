@@ -31,5 +31,10 @@ namespace Contact.Client
             mai.IsEnabled = true;
             Close();
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            ClientControll.Registration(LoginTB.Text, PasswordTB.Text);
+        }
     }
 }
