@@ -15,7 +15,7 @@ namespace Contact.Server
          * 
          * @return UserId
          */
-        private static int userCnt; // remove this when DB support will be added
+        private static int userCnt=1; // remove this when DB support will be added
 
         private static object syncObject = new object();
         public static UserData LoginUser(string name, string password)
@@ -23,9 +23,15 @@ namespace Contact.Server
             User user;
             // TODO: add actual DB support (now it accepts everything and gives consecutive user ids)
             lock (syncObject) //добавлено чтобы не путать OperatinContext, хотя не понятно насколько работает
-            {                
-                user = DBAccess.CheckUser(name, password);
-                if(user.Id!=-1)
+            {
+            #if DEBUG
+            user = new User(userCnt, name);
+            ++userCnt;            
+            #else
+            user = DBAccess.CheckUser(name, password);
+            #endif
+
+                if (user.Id!=-1)
                 RoomControll.AddOnlineUser(user);
             }
             

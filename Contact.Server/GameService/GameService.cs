@@ -30,7 +30,7 @@ namespace Contact.Server
             int i=DBAccess.UserReg(name, password);
             if (i != 0)
             {
-                GameException.Throw("This name already registred");
+                GameException.Throw("This name is already registred");
             }
         }
 

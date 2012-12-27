@@ -94,7 +94,8 @@ csx
 AppPackages/
 
 # Others
-[Bb]in
+#[Bb]in
+[Dd]ebug
 *.exe
 *.exe.*
 *.laccdb
