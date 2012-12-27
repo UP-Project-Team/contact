@@ -16,7 +16,7 @@ namespace Contact.Server
         {
             LogSaver.Log("Attempt to login. name="+name+" password="+password);
             var user = AccountControll.LoginUser(name, password);
-            LogSaver.Log("Loged in successfully. UserId=");
+            LogSaver.Log("Loged in successfully. UserId=");            
             return user;
         }
 
@@ -24,7 +24,11 @@ namespace Contact.Server
         {
             LogSaver.Log("Attempt to registr. name=" + name + " password=" + password);
             Console.WriteLine("Attempt to registr. name=" + name + " password=" + password);            
-            DBAccess.UserReg(name, password);        
+            int i=DBAccess.UserReg(name, password);
+            if (i != 0)
+            {
+                GameException.Throw("LOL");
+            }
         }
 
         public void Logoff(Guid token)

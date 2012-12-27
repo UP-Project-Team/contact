@@ -42,8 +42,15 @@ namespace Contact.Client
         }
         public static async void Registration(string name, string password)
         {
-            LogSaver.Log("Trying to registr");             
-            await proxy.RegistrationAsync(name, password);            
+            LogSaver.Log("Trying to registr");
+            try
+            {
+                await proxy.RegistrationAsync(name, password);
+            }
+            catch (Exception e)
+            {                
+               // MessageBox.Show(e.Message);
+            }
         } 
         public static async void Login(string name, string password)
         {
