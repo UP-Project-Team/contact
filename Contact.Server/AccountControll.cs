@@ -23,11 +23,12 @@ namespace Contact.Server
             User user;
             // TODO: add actual DB support (now it accepts everything and gives consecutive user ids)
             lock (syncObject) //добавлено чтобы не путать OperatinContext, хотя не понятно насколько работает
-            {
-                //if y wanna reg user - uncomment this
+            {                
                 user = DBAccess.CheckUser(name, password);
+                if(user.Id!=-1)
+                RoomControll.AddOnlineUser(user);
             }
-            RoomControll.AddOnlineUser(user);
+            
 
             return new UserData(user);
         }

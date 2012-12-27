@@ -15,7 +15,7 @@ namespace Contact.Client
         private static MainWindow mainWindow;
         public static GameView gameState;
         public static UserData Me { get; private set; }
-
+        public static LoginWindow loginWindow;
         // actual application start point at the moment
         // MOVE IT SOMEWHERE ELSE? maybe make it static?
         public static void Run()
@@ -31,7 +31,7 @@ namespace Contact.Client
             mainWindow.Show();
 
             //create login form
-            LoginWindow loginWindow = new LoginWindow(mainWindow);
+            loginWindow = new LoginWindow(mainWindow);
             loginWindow.Show();         
             
             // create and show main window
@@ -47,27 +47,26 @@ namespace Contact.Client
             {
                 await proxy.RegistrationAsync(name, password);
             }
-            catch (Exception e)
-            {                
-               // MessageBox.Show(e.Message);
+            catch (FaultException<GameException> e)
+            {
+                MessageBox.Show(e.Detail.Message);
             }
         } 
         public static async void Login(string name, string password)
-        {
-            
+        {            
             LogSaver.Log("Trying to login");            
             try
             {                
                 Me = await proxy.LoginAsync(name, password);                
                 // TODO: do this not here
                 GetState();
+                mainWindow.IsEnabled = true;
+                loginWindow.Close();                
             }
-            catch (Exception e)
+            catch (FaultException<GameException> e)
             {
-                MessageBox.Show(e.Message);
-            }
-            if (Me.Id == -1)
-            mainWindow.Close();
+                MessageBox.Show(e.Detail.Message);
+            }              
         }
 
         public static void Logoff()

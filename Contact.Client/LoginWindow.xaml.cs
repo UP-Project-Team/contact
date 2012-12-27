@@ -25,11 +25,10 @@ namespace Contact.Client
             mai = mainW;
         }
         MainWindow mai;
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            ClientControll.Login(LoginTB.Text, PasswordTB.Text);
-            mai.IsEnabled = true;
-            Close();
+                ClientControll.Login(LoginTB.Text, PasswordTB.Text);         
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
