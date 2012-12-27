@@ -14,8 +14,7 @@ namespace Contact.Server
          * If correct load user data from DB, add user to OnlineUsers
          * 
          * @return UserId
-         */
-        private static int userCnt=1; // remove this when DB support will be added
+         */       
 
         private static object syncObject = new object();
         public static UserData LoginUser(string name, string password)
@@ -31,8 +30,9 @@ namespace Contact.Server
             user = DBAccess.CheckUser(name, password);
             #endif
 
-                if (user.Id!=-1)
-                RoomControll.AddOnlineUser(user);
+            if (user.Id != -1)            
+            RoomControll.AddOnlineUser(user);
+            
             }
             
 

@@ -33,6 +33,7 @@ namespace Contact.Server
             }            
           
             // If autorization failed 
+            GameException.Throw("Incorrect password!");
             return new User(-1, "Error");
         }
         public static string SHA512Hash(string input)
@@ -70,6 +71,7 @@ namespace Contact.Server
             OleDbDataReader dataReader = command.ExecuteReader();
             if (dataReader.Read())
             {
+                GameException.Throw("This name is already registred");
                 return -1;
             }
             sql = "INSERT INTO [Users] ([Имя],[Пароль]) VALUES ('" + CheckWord(username) + "','" + CheckWord(SHA512Hash(password)) + "')";        

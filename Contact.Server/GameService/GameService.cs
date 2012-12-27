@@ -15,11 +15,7 @@ namespace Contact.Server
         public UserData Login(string name, string password)
         {
             LogSaver.Log("Attempt to login. name="+name+" password="+password);
-            var user = AccountControll.LoginUser(name, password);
-            if (user.Id==-1)
-            {
-                GameException.Throw("Password incorrect");
-            }
+            var user = AccountControll.LoginUser(name, password);            
             LogSaver.Log("Loged in successfully. UserId= "+user.Id);            
             return user;
         }
@@ -27,11 +23,7 @@ namespace Contact.Server
         public void Registration(string name, string password)
         {
             LogSaver.Log("Attempt to registr. name=" + name + " password=" + password);                   
-            int i=DBAccess.UserReg(name, password);
-            if (i != 0)
-            {
-                GameException.Throw("This name is already registred");
-            }
+            DBAccess.UserReg(name, password);            
         }
 
         public void Logoff(Guid token)
