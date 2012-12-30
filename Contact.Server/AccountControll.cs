@@ -14,7 +14,11 @@ namespace Contact.Server
          * If correct load user data from DB, add user to OnlineUsers
          * 
          * @return UserId
-         */       
+         */
+
+        #if DEBUG
+        private static int userCnt = 0;
+        #endif
 
         private static object syncObject = new object();
         public static UserData LoginUser(string name, string password)
