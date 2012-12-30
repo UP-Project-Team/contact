@@ -15,9 +15,15 @@ namespace Contact.Server
         public UserData Login(string name, string password)
         {
             LogSaver.Log("Attempt to login. name="+name+" password="+password);
-            var user = AccountControll.LoginUser(name, password);
-            LogSaver.Log("Loged in successfully. UserId=");
+            var user = AccountControll.LoginUser(name, password);            
+            LogSaver.Log("Loged in successfully. UserId= "+user.Id);            
             return user;
+        }
+
+        public void Registration(string name, string password)
+        {
+            LogSaver.Log("Attempt to registr. name=" + name + " password=" + password);                   
+            DBAccess.UserReg(name, password);            
         }
 
         public void Logoff(Guid token)

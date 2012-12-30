@@ -18,7 +18,7 @@ namespace Contact.Server
 
         public static void Throw(string message)
         {
-            var exception = new GameException{Message = message};
+            var exception = new GameException { Message = message };
             throw new FaultException<GameException>(exception);
         }
     }

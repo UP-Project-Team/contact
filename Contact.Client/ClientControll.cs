@@ -15,7 +15,7 @@ namespace Contact.Client
         private static MainWindow mainWindow;
         public static GameView gameState;
         public static UserData Me { get; private set; }
-
+        public static LoginWindow loginWindow;
         // actual application start point at the moment
         // MOVE IT SOMEWHERE ELSE? maybe make it static?
         public static void Run()
@@ -24,32 +24,49 @@ namespace Contact.Client
             var instanceContext = new InstanceContext(new ClientCallback());
             proxy = new GameServiceClient(instanceContext);
 
-            // create and show main window
             mainWindow = new MainWindow();
             gameState = new GameView();
             mainWindow.DataContext = gameState;
             gameState.PropertyChanged += mainWindow.gameState_PropertyChanged;
-
             mainWindow.Show();
-        }
 
-        public static async void Login(string name, string password)
+            //create login form
+            loginWindow = new LoginWindow(mainWindow);
+            loginWindow.Show();         
+            
+            // create and show main window
+            
+            loginWindow.Focus();
+            mainWindow.IsEnabled = false;
+
+        }
+        public static async void Registration(string name, string password)
         {
-            LogSaver.Log("Trying to login");
+            LogSaver.Log("Trying to registr");
             try
             {
+                await proxy.RegistrationAsync(name, password);
+            }
+            catch (FaultException<GameException> e)
+            {
+                MessageBox.Show(e.Detail.Message);
+            }
+        } 
+        public static async void Login(string name, string password)
+        {            
+            LogSaver.Log("Trying to login");            
+            try
+            {                
                 Me = await proxy.LoginAsync(name, password);                
                 // TODO: do this not here
                 GetState();
+                mainWindow.IsEnabled = true;
+                loginWindow.Close();                
             }
-            catch (Exception e)
+            catch (FaultException<GameException> e)
             {
-                MessageBox.Show(e.Message);
-            }
-
-            //TODO: do exception instead of this
-            if (Me.Id == -1)
-            mainWindow.Close();
+                MessageBox.Show(e.Detail.Message);
+            }              
         }
 
         public static void Logoff()
