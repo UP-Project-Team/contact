@@ -22,7 +22,7 @@
             Grid.Column="0" 
             MaxHeight="20" MaxWidth="100" 
             Name="btnStartGame"
-            Click="btnStartGame_Click">Go</Button>
+            Click="btnStartGame_Click" RenderTransformOrigin="0.88,0.969">Go</Button>
 
         <StackPanel Grid.Column="0" Name="HaveCurrentWord">
             <Label Content="{Binding Path=PrimaryWordKnownLetters}"/>
@@ -30,13 +30,24 @@
             <StackPanel Orientation="Horizontal">
                 <TextBox Name="txtAnswer" MinWidth="300"></TextBox>
                 <Button Name="btnSubmitAnswer" Padding="10,0,10,0" Margin="20,0,0,0" Click="btnSubmitAnswer_Click">go</Button>
+                <!--<Button Name="btnRefresh" Padding="10,0,10,0" Margin="20,0,0,0" Click="btnRefresh_Click">ref</Button>-->
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Grid.Column="0" Name="HaveCurrentWordVariant">
-            <Label>Есть контакт!</Label>
+        <StackPanel Grid.Column="0" Name="HaveNoCurrentWord" Margin="0,39,0,10">
+            <Label Content="{Binding Path=PrimaryWordKnownLetters}"/>
+            <Label Content="{Binding Path=Question}"></Label>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="txtQuestion" MinWidth="300"></TextBox>
+                <Button Name="btnAskQuestion" Padding="10,0,10,0" Margin="20,0,0,0" Click="btnAskQuestion_Click">ask</Button>
+                
+            </StackPanel>
         </StackPanel>
-        
+
+        <StackPanel Grid.Column="0" Name="HaveCurrentWordVariant" Grid.ColumnSpan="2" Margin="10,0,90,0">
+            <Label Height="43">Есть контакт!</Label>
+        </StackPanel>
+
         <StackPanel Grid.Column="1">
             <Label Name="lblUsersOnline">Online users</Label>
             <ListBox Name="lstUsersOnline" MinWidth="100" ItemsSource="{Binding Path=Users}" ItemTemplate="{StaticResource UserItemTemplate}"></ListBox>

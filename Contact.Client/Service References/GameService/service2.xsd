@@ -58,10 +58,23 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="AskQuestion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q7:guid" />
+        <xs:element minOccurs="0" name="word" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AskQuestionResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="Notify">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Contact.Server" minOccurs="0" name="msg" nillable="true" type="q7:GameMessage" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Contact.Server" minOccurs="0" name="msg" nillable="true" type="q8:GameMessage" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

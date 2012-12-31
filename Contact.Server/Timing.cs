@@ -15,6 +15,7 @@ namespace Contact.Server
         private static readonly Dictionary<GameState.State, int> StateDurationTime = new Dictionary<GameState.State, int>
             {
                 {GameState.State.NotStarted, Int32.MaxValue},
+                {GameState.State.HaveNoCurrentWord, 20*10000},
                 {GameState.State.HaveCurrentWord, 20*1000},
                 {GameState.State.HaveCurrentWordVariant, 5*1000}
             };

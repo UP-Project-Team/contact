@@ -68,14 +68,15 @@ namespace Contact.Client
             proxy.StartGame(Me.Token);
         }
 
-        public static async void GiveQuestion(string question)
+        public static async void AskQuestion(string question)
         {
-            if (Me.role == User.Role.None)
+            if (Me.role == User.Role.Host)
             {
                 try
                 {
-                    await proxy.GiveQuestionAsync(Me.Token, question);
+                    await proxy.AskQuestionAsync(Me.Token, question);
                     Me.role = User.Role.Qwestioner;
+                    GetState();
                 }
                 catch (Exception e) //TODO: catch real exceptions
                 {

@@ -25,9 +25,12 @@ namespace Contact.Server
         [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]
         [FaultContract(typeof(GameException))]
         void GiveCurrentWordVariant(Guid token, string word);
+        
+        [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]
+        [FaultContract(typeof(GameException))]
+        void AskQuestion(Guid token, string word);
     }
-
-
+    
     //User callback
     public interface IGameServiceCallback
     {

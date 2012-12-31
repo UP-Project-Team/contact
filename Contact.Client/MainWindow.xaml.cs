@@ -18,7 +18,7 @@ namespace Contact.Client
             Closed += MainWindow_Closed;
             Loaded += MainWindow_Loaded;
 
-            //TODO: this not supposed to be here
+            //TODO: this not supposed to be here    
             // "Login"
             string name, password;
             name = "login";
@@ -40,7 +40,11 @@ namespace Contact.Client
         {
             ClientControll.GiveCurrentWordVariant(txtAnswer.Text);
         }
-
+        
+        private void btnAskQuestion_Click(object sender, RoutedEventArgs e)
+        {
+            ClientControll.AskQuestion(txtQuestion.Text);
+        }
 
         #region States Activate Actions 
 
@@ -51,6 +55,7 @@ namespace Contact.Client
             StateActivateActionsList = new List<Tuple<UIElement, Func<bool>>>
             {
                 new Tuple<UIElement, Func<bool>>(btnStartGame, () => ClientControll.gameState.State==GameService.GameState.State.NotStarted),
+                new Tuple<UIElement, Func<bool>>(HaveNoCurrentWord, () => ClientControll.gameState.State==GameService.GameState.State.HaveNoCurrentWord),
                 new Tuple<UIElement, Func<bool>>(HaveCurrentWord, () => ClientControll.gameState.State==GameService.GameState.State.HaveCurrentWord),
                 new Tuple<UIElement, Func<bool>>(HaveCurrentWordVariant, () => ClientControll.gameState.State==GameService.GameState.State.HaveCurrentWordVariant)
             };
@@ -59,7 +64,7 @@ namespace Contact.Client
 
         public void gameState_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if(e.PropertyName=="State")
+            if (e.PropertyName == "State")
                 UpdateStatesVisibility();
         }
 

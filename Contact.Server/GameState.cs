@@ -72,7 +72,7 @@ namespace Contact.Server
             //TODO: remove this
             PrimaryWord = "железа";
             NumberOfOpenChars = 2;
-            Question = "Куй!";
+            //Question = "Куй!";
             CurrentWord = "железо";   
         }
 

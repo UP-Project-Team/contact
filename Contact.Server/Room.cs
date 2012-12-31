@@ -64,10 +64,8 @@ namespace Contact.Server
         {
             lock (gameState)
             {
-                if (!question.StartsWith(gameState.PrimaryWordKnownLetters)) return;
-
                 gameState.Question = question;
-                ChangeState(GameState.State.HaveNoCurrentWord);
+                ChangeState(GameState.State.HaveCurrentWord);
             }
         }
 
@@ -85,7 +83,7 @@ namespace Contact.Server
         public void StartGame()
         {
             //TODO: start with normal state
-            ChangeState(GameState.State.HaveCurrentWord);
+            ChangeState(GameState.State.HaveNoCurrentWord);
         }
 
         public void ChangeState(GameState.State state)
