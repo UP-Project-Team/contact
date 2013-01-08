@@ -68,6 +68,8 @@ namespace Contact.Server
                 GameException.Throw("Вы не можете этого делать!");
             }
 
+            bool epicWin = false; //угадал primaryWord
+
             lock (gameState)
             {
                 gameState.Question = question;
@@ -75,14 +77,29 @@ namespace Contact.Server
                 if (!word.StartsWith(gameState.PrimaryWordKnownLetters))
                     GameException.Throw("Слово должно начинаться с открытых букв");
 
-                gameState.CurrentWord = word;
+                if (word == gameState.PrimaryWord)
+                {
+                    epicWin = true;
+                }
+                else
+                {
+                    gameState.CurrentWord = word;
+                    user.role = User.Role.Qwestioner;
+                }
             }
-            BroadcastMessage(GameMessage.QuestionAsked(question, word));
 
-            user.role = User.Role.Qwestioner;
-            BroadcastMessage(GameMessage.UserRoleChangedMessage(user, User.Role.Qwestioner));
+            if (epicWin)
+            {
+                ResetRoles();
+                ChangeState(GameState.State.GameOver);
+            }
+            else
+            {
+                BroadcastMessage(GameMessage.QuestionAsked(question, word));
+                BroadcastMessage(GameMessage.UserRoleChangedMessage(user, User.Role.Qwestioner));
+                ChangeState(GameState.State.HaveCurrentWord);
+            }
 
-            ChangeState(GameState.State.HaveCurrentWord);
         }
 
         public void AcceptCurrentWordVariant(User user, string word)
@@ -93,6 +110,8 @@ namespace Contact.Server
                 GameException.Throw("Вы не можете так делать");
             }
 
+            bool epicWin = false; // угадал primaryWord
+
             lock (gameState)
             {
                 if(gameState.UsedWords.Contains(word))
@@ -101,13 +120,29 @@ namespace Contact.Server
                 if (!word.StartsWith(gameState.PrimaryWordKnownLetters))
                     GameException.Throw("Слово должно начинаться с открытых букв");
 
-                gameState.VarOfCurWord = word;
-                user.role=User.Role.Contacter;
+                if (word == gameState.PrimaryWord)
+                {
+                    epicWin = true;
+                }
+                else
+                {
+                    gameState.VarOfCurWord = word;
+                    user.role = User.Role.Contacter;
+                }
+
             }
-            
-            BroadcastMessage(GameMessage.UserRoleChangedMessage(user, User.Role.Contacter));
-            BroadcastMessage(GameMessage.VarOfCurWordChangedMessage(word));
-            ChangeState(GameState.State.HaveCurrentWordVariant);
+
+            if (epicWin)
+            {
+                ResetRoles();
+                ChangeState(GameState.State.GameOver);
+            }
+            else
+            {
+                BroadcastMessage(GameMessage.UserRoleChangedMessage(user, User.Role.Contacter));
+                BroadcastMessage(GameMessage.VarOfCurWordChangedMessage(word));
+                ChangeState(GameState.State.HaveCurrentWordVariant);
+            }
         }
 
         public void VoteForPlayerWord(User user, int wordId, bool up)
@@ -168,6 +203,28 @@ namespace Contact.Server
                 LogSaver.Log("User "+deadUser.Id+" is dead. Logoff");
                 RoomControll.DeleteOnlineUser(deadUser);
             }
+        }
+
+        private void ResetRoles()
+        {
+            User host, questioner, contacter;
+
+            lock (gameState)
+            {
+                host = gameState.Users.SingleOrDefault(user => user.role == User.Role.Host);
+                if (host != null) host.role = User.Role.None;
+                questioner = gameState.Users.SingleOrDefault(user => user.role == User.Role.Qwestioner);
+                if (questioner != null) questioner.role = User.Role.None;
+                contacter = gameState.Users.SingleOrDefault(user => user.role == User.Role.Contacter);
+                if (contacter != null) contacter.role = User.Role.None;
+            }
+
+            if(host!=null)
+                BroadcastMessage(GameMessage.UserRoleChangedMessage(host, User.Role.None));
+            if(contacter!=null)
+                BroadcastMessage(GameMessage.UserRoleChangedMessage(contacter, User.Role.None));
+            if(questioner!=null)
+                BroadcastMessage(GameMessage.UserRoleChangedMessage(questioner, User.Role.None));
         }
     }
 }
