@@ -53,7 +53,6 @@ namespace Contact.Client
 
         public void gameState_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            LogSaver.Log(e.PropertyName);
             if(e.PropertyName=="State" || e.PropertyName=="Me.role")
                 UpdateStatesVisibility();
         }
@@ -90,7 +89,8 @@ namespace Contact.Client
 
         private void Test_OnClick(object sender, RoutedEventArgs e)
         {
-            ClientControll.gameState.Me.Name = "asdasdasdads";
+            ClientControll.gameState.NumberOfOpenChars++;
         }
+
     }
 }

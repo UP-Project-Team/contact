@@ -58,7 +58,8 @@ namespace Contact.Server
             UserJoinedRoom,
             StateChanged,
             VarOfCurWordChanged,
-            UserRoleChanged
+            UserRoleChanged,
+            PrimaryWordCharOpened
         }
 
         [DataMember]
@@ -68,6 +69,11 @@ namespace Contact.Server
         public object actionAgrument { get; private set; }
 
         #region Message Constructors
+        public static GameMessage PrimaryWordCharOpened()
+        {
+            return new GameMessage { actionType = ActionType.PrimaryWordCharOpened };
+        }
+
         public static GameMessage UserRoleChangedMessage(User user, User.Role role)
         {
             return new GameMessage { actionType = ActionType.UserRoleChanged, actionAgrument  = new Tuple<User, User.Role>(user, role) };

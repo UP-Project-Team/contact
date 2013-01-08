@@ -87,20 +87,50 @@ namespace Contact.Server
         private void VotingForPlayersWordsTimeout()
         {
             LogSaver.Log("VotingForPlayersWords Timeout");
+            User contacter, questioner;
+            bool win = false;
 
             lock (gameState)
             {
                 bool first = gameState.votings[0].Accepted(gameState.Users.Count);
                 bool second = gameState.votings[1].Accepted(gameState.Users.Count);
 
-                //TODO: do actual business logic
-                if(first && second)
-                    LogSaver.Log("Players WIN");
-                else
-                    LogSaver.Log("Players LOSE");
+
+                // добавить в список используемых
+                if (first) //TODO: broadcast this to users
+                    gameState.UsedWords.Add(gameState.CurrentWord);
+
+                if (second) //TODO: broadcast this to users
+                    gameState.UsedWords.Add(gameState.VarOfCurWord);
+
+
+                if (first && second) // игроки выиграли
+                {
+                    gameState.NumberOfOpenChars++;
+
+                    if (gameState.NumberOfOpenChars == gameState.PrimaryWord.Length) ; // TODO: слово отгадано по буквам стейт
+
+                    win = true;
+                }
+
+
+                // сбросить роли
+                contacter = gameState.Users.Single(user => user.role == User.Role.Contacter);
+                contacter.role = User.Role.None;
+                //TODO: раскоментить когда рольв опрошающего будет проставляться
+                //questioner = gameState.Users.Single(user => user.role == User.Role.Qwestioner);
+                //questioner.role = User.Role.None;
             }
 
-            ChangeState(GameState.State.NotStarted);
+            //разослать изменения
+            BroadcastMessage(GameMessage.UserRoleChangedMessage(contacter, User.Role.None));
+            //TODO: раскоментить когда рольв опрошающего будет проставляться
+            //BroadcastMessage(GameMessage.UserRoleChangedMessage(questioner, User.Role.None));
+            if(win) 
+                BroadcastMessage(GameMessage.PrimaryWordCharOpened());
+
+            ChangeState(GameState.State.HaveCurrentWord);
+
         }
         #endregion
     }

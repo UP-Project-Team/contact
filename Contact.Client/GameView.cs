@@ -100,19 +100,28 @@ namespace Contact.Client
                 if (value == _numberOfOpenChars) return;
                 _numberOfOpenChars = value;
                 OnPropertyChanged("NumberOfOpenChars");
+                OnPropertyChanged("PrimaryWordKnownLetters");
             }
         }
 
-        private string _primaryWordKnownLetters;
-        public string PrimaryWordKnownLetters
+
+        private string _primaryWord;
+        public string PrimaryWord
         {
-            get { return _primaryWordKnownLetters; }
+            get { return _primaryWord; }
             set
             {
-                if (value == _primaryWordKnownLetters) return;
-                _primaryWordKnownLetters = value;
+                if(value == _primaryWord) return;
+                _primaryWord = value;
+                OnPropertyChanged("PrimaryWord");
                 OnPropertyChanged("PrimaryWordKnownLetters");
             }
+        }
+
+
+        public string PrimaryWordKnownLetters
+        {
+            get { return PrimaryWord.Substring(0, NumberOfOpenChars); }
         }
 
         private UserData _me;
@@ -167,7 +176,7 @@ namespace Contact.Client
             NumberOfOpenChars = state.NumberOfOpenChars;
             ChiefWord = state.ChiefWord;
             Question = state.Question;
-            PrimaryWordKnownLetters = state.PrimaryWordKnownLetters;
+            PrimaryWord = state.PrimaryWord;
         }
 
         public void AddUser(User user)

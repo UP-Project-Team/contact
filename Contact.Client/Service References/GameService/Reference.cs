@@ -280,7 +280,7 @@ namespace Contact.Client.GameService {
         private int NumberOfOpenCharsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PrimaryWordKnownLettersField;
+        private string PrimaryWordField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string QuestionField;
@@ -347,14 +347,14 @@ namespace Contact.Client.GameService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string PrimaryWordKnownLetters {
+        public string PrimaryWord {
             get {
-                return this.PrimaryWordKnownLettersField;
+                return this.PrimaryWordField;
             }
             set {
-                if ((object.ReferenceEquals(this.PrimaryWordKnownLettersField, value) != true)) {
-                    this.PrimaryWordKnownLettersField = value;
-                    this.RaisePropertyChanged("PrimaryWordKnownLetters");
+                if ((object.ReferenceEquals(this.PrimaryWordField, value) != true)) {
+                    this.PrimaryWordField = value;
+                    this.RaisePropertyChanged("PrimaryWord");
                 }
             }
         }
@@ -542,6 +542,9 @@ namespace Contact.Client.GameService {
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
             UserRoleChanged = 4,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            PrimaryWordCharOpened = 5,
         }
     }
     

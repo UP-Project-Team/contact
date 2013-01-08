@@ -23,8 +23,14 @@ namespace Contact.Client
                 {GameMessage.ActionType.UserLeftRoom, CallbackAction_UserLeftRoom},
                 {GameMessage.ActionType.StateChanged, CallbackAction_StateChanged},
                 {GameMessage.ActionType.VarOfCurWordChanged, CallbackAction_VarOfCurWordChanged},
-                {GameMessage.ActionType.UserRoleChanged, CallbackAction_UserRoleChanged}
+                {GameMessage.ActionType.UserRoleChanged, CallbackAction_UserRoleChanged},
+                {GameMessage.ActionType.PrimaryWordCharOpened, CallbackAction_PrimaryWordCharOpened},
             };
+
+        private static void CallbackAction_PrimaryWordCharOpened(object arg)
+        {
+            mainWindow.Dispatcher.Invoke(() => { gameState.NumberOfOpenChars++; });
+        }
 
         private static void CallbackAction_UserRoleChanged(object arg)
         {
@@ -32,14 +38,17 @@ namespace Contact.Client
             var user = tuple.Item1;
             var role = tuple.Item2;
 
-            if (user.Id == gameState.Me.Id)
-                gameState.Me.role = role;
+            mainWindow.Dispatcher.Invoke(() =>
+                {
+                    if (user.Id == gameState.Me.Id)
+                        gameState.Me.role = role;
 
-            foreach (var curUser in gameState.Users)
-            {
-                if (curUser.Id == user.Id)
-                    curUser.role = role;
-            }
+                    foreach (var curUser in gameState.Users)
+                    {
+                        if (curUser.Id == user.Id)
+                            curUser.role = role;
+                    }
+                });
         }
 
         private static void CallbackAction_VarOfCurWordChanged(object arg)

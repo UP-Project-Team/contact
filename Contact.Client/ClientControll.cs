@@ -15,6 +15,7 @@ namespace Contact.Client
         private static MainWindow mainWindow;
         public static GameView gameState;
         public static LoginWindow loginWindow;
+
         // actual application start point at the moment
         // MOVE IT SOMEWHERE ELSE? maybe make it static?
         public static void Run()
