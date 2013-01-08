@@ -17,11 +17,17 @@ namespace Contact.Server
                 {GameState.State.NotStarted, Int32.MaxValue},
                 {GameState.State.HaveCurrentWord, 20*1000},
                 {GameState.State.HaveCurrentWordVariant, 5*1000},
-                {GameState.State.VotingForPlayersWords, 10*1000}
+                {GameState.State.VotingForPlayersWords, 10*1000},
+                {GameState.State.GameOver, Int32.MaxValue}
             };
 
         public static int Duration(GameState.State state)
         {
+            if (!StateDurationTime.ContainsKey(state))
+            {
+                LogSaver.Log("[!!!] StateDurationTime не установлено! в Timing");
+                throw new Exception("StateDurationTime не установлено");
+            }
             return StateDurationTime[state];
         }
     }
@@ -41,7 +47,7 @@ namespace Contact.Server
             {
                 {GameState.State.HaveCurrentWord, this.HaveCurrentWordTimeout},
                 {GameState.State.HaveCurrentWordVariant, this.HaveCurrentWordVariantTimeout},
-                {GameState.State.VotingForPlayersWords, this.VotingForPlayersWordsTimeout}
+                {GameState.State.VotingForPlayersWords, this.VotingForPlayersWordsTimeout},
             };
 
             stateTimer = new System.Timers.Timer();
@@ -88,7 +94,8 @@ namespace Contact.Server
         {
             LogSaver.Log("VotingForPlayersWords Timeout");
             User contacter, questioner;
-            bool win = false;
+            bool openLetter = false;
+            bool winGame = false;
 
             lock (gameState)
             {
@@ -108,29 +115,34 @@ namespace Contact.Server
                 {
                     gameState.NumberOfOpenChars++;
 
-                    if (gameState.NumberOfOpenChars == gameState.PrimaryWord.Length) ; // TODO: слово отгадано по буквам стейт
-
-                    win = true;
+                    if (gameState.NumberOfOpenChars == gameState.PrimaryWord.Length) winGame=true;
+                    else
+                    openLetter = true;
                 }
 
 
                 // сбросить роли
                 contacter = gameState.Users.Single(user => user.role == User.Role.Contacter);
                 contacter.role = User.Role.None;
-                //TODO: раскоментить когда рольв опрошающего будет проставляться
+                //TODO: раскоментить когда роль вопрошающего будет проставляться
                 //questioner = gameState.Users.Single(user => user.role == User.Role.Qwestioner);
                 //questioner.role = User.Role.None;
             }
 
             //разослать изменения
             BroadcastMessage(GameMessage.UserRoleChangedMessage(contacter, User.Role.None));
-            //TODO: раскоментить когда рольв опрошающего будет проставляться
+            //TODO: раскоментить когда роль вопрошающего будет проставляться
             //BroadcastMessage(GameMessage.UserRoleChangedMessage(questioner, User.Role.None));
-            if(win) 
+
+            if(openLetter) 
                 BroadcastMessage(GameMessage.PrimaryWordCharOpened());
 
-            ChangeState(GameState.State.HaveCurrentWord);
+            if(winGame)
+                ChangeState(GameState.State.GameOver);
+            else
+                ChangeState(GameState.State.HaveCurrentWord); // TODO: переходить в нужное состояние
 
+            LogSaver.Log("VotingForPlayersWords Timeout end");
         }
         #endregion
     }

@@ -46,7 +46,8 @@ namespace Contact.Client
                 new Tuple<UIElement, Func<bool>>(btnStartGame, () => ClientControll.gameState.State==GameService.GameState.State.NotStarted),
                 new Tuple<UIElement, Func<bool>>(HaveCurrentWord, () => ClientControll.gameState.State==GameService.GameState.State.HaveCurrentWord),
                 new Tuple<UIElement, Func<bool>>(HaveCurrentWordVariant, () => ClientControll.gameState.State==GameService.GameState.State.HaveCurrentWordVariant),
-                new Tuple<UIElement, Func<bool>>(VotingForPlayersWords, () => ClientControll.gameState.State==GameService.GameState.State.VotingForPlayersWords)
+                new Tuple<UIElement, Func<bool>>(VotingForPlayersWords, () => ClientControll.gameState.State==GameService.GameState.State.VotingForPlayersWords),
+                new Tuple<UIElement, Func<bool>>(GameOver, () => ClientControll.gameState.State==GameService.GameState.State.GameOver)
             };
             UpdateStatesVisibility();
         }

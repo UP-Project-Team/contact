@@ -62,6 +62,7 @@
       <xs:enumeration value="HaveCurrentWordVariant" />
       <xs:enumeration value="VotingForHostWord" />
       <xs:enumeration value="VotingForPlayersWords" />
+      <xs:enumeration value="GameOver" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="GameState.State" nillable="true" type="tns:GameState.State" />

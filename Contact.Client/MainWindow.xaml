@@ -26,6 +26,13 @@
             Name="btnStartGame"
             Click="btnStartGame_Click">Go</Button>
 
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Name="GameOver" Grid.Column="0">
+            <Label HorizontalAlignment="Center">Раунд окончен!</Label>
+            <Label Content="{Binding Path=PrimaryWord}"/>
+            
+            <Button Click="btnStartGame_Click" MaxWidth="200">Начать новый раунд</Button>
+        </StackPanel>
+
         <StackPanel Grid.Column="0" Name="HaveCurrentWord">
             <Label Content="{Binding Path=PrimaryWordKnownLetters}"/>
             <Label Content="{Binding Path=Question}"></Label>

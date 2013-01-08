@@ -451,6 +451,9 @@ namespace Contact.Client.GameService {
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
             VotingForPlayersWords = 4,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            GameOver = 5,
         }
     }
     

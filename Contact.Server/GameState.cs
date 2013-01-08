@@ -14,7 +14,8 @@ namespace Contact.Server
             HaveCurrentWord,
             HaveCurrentWordVariant,
             VotingForHostWord,
-            VotingForPlayersWords
+            VotingForPlayersWords,
+            GameOver
         }
 
         [DataMember]
@@ -75,7 +76,7 @@ namespace Contact.Server
             state = State.NotStarted;
 
             //TODO: remove this
-            PrimaryWord = "железа";
+            PrimaryWord = "жел";
             NumberOfOpenChars = 2;
             Question = "Куй!";
             CurrentWord = "железо";   
