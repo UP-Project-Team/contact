@@ -32,7 +32,7 @@
       <xs:element minOccurs="0" name="ChiefWord" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CurrentWord" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumberOfOpenChars" type="xs:int" />
-      <xs:element minOccurs="0" name="PrimaryWordKnownLetters" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PrimaryWord" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Question" nillable="true" type="xs:string" />
       <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="UsedWords" nillable="true" type="q1:ArrayOfstring" />
       <xs:element minOccurs="0" name="Users" nillable="true" type="tns:ArrayOfUser" />
@@ -63,6 +63,7 @@
       <xs:enumeration value="HaveCurrentWordVariant" />
       <xs:enumeration value="VotingForHostWord" />
       <xs:enumeration value="VotingForPlayersWords" />
+      <xs:enumeration value="GameOver" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="GameState.State" nillable="true" type="tns:GameState.State" />
@@ -78,6 +79,10 @@
       <xs:enumeration value="UserLeftRoom" />
       <xs:enumeration value="UserJoinedRoom" />
       <xs:enumeration value="StateChanged" />
+      <xs:enumeration value="VarOfCurWordChanged" />
+      <xs:enumeration value="UserRoleChanged" />
+      <xs:enumeration value="PrimaryWordCharOpened" />
+      <xs:enumeration value="UsedWordAdded" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="GameMessage.ActionType" nillable="true" type="tns:GameMessage.ActionType" />

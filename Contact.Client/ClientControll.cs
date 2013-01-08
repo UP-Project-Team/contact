@@ -14,7 +14,7 @@ namespace Contact.Client
         private static GameServiceClient proxy;
         private static MainWindow mainWindow;
         public static GameView gameState;
-        public static UserData Me { get; private set; }
+        public static LoginWindow loginWindow;
 
         // actual application start point at the moment
         // MOVE IT SOMEWHERE ELSE? maybe make it static?
@@ -24,58 +24,79 @@ namespace Contact.Client
             var instanceContext = new InstanceContext(new ClientCallback());
             proxy = new GameServiceClient(instanceContext);
 
-            // create and show main window
             mainWindow = new MainWindow();
             gameState = new GameView();
             mainWindow.DataContext = gameState;
             gameState.PropertyChanged += mainWindow.gameState_PropertyChanged;
-
             mainWindow.Show();
-        }
 
-        public static async void Login(string name, string password)
+            //create login form
+            loginWindow = new LoginWindow(mainWindow);
+            loginWindow.Show();         
+            
+            // create and show main window
+            
+            loginWindow.Focus();
+            mainWindow.IsEnabled = false;
+
+        }
+        public static async void Registration(string name, string password)
         {
-            LogSaver.Log("Trying to login");
+            LogSaver.Log("Trying to registr");
             try
             {
-                Me = await proxy.LoginAsync(name, password);                
+                await proxy.RegistrationAsync(name, password);
+            }
+            catch (FaultException<GameException> e)
+            {
+                MessageBox.Show(e.Detail.Message);
+            }
+        } 
+        public static async void Login(string name, string password)
+        {            
+            LogSaver.Log("Trying to login");            
+            try
+            {
+                gameState.Me = await proxy.LoginAsync(name, password);
                 // TODO: do this not here
                 GetState();
+                mainWindow.IsEnabled = true;
+                loginWindow.Close();
+            }
+            catch (FaultException<GameException> e)
+            {
+                MessageBox.Show(e.Detail.Message);
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
-
-            //TODO: do exception instead of this
-            if (Me.Id == -1)
-                mainWindow.Close();
         }
 
         public static void Logoff()
         {
-            proxy.Logoff(Me.Token);
+            proxy.Logoff(gameState.Me.Token);
         }
 
         public static void GetState()
         {
-            var state = proxy.GetState(Me.Token);
+            var state = proxy.GetState(gameState.Me.Token);
             gameState.UpdateFromGameState(state);
         }
 
         public static void StartGame()
         {
-            proxy.StartGame(Me.Token);
+            proxy.StartGame(gameState.Me.Token);
         }
 
         public static async void AskQuestion(string question)
         {
-            if (Me.role == User.Role.Host)
+            if (gameState.Me.role == User.Role.Host)
             {
                 try
                 {
-                    await proxy.AskQuestionAsync(Me.Token, question);
-                    Me.role = User.Role.Qwestioner;
+                    await proxy.AskQuestionAsync(gameState.Me.Token, question);
+                    gameState.Me.role = User.Role.Qwestioner;
                     GetState();
                 }
                 catch (Exception e) //TODO: catch real exceptions
@@ -93,12 +114,33 @@ namespace Contact.Client
         {
             try
             {
-                await proxy.GiveCurrentWordVariantAsync(Me.Token, answer);
+                await proxy.GiveCurrentWordVariantAsync(gameState.Me.Token, answer);
             }
-            catch (Exception e) //TODO: catch real exceptions
+            catch (FaultException<GameException> e)
+            {
+                MessageBox.Show(e.Detail.Message);
+            }
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
         }
+
+        public static async void VoteForPlayerWord(int wordId, bool up)
+        {
+            try
+            {
+                await proxy.VoteForPlayerWordAsync(gameState.Me.Token, wordId, up);
+            }
+            catch (FaultException<GameException> e)
+            {
+                MessageBox.Show(e.Detail.Message);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+        
     }
 }

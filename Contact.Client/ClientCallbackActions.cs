@@ -21,8 +21,53 @@ namespace Contact.Client
             {
                 {GameMessage.ActionType.UserJoinedRoom, CallbackAction_UserJoinedRoom},
                 {GameMessage.ActionType.UserLeftRoom, CallbackAction_UserLeftRoom},
-                {GameMessage.ActionType.StateChanged, CallbackAction_StateChanged}
+                {GameMessage.ActionType.StateChanged, CallbackAction_StateChanged},
+                {GameMessage.ActionType.VarOfCurWordChanged, CallbackAction_VarOfCurWordChanged},
+                {GameMessage.ActionType.UserRoleChanged, CallbackAction_UserRoleChanged},
+                {GameMessage.ActionType.PrimaryWordCharOpened, CallbackAction_PrimaryWordCharOpened},
+                {GameMessage.ActionType.UsedWordAdded, CallbackAction_UsedWordAdded}
             };
+
+        private static void CallbackAction_UsedWordAdded(object arg)
+        {
+            var word = (string) arg;
+            mainWindow.Dispatcher.Invoke(() => gameState.UsedWords.Add(word));
+        }
+
+        private static void CallbackAction_PrimaryWordCharOpened(object arg)
+        {
+            mainWindow.Dispatcher.Invoke(() => { gameState.NumberOfOpenChars++; });
+        }
+
+        private static void CallbackAction_UserRoleChanged(object arg)
+        {
+            var tuple = (Tuple<User, User.Role>) arg;
+            var user = tuple.Item1;
+            var role = tuple.Item2;
+
+            mainWindow.Dispatcher.Invoke(() =>
+                {
+                    if (user.Id == gameState.Me.Id)
+                        gameState.Me.role = role;
+
+                    foreach (var curUser in gameState.Users)
+                    {
+                        if (curUser.Id == user.Id)
+                            curUser.role = role;
+                    }
+                });
+        }
+
+        private static void CallbackAction_VarOfCurWordChanged(object arg)
+        {
+            var word = (string) arg;
+            mainWindow.Dispatcher.Invoke(() =>
+                {
+                    gameState.VarOfCurWord = word;
+                });
+
+            LogSaver.Log("VarOfCurWordChanged "+word);
+        }
 
         private static void CallbackAction_UserJoinedRoom(object arg)
         {
@@ -53,9 +98,13 @@ namespace Contact.Client
         // Process message
         public static void ChangeClientView(GameMessage message)
         {
-            if(!CallbackActions.ContainsKey(message.actionType))
-                throw new NotImplementedException("Callback action for GameMessage.ActionType="+message.actionType.ToString()+" not implemented");
-
+            if (!CallbackActions.ContainsKey(message.actionType))
+            {
+                LogSaver.Log("Callback action for GameMessage.ActionType=" +
+                                                  message.actionType.ToString() + " not implemented");
+                throw new NotImplementedException("Callback action for GameMessage.ActionType=" +
+                                                  message.actionType.ToString() + " not implemented");
+            }
             //Call appropriate function
             CallbackActions[message.actionType](message.actionAgrument);
         }

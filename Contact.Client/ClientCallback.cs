@@ -11,7 +11,7 @@ namespace Contact.Client
     {
         public void Notify(GameMessage msg)
         {
-            LogSaver.Log("Callback invoked");
+            LogSaver.Log("Callback invoked "+msg.actionType.ToString());
             ClientControll.ChangeClientView(msg);
         }
     }

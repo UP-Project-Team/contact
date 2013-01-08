@@ -32,7 +32,7 @@ namespace Contact.Client
         }
 
         private ObservableCollection<string> _usedWords = new ObservableCollection<string>(); 
-        public ObservableCollection<string> UserdWords
+        public ObservableCollection<string> UsedWords
         {
             get { return _usedWords; }
             set 
@@ -100,19 +100,46 @@ namespace Contact.Client
                 if (value == _numberOfOpenChars) return;
                 _numberOfOpenChars = value;
                 OnPropertyChanged("NumberOfOpenChars");
+                OnPropertyChanged("PrimaryWordKnownLetters");
             }
         }
 
-        private string _primaryWordKnownLetters;
-        public string PrimaryWordKnownLetters
+
+        private string _primaryWord;
+        public string PrimaryWord
         {
-            get { return _primaryWordKnownLetters; }
+            get { return _primaryWord; }
             set
             {
-                if (value == _primaryWordKnownLetters) return;
-                _primaryWordKnownLetters = value;
+                if(value == _primaryWord) return;
+                _primaryWord = value;
+                OnPropertyChanged("PrimaryWord");
                 OnPropertyChanged("PrimaryWordKnownLetters");
             }
+        }
+
+
+        public string PrimaryWordKnownLetters
+        {
+            get { return PrimaryWord.Substring(0, NumberOfOpenChars); }
+        }
+
+        private UserData _me;
+        public UserData Me
+        {
+            get { return _me; }
+            set 
+            {
+                if (value == _me) return;
+                _me = value;
+                _me.PropertyChanged += _me_PropertyChanged;
+                OnPropertyChanged("Me");
+            }
+        }
+
+        void _me_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged("Me."+e.PropertyName);
         }
 
 
@@ -140,7 +167,7 @@ namespace Contact.Client
         public void UpdateFromGameState(GameState state)
         {
             Users = new ObservableCollection<User>(state.Users);
-            UserdWords = new ObservableCollection<string>(state.UsedWords);
+            UsedWords = new ObservableCollection<string>(state.UsedWords);
 
             // maybe some better way exists?
             State = state.state;
@@ -149,7 +176,7 @@ namespace Contact.Client
             NumberOfOpenChars = state.NumberOfOpenChars;
             ChiefWord = state.ChiefWord;
             Question = state.Question;
-            PrimaryWordKnownLetters = state.PrimaryWordKnownLetters;
+            PrimaryWord = state.PrimaryWord;
         }
 
         public void AddUser(User user)
@@ -163,5 +190,6 @@ namespace Contact.Client
             var res = from t in Users where t.Id == user.Id select t;
             Users.Remove(res.First());
         }
+
     }
 }

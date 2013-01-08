@@ -17,11 +17,18 @@ namespace Contact.Server
                 {GameState.State.NotStarted, Int32.MaxValue},
                 {GameState.State.HaveNoCurrentWord, 20*10000},
                 {GameState.State.HaveCurrentWord, 20*1000},
-                {GameState.State.HaveCurrentWordVariant, 5*1000}
+                {GameState.State.HaveCurrentWordVariant, 5*1000},
+                {GameState.State.VotingForPlayersWords, 10*1000},
+                {GameState.State.GameOver, Int32.MaxValue}
             };
 
         public static int Duration(GameState.State state)
         {
+            if (!StateDurationTime.ContainsKey(state))
+            {
+                LogSaver.Log("[!!!] StateDurationTime не установлено! в Timing");
+                throw new Exception("StateDurationTime не установлено");
+            }
             return StateDurationTime[state];
         }
     }
@@ -40,7 +47,8 @@ namespace Contact.Server
             <GameState.State, StateTimeoutDelegate>
             {
                 {GameState.State.HaveCurrentWord, this.HaveCurrentWordTimeout},
-                {GameState.State.HaveCurrentWordVariant, this.HaveCurrentWordVariantTimeout}
+                {GameState.State.HaveCurrentWordVariant, this.HaveCurrentWordVariantTimeout},
+                {GameState.State.VotingForPlayersWords, this.VotingForPlayersWordsTimeout},
             };
 
             stateTimer = new System.Timers.Timer();
@@ -74,8 +82,76 @@ namespace Contact.Server
         private void HaveCurrentWordVariantTimeout()
         {
             LogSaver.Log("HaveCurrentWordVariant Timeout");
-            //TODO: remove stub and do actual logic
-            ChangeState(GameState.State.NotStarted);
+
+            lock (gameState)
+            {
+                gameState.PrepareForVoting(2);
+            }
+
+            ChangeState(GameState.State.VotingForPlayersWords);
+        }
+
+        private void VotingForPlayersWordsTimeout()
+        {
+            LogSaver.Log("VotingForPlayersWords Timeout");
+            User contacter, questioner;
+            bool openLetter = false;
+            bool winGame = false;
+            bool CurrentWordAccepted = false;
+            bool VarOfCurWordAccepted = false;
+
+            lock (gameState)
+            {
+                CurrentWordAccepted = gameState.votings[0].Accepted(gameState.Users.Count);
+                VarOfCurWordAccepted = gameState.votings[1].Accepted(gameState.Users.Count);
+
+
+                // добавить в список используемых
+                if (CurrentWordAccepted)
+                    gameState.UsedWords.Add(gameState.CurrentWord);
+
+                if (VarOfCurWordAccepted)
+                    gameState.UsedWords.Add(gameState.VarOfCurWord);
+
+
+                if (CurrentWordAccepted && VarOfCurWordAccepted) // игроки выиграли
+                {
+                    gameState.NumberOfOpenChars++;
+
+                    if (gameState.NumberOfOpenChars == gameState.PrimaryWord.Length) winGame=true;
+                    else openLetter = true;
+                }
+
+
+                // сбросить роли
+                contacter = gameState.Users.Single(user => user.role == User.Role.Contacter);
+                contacter.role = User.Role.None;
+                //TODO: раскоментить когда роль вопрошающего будет проставляться
+                //questioner = gameState.Users.Single(user => user.role == User.Role.Qwestioner);
+                //questioner.role = User.Role.None;
+            }
+
+            //разослать изменения
+            BroadcastMessage(GameMessage.UserRoleChangedMessage(contacter, User.Role.None));
+            //TODO: раскоментить когда роль вопрошающего будет проставляться
+            //BroadcastMessage(GameMessage.UserRoleChangedMessage(questioner, User.Role.None));
+
+            //Сообщить о добавленых словах 
+            if(CurrentWordAccepted)
+                BroadcastMessage(GameMessage.UsedWordAddedMessage(gameState.CurrentWord)); // TODO: а это безопасно?
+            if(VarOfCurWordAccepted)
+                BroadcastMessage(GameMessage.UsedWordAddedMessage(gameState.VarOfCurWord));
+
+
+            if(openLetter) 
+                BroadcastMessage(GameMessage.PrimaryWordCharOpened());
+
+            if(winGame)
+                ChangeState(GameState.State.GameOver);
+            else
+                ChangeState(GameState.State.HaveCurrentWord); // TODO: переходить в нужное состояние
+
+            LogSaver.Log("VotingForPlayersWords Timeout end");
         }
         #endregion
     }

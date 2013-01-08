@@ -19,12 +19,20 @@ namespace Contact.Server
         [OperationContract(IsInitiating = false, IsTerminating = false, IsOneWay=false)]
         GameState GetState(Guid token);
 
+        [OperationContract(IsInitiating = true, IsTerminating = false, IsOneWay=false)]
+        [FaultContract(typeof(GameException))]
+        void Registration(string name, string password);
+
         [OperationContract(IsInitiating = false, IsOneWay = true, IsTerminating = false)]
         void StartGame(Guid token);
 
         [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]
         [FaultContract(typeof(GameException))]
         void GiveCurrentWordVariant(Guid token, string word);
+
+        [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]
+        [FaultContract(typeof(GameException))]
+        void VoteForPlayerWord(Guid token, int wordId, bool up);
         
         [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]
         [FaultContract(typeof(GameException))]
@@ -43,13 +51,19 @@ namespace Contact.Server
     [DataContract]
     [KnownType(typeof(User))]
     [KnownType(typeof(GameState.State))]
+    [KnownType(typeof(User.Role))]
+    [KnownType(typeof(Tuple<User, User.Role>))]
     public class GameMessage
     {
         public enum ActionType
         {
             UserLeftRoom,
             UserJoinedRoom,
-            StateChanged
+            StateChanged,
+            VarOfCurWordChanged,
+            UserRoleChanged,
+            PrimaryWordCharOpened,
+            UsedWordAdded
         }
 
         [DataMember]
@@ -59,6 +73,21 @@ namespace Contact.Server
         public object actionAgrument { get; private set; }
 
         #region Message Constructors
+        public static GameMessage UsedWordAddedMessage(string word)
+        {
+            return new GameMessage {actionType = ActionType.UsedWordAdded, actionAgrument = word};
+        }
+
+        public static GameMessage PrimaryWordCharOpened()
+        {
+            return new GameMessage { actionType = ActionType.PrimaryWordCharOpened };
+        }
+
+        public static GameMessage UserRoleChangedMessage(User user, User.Role role)
+        {
+            return new GameMessage { actionType = ActionType.UserRoleChanged, actionAgrument  = new Tuple<User, User.Role>(user, role) };
+        }
+
         public static GameMessage UserLeftRoomMessage(User user)
         {
             return new GameMessage {actionType = ActionType.UserLeftRoom, actionAgrument = user};
@@ -72,6 +101,11 @@ namespace Contact.Server
         public static GameMessage StateChangedMessage(GameState.State state)
         {
             return new GameMessage {actionType = ActionType.StateChanged, actionAgrument = state};
+        }
+
+        public static GameMessage VarOfCurWordChangedMessage(string word)
+        {
+            return new GameMessage {actionType = ActionType.VarOfCurWordChanged, actionAgrument = word};
         }
         #endregion
     }

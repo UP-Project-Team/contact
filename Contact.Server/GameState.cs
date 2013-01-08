@@ -15,7 +15,8 @@ namespace Contact.Server
             HaveCurrentWord,
             HaveCurrentWordVariant,
             VotingForHostWord,
-            VotingForPlayersWords
+            VotingForPlayersWords,
+            GameOver
         }
 
         [DataMember]
@@ -24,8 +25,8 @@ namespace Contact.Server
         [DataMember]
         public State state { get; set; }
 
-
-        public string PrimaryWord=""; //не передавать юзерам ключевое слово целиком
+        [DataMember]
+        public string PrimaryWord=""; //передаем целиком, чтобы показывать ведущему
 
         [DataMember]
         public string CurrentWord = "";
@@ -45,8 +46,6 @@ namespace Contact.Server
         [DataMember]
         public string Question = "";
 
-        
-        [DataMember]
         public string PrimaryWordKnownLetters
         {
             get { return PrimaryWord.Substring(0, NumberOfOpenChars); }
@@ -65,16 +64,25 @@ namespace Contact.Server
             return UsedWords.Any(a => CurrentWord == a);
         }
 
+        public List<Voting> votings; 
+        public void PrepareForVoting(int amountOfVotings)
+        {
+            votings = new List<Voting>();
+            for (var i = 0; i < amountOfVotings; ++i)
+                votings.Add(new Voting());
+        }
+
         public GameState()
         {
             state = State.NotStarted;
 
             //TODO: remove this
-            PrimaryWord = "железа";
+            PrimaryWord = "жел";
             NumberOfOpenChars = 2;
             //Question = "Куй!";
             CurrentWord = "железо";   
         }
+
 
     }
 }
