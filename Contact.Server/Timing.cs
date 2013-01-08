@@ -16,7 +16,8 @@ namespace Contact.Server
             {
                 {GameState.State.NotStarted, Int32.MaxValue},
                 {GameState.State.HaveCurrentWord, 20*1000},
-                {GameState.State.HaveCurrentWordVariant, 5*1000}
+                {GameState.State.HaveCurrentWordVariant, 5*1000},
+                {GameState.State.VotingForPlayersWords, 10*1000}
             };
 
         public static int Duration(GameState.State state)
@@ -39,7 +40,8 @@ namespace Contact.Server
             <GameState.State, StateTimeoutDelegate>
             {
                 {GameState.State.HaveCurrentWord, this.HaveCurrentWordTimeout},
-                {GameState.State.HaveCurrentWordVariant, this.HaveCurrentWordVariantTimeout}
+                {GameState.State.HaveCurrentWordVariant, this.HaveCurrentWordVariantTimeout},
+                {GameState.State.VotingForPlayersWords, this.VotingForPlayersWordsTimeout}
             };
 
             stateTimer = new System.Timers.Timer();
@@ -73,7 +75,31 @@ namespace Contact.Server
         private void HaveCurrentWordVariantTimeout()
         {
             LogSaver.Log("HaveCurrentWordVariant Timeout");
-            //TODO: remove stub and do actual logic
+
+            lock (gameState)
+            {
+                gameState.PrepareForVoting(2);
+            }
+
+            ChangeState(GameState.State.VotingForPlayersWords);
+        }
+
+        private void VotingForPlayersWordsTimeout()
+        {
+            LogSaver.Log("VotingForPlayersWords Timeout");
+
+            lock (gameState)
+            {
+                bool first = gameState.votings[0].Accepted(gameState.Users.Count);
+                bool second = gameState.votings[1].Accepted(gameState.Users.Count);
+
+                //TODO: do actual business logic
+                if(first && second)
+                    LogSaver.Log("Players WIN");
+                else
+                    LogSaver.Log("Players LOSE");
+            }
+
             ChangeState(GameState.State.NotStarted);
         }
         #endregion

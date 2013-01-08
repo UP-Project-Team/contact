@@ -37,6 +37,7 @@ namespace Contact.Server
         {
             Id = id;
             Name = name;
+            role = Role.None;
             Token = Guid.NewGuid();
             // get and store callback on users side
             Callback = OperationContext.Current.GetCallbackChannel<IGameServiceCallback>();

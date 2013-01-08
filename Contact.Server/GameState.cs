@@ -64,6 +64,14 @@ namespace Contact.Server
             return UsedWords.Any(a => CurrentWord == a);
         }
 
+        public List<Voting> votings; 
+        public void PrepareForVoting(int amountOfVotings)
+        {
+            votings = new List<Voting>();
+            for (var i = 0; i < amountOfVotings; ++i)
+                votings.Add(new Voting());
+        }
+
         public GameState()
         {
             state = State.NotStarted;
@@ -74,6 +82,7 @@ namespace Contact.Server
             Question = "Куй!";
             CurrentWord = "железо";   
         }
+
 
     }
 }

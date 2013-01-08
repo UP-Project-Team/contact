@@ -45,7 +45,8 @@ namespace Contact.Client
             {
                 new Tuple<UIElement, Func<bool>>(btnStartGame, () => ClientControll.gameState.State==GameService.GameState.State.NotStarted),
                 new Tuple<UIElement, Func<bool>>(HaveCurrentWord, () => ClientControll.gameState.State==GameService.GameState.State.HaveCurrentWord),
-                new Tuple<UIElement, Func<bool>>(HaveCurrentWordVariant, () => ClientControll.gameState.State==GameService.GameState.State.HaveCurrentWordVariant)
+                new Tuple<UIElement, Func<bool>>(HaveCurrentWordVariant, () => ClientControll.gameState.State==GameService.GameState.State.HaveCurrentWordVariant),
+                new Tuple<UIElement, Func<bool>>(VotingForPlayersWords, () => ClientControll.gameState.State==GameService.GameState.State.VotingForPlayersWords)
             };
             UpdateStatesVisibility();
         }
@@ -65,5 +66,25 @@ namespace Contact.Client
         }
 
         #endregion
+
+        private void btnCurrentWordVoteUp_Click(object sender, RoutedEventArgs e)
+        {
+            ClientControll.VoteForPlayerWord(0, true);
+        }
+
+        private void btnVarOfCurWordVoteUp_Click(object sender, RoutedEventArgs e)
+        {
+            ClientControll.VoteForPlayerWord(1, true);
+        }
+
+        private void btnCurrentWordVoteDown_Click(object sender, RoutedEventArgs e)
+        {
+            ClientControll.VoteForPlayerWord(0, false);
+        }
+
+        private void btnVarOfCurWordVoteDown_Click(object sender, RoutedEventArgs e)
+        {
+            ClientControll.VoteForPlayerWord(1, false);
+        }
     }
 }

@@ -104,5 +104,9 @@ namespace Contact.Server
             Rooms[user.RoomId].AcceptCurrentWordVariant(user, word);
         }
 
+        public static void VoteForPlayerWord(User user, int wordId, bool up)
+        {
+            Rooms[user.RoomId].VoteForPlayerWord(user, wordId, up);
+        }
     }
 }

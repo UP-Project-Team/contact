@@ -54,5 +54,13 @@ namespace Contact.Server
             LogSaver.Log("GiveCurrentWordVariant userId="+user.Id);
             RoomControll.GiveCurrentWordVariant(user, word);
         }
+
+
+        public void VoteForPlayerWord(Guid token, int wordId, bool up)
+        {
+            var user = RoomControll.GetUserByToken(token);
+            LogSaver.Log("VoteForPlayerWord userId=" + user.Id + " word=" + wordId + (up ? "up" : "down"));
+            RoomControll.VoteForPlayerWord(user, wordId, up);
+        }
     }
 }

@@ -56,17 +56,21 @@ namespace Contact.Client
         {            
             LogSaver.Log("Trying to login");            
             try
-            {                
-                Me = await proxy.LoginAsync(name, password);                
+            {
+                Me = await proxy.LoginAsync(name, password);
                 // TODO: do this not here
                 GetState();
                 mainWindow.IsEnabled = true;
-                loginWindow.Close();                
+                loginWindow.Close();
             }
             catch (FaultException<GameException> e)
             {
                 MessageBox.Show(e.Detail.Message);
-            }              
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         public static void Logoff()
@@ -87,7 +91,6 @@ namespace Contact.Client
 
         public static async void GiveCurrentWordVariant(string answer)
         {
-
             try
             {
                 await proxy.GiveCurrentWordVariantAsync(Me.Token, answer);
@@ -98,6 +101,21 @@ namespace Contact.Client
             }
         }
 
+        public static async void VoteForPlayerWord(int wordId, bool up)
+        {
+            try
+            {
+                await proxy.VoteForPlayerWordAsync(Me.Token, wordId, up);
+            }
+            catch (FaultException<GameException> e)
+            {
+                MessageBox.Show(e.Detail.Message);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
         
     }
 }

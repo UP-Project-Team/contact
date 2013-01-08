@@ -71,6 +71,17 @@ namespace Contact.Server
             }
         }
 
+        public void VoteForPlayerWord(User user, int wordId, bool up)
+        {
+            lock (gameState)
+            {
+               if(user.role != User.Role.None)
+                   GameException.Throw("Вы не можете голосовать");
+
+                gameState.votings[wordId].Vote(user, up);
+            }
+        }
+
         public void StartGame()
         {
             //TODO: start with normal state
