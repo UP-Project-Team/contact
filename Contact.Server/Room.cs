@@ -62,13 +62,27 @@ namespace Contact.Server
 
         public void AcceptCurrentWordVariant(User user, string word)
         {
+            if (user.role != User.Role.None)
+            {
+                LogSaver.Log("!!! AcceptCurrentWordVariant invoked user "+user.Id+" role "+user.role.ToString());
+                GameException.Throw("Вы не можете так делать");
+            }
+
             lock (gameState)
             {
-                if (!word.StartsWith(gameState.PrimaryWordKnownLetters)) return;
+                if(gameState.UsedWords.Contains(word))
+                    GameException.Throw("Это слово уже использовалось");
+
+                if (!word.StartsWith(gameState.PrimaryWordKnownLetters))
+                    GameException.Throw("Слово должно начинаться с открытых букв");
 
                 gameState.VarOfCurWord = word;
-                ChangeState(GameState.State.HaveCurrentWordVariant);
+                user.role=User.Role.Contacter;
             }
+            
+            BroadcastMessage(GameMessage.UserRoleChangedMessage(user, User.Role.Contacter));
+            BroadcastMessage(GameMessage.VarOfCurWordChangedMessage(word));
+            ChangeState(GameState.State.HaveCurrentWordVariant);
         }
 
         public void VoteForPlayerWord(User user, int wordId, bool up)

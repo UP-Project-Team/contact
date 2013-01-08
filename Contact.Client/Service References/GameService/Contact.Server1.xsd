@@ -77,6 +77,8 @@
       <xs:enumeration value="UserLeftRoom" />
       <xs:enumeration value="UserJoinedRoom" />
       <xs:enumeration value="StateChanged" />
+      <xs:enumeration value="VarOfCurWordChanged" />
+      <xs:enumeration value="UserRoleChanged" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="GameMessage.ActionType" nillable="true" type="tns:GameMessage.ActionType" />

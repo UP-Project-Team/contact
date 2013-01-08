@@ -21,8 +21,37 @@ namespace Contact.Client
             {
                 {GameMessage.ActionType.UserJoinedRoom, CallbackAction_UserJoinedRoom},
                 {GameMessage.ActionType.UserLeftRoom, CallbackAction_UserLeftRoom},
-                {GameMessage.ActionType.StateChanged, CallbackAction_StateChanged}
+                {GameMessage.ActionType.StateChanged, CallbackAction_StateChanged},
+                {GameMessage.ActionType.VarOfCurWordChanged, CallbackAction_VarOfCurWordChanged},
+                {GameMessage.ActionType.UserRoleChanged, CallbackAction_UserRoleChanged}
             };
+
+        private static void CallbackAction_UserRoleChanged(object arg)
+        {
+            var tuple = (Tuple<User, User.Role>) arg;
+            var user = tuple.Item1;
+            var role = tuple.Item2;
+
+            if (user.Id == gameState.Me.Id)
+                gameState.Me.role = role;
+
+            foreach (var curUser in gameState.Users)
+            {
+                if (curUser.Id == user.Id)
+                    curUser.role = role;
+            }
+        }
+
+        private static void CallbackAction_VarOfCurWordChanged(object arg)
+        {
+            var word = (string) arg;
+            mainWindow.Dispatcher.Invoke(() =>
+                {
+                    gameState.VarOfCurWord = word;
+                });
+
+            LogSaver.Log("VarOfCurWordChanged "+word);
+        }
 
         private static void CallbackAction_UserJoinedRoom(object arg)
         {

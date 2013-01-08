@@ -14,7 +14,6 @@ namespace Contact.Client
         private static GameServiceClient proxy;
         private static MainWindow mainWindow;
         public static GameView gameState;
-        public static UserData Me { get; private set; }
         public static LoginWindow loginWindow;
         // actual application start point at the moment
         // MOVE IT SOMEWHERE ELSE? maybe make it static?
@@ -57,7 +56,7 @@ namespace Contact.Client
             LogSaver.Log("Trying to login");            
             try
             {
-                Me = await proxy.LoginAsync(name, password);
+                gameState.Me = await proxy.LoginAsync(name, password);
                 // TODO: do this not here
                 GetState();
                 mainWindow.IsEnabled = true;
@@ -75,27 +74,31 @@ namespace Contact.Client
 
         public static void Logoff()
         {
-            proxy.Logoff(Me.Token);
+            proxy.Logoff(gameState.Me.Token);
         }
 
         public static void GetState()
         {
-            var state = proxy.GetState(Me.Token);
+            var state = proxy.GetState(gameState.Me.Token);
             gameState.UpdateFromGameState(state);
         }
 
         public static void StartGame()
         {
-            proxy.StartGame(Me.Token);
+            proxy.StartGame(gameState.Me.Token);
         }
 
         public static async void GiveCurrentWordVariant(string answer)
         {
             try
             {
-                await proxy.GiveCurrentWordVariantAsync(Me.Token, answer);
+                await proxy.GiveCurrentWordVariantAsync(gameState.Me.Token, answer);
             }
-            catch (Exception e) //TODO: catch real exceptions
+            catch (FaultException<GameException> e)
+            {
+                MessageBox.Show(e.Detail.Message);
+            }
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
@@ -105,7 +108,7 @@ namespace Contact.Client
         {
             try
             {
-                await proxy.VoteForPlayerWordAsync(Me.Token, wordId, up);
+                await proxy.VoteForPlayerWordAsync(gameState.Me.Token, wordId, up);
             }
             catch (FaultException<GameException> e)
             {

@@ -467,6 +467,7 @@ namespace Contact.Client.GameService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.GameState.State))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.GameMessage.ActionType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(string[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<Contact.Client.GameService.User, Contact.Client.GameService.User.Role>))]
     public partial class GameMessage : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -535,6 +536,12 @@ namespace Contact.Client.GameService {
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
             StateChanged = 2,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            VarOfCurWordChanged = 3,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            UserRoleChanged = 4,
         }
     }
     

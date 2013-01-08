@@ -115,6 +115,24 @@ namespace Contact.Client
             }
         }
 
+        private UserData _me;
+        public UserData Me
+        {
+            get { return _me; }
+            set 
+            {
+                if (value == _me) return;
+                _me = value;
+                _me.PropertyChanged += _me_PropertyChanged;
+                OnPropertyChanged("Me");
+            }
+        }
+
+        void _me_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged("Me."+e.PropertyName);
+        }
+
 
         #endregion
 
@@ -163,5 +181,6 @@ namespace Contact.Client
             var res = from t in Users where t.Id == user.Id select t;
             Users.Remove(res.First());
         }
+
     }
 }

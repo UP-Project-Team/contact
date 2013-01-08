@@ -48,13 +48,17 @@ namespace Contact.Server
     [DataContract]
     [KnownType(typeof(User))]
     [KnownType(typeof(GameState.State))]
+    [KnownType(typeof(User.Role))]
+    [KnownType(typeof(Tuple<User, User.Role>))]
     public class GameMessage
     {
         public enum ActionType
         {
             UserLeftRoom,
             UserJoinedRoom,
-            StateChanged
+            StateChanged,
+            VarOfCurWordChanged,
+            UserRoleChanged
         }
 
         [DataMember]
@@ -64,6 +68,11 @@ namespace Contact.Server
         public object actionAgrument { get; private set; }
 
         #region Message Constructors
+        public static GameMessage UserRoleChangedMessage(User user, User.Role role)
+        {
+            return new GameMessage { actionType = ActionType.UserRoleChanged, actionAgrument  = new Tuple<User, User.Role>(user, role) };
+        }
+
         public static GameMessage UserLeftRoomMessage(User user)
         {
             return new GameMessage {actionType = ActionType.UserLeftRoom, actionAgrument = user};
@@ -77,6 +86,11 @@ namespace Contact.Server
         public static GameMessage StateChangedMessage(GameState.State state)
         {
             return new GameMessage {actionType = ActionType.StateChanged, actionAgrument = state};
+        }
+
+        public static GameMessage VarOfCurWordChangedMessage(string word)
+        {
+            return new GameMessage {actionType = ActionType.VarOfCurWordChanged, actionAgrument = word};
         }
         #endregion
     }

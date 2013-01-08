@@ -17,7 +17,9 @@
                 </WrapPanel>
             </DataTemplate>
         </Grid.Resources>
-
+        
+        <Label Grid.Column="0" VerticalAlignment="Bottom" Content="{Binding Path=Me.role}"/>
+        
         <Button 
             Grid.Column="0" 
             MaxHeight="20" MaxWidth="100" 
