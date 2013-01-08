@@ -60,10 +60,22 @@
             </StackPanel>
         </StackPanel>
         
-        <StackPanel Grid.Column="1">
-            <Label Name="lblUsersOnline">Online users</Label>
-            <ListBox Name="lstUsersOnline" MinWidth="100" ItemsSource="{Binding Path=Users}" ItemTemplate="{StaticResource UserItemTemplate}"></ListBox>
-        </StackPanel>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <StackPanel Grid.Row="0">
+                <Label Name="lblUsersOnline">Online users</Label>
+                <ListBox Name="lstUsersOnline" MinWidth="100" ItemsSource="{Binding Path=Users}" ItemTemplate="{StaticResource UserItemTemplate}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1">
+                <Label Name="lblUsedWords">UsedWords</Label>
+                <ListBox Name="lstUsedWords" MinWidth="100" ItemsSource="{Binding Path=UsedWords}"/>
+            </StackPanel>
+        </Grid>
+        
        
 
     </Grid>

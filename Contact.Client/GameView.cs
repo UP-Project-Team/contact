@@ -32,7 +32,7 @@ namespace Contact.Client
         }
 
         private ObservableCollection<string> _usedWords = new ObservableCollection<string>(); 
-        public ObservableCollection<string> UserdWords
+        public ObservableCollection<string> UsedWords
         {
             get { return _usedWords; }
             set 
@@ -167,7 +167,7 @@ namespace Contact.Client
         public void UpdateFromGameState(GameState state)
         {
             Users = new ObservableCollection<User>(state.Users);
-            UserdWords = new ObservableCollection<string>(state.UsedWords);
+            UsedWords = new ObservableCollection<string>(state.UsedWords);
 
             // maybe some better way exists?
             State = state.state;

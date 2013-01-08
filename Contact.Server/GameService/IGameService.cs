@@ -59,7 +59,8 @@ namespace Contact.Server
             StateChanged,
             VarOfCurWordChanged,
             UserRoleChanged,
-            PrimaryWordCharOpened
+            PrimaryWordCharOpened,
+            UsedWordAdded
         }
 
         [DataMember]
@@ -69,6 +70,11 @@ namespace Contact.Server
         public object actionAgrument { get; private set; }
 
         #region Message Constructors
+        public static GameMessage UsedWordAddedMessage(string word)
+        {
+            return new GameMessage {actionType = ActionType.UsedWordAdded, actionAgrument = word};
+        }
+
         public static GameMessage PrimaryWordCharOpened()
         {
             return new GameMessage { actionType = ActionType.PrimaryWordCharOpened };

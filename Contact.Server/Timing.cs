@@ -96,28 +96,29 @@ namespace Contact.Server
             User contacter, questioner;
             bool openLetter = false;
             bool winGame = false;
+            bool CurrentWordAccepted = false;
+            bool VarOfCurWordAccepted = false;
 
             lock (gameState)
             {
-                bool first = gameState.votings[0].Accepted(gameState.Users.Count);
-                bool second = gameState.votings[1].Accepted(gameState.Users.Count);
+                CurrentWordAccepted = gameState.votings[0].Accepted(gameState.Users.Count);
+                VarOfCurWordAccepted = gameState.votings[1].Accepted(gameState.Users.Count);
 
 
                 // добавить в список используемых
-                if (first) //TODO: broadcast this to users
+                if (CurrentWordAccepted)
                     gameState.UsedWords.Add(gameState.CurrentWord);
 
-                if (second) //TODO: broadcast this to users
+                if (VarOfCurWordAccepted)
                     gameState.UsedWords.Add(gameState.VarOfCurWord);
 
 
-                if (first && second) // игроки выиграли
+                if (CurrentWordAccepted && VarOfCurWordAccepted) // игроки выиграли
                 {
                     gameState.NumberOfOpenChars++;
 
                     if (gameState.NumberOfOpenChars == gameState.PrimaryWord.Length) winGame=true;
-                    else
-                    openLetter = true;
+                    else openLetter = true;
                 }
 
 
@@ -133,6 +134,13 @@ namespace Contact.Server
             BroadcastMessage(GameMessage.UserRoleChangedMessage(contacter, User.Role.None));
             //TODO: раскоментить когда роль вопрошающего будет проставляться
             //BroadcastMessage(GameMessage.UserRoleChangedMessage(questioner, User.Role.None));
+
+            //Сообщить о добавленых словах 
+            if(CurrentWordAccepted)
+                BroadcastMessage(GameMessage.UsedWordAddedMessage(gameState.CurrentWord)); // TODO: а это безопасно?
+            if(VarOfCurWordAccepted)
+                BroadcastMessage(GameMessage.UsedWordAddedMessage(gameState.VarOfCurWord));
+
 
             if(openLetter) 
                 BroadcastMessage(GameMessage.PrimaryWordCharOpened());

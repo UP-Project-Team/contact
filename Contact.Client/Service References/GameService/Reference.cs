@@ -548,6 +548,9 @@ namespace Contact.Client.GameService {
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
             PrimaryWordCharOpened = 5,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            UsedWordAdded = 6,
         }
     }
     

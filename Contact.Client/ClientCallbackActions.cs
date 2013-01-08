@@ -25,7 +25,14 @@ namespace Contact.Client
                 {GameMessage.ActionType.VarOfCurWordChanged, CallbackAction_VarOfCurWordChanged},
                 {GameMessage.ActionType.UserRoleChanged, CallbackAction_UserRoleChanged},
                 {GameMessage.ActionType.PrimaryWordCharOpened, CallbackAction_PrimaryWordCharOpened},
+                {GameMessage.ActionType.UsedWordAdded, CallbackAction_UsedWordAdded}
             };
+
+        private static void CallbackAction_UsedWordAdded(object arg)
+        {
+            var word = (string) arg;
+            mainWindow.Dispatcher.Invoke(() => gameState.UsedWords.Add(word));
+        }
 
         private static void CallbackAction_PrimaryWordCharOpened(object arg)
         {
@@ -91,9 +98,13 @@ namespace Contact.Client
         // Process message
         public static void ChangeClientView(GameMessage message)
         {
-            if(!CallbackActions.ContainsKey(message.actionType))
-                throw new NotImplementedException("Callback action for GameMessage.ActionType="+message.actionType.ToString()+" not implemented");
-
+            if (!CallbackActions.ContainsKey(message.actionType))
+            {
+                LogSaver.Log("Callback action for GameMessage.ActionType=" +
+                                                  message.actionType.ToString() + " not implemented");
+                throw new NotImplementedException("Callback action for GameMessage.ActionType=" +
+                                                  message.actionType.ToString() + " not implemented");
+            }
             //Call appropriate function
             CallbackActions[message.actionType](message.actionAgrument);
         }
