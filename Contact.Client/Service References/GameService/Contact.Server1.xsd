@@ -83,6 +83,7 @@
       <xs:enumeration value="UserRoleChanged" />
       <xs:enumeration value="PrimaryWordCharOpened" />
       <xs:enumeration value="UsedWordAdded" />
+      <xs:enumeration value="QuestionAsked" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="GameMessage.ActionType" nillable="true" type="tns:GameMessage.ActionType" />

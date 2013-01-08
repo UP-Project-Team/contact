@@ -473,6 +473,7 @@ namespace Contact.Client.GameService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.GameState.State))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.GameMessage.ActionType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(string[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<string, string>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<Contact.Client.GameService.User, Contact.Client.GameService.User.Role>))]
     public partial class GameMessage : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -554,6 +555,9 @@ namespace Contact.Client.GameService {
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
             UsedWordAdded = 6,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            QuestionAsked = 7,
         }
     }
     
@@ -609,10 +613,10 @@ namespace Contact.Client.GameService {
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/AskQuestion", ReplyAction="http://tempuri.org/IGameService/AskQuestionResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(Contact.Client.GameService.GameException), Action="http://tempuri.org/IGameService/AskQuestionGameExceptionFault", Name="GameException", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
-        void AskQuestion(System.Guid token, string word);
+        void AskQuestion(System.Guid token, string question, string word);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/AskQuestion", ReplyAction="http://tempuri.org/IGameService/AskQuestionResponse")]
-        System.Threading.Tasks.Task AskQuestionAsync(System.Guid token, string word);
+        System.Threading.Tasks.Task AskQuestionAsync(System.Guid token, string question, string word);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -706,12 +710,12 @@ namespace Contact.Client.GameService {
             return base.Channel.VoteForPlayerWordAsync(token, wordId, up);
         }
         
-        public void AskQuestion(System.Guid token, string word) {
-            base.Channel.AskQuestion(token, word);
+        public void AskQuestion(System.Guid token, string question, string word) {
+            base.Channel.AskQuestion(token, question, word);
         }
         
-        public System.Threading.Tasks.Task AskQuestionAsync(System.Guid token, string word) {
-            return base.Channel.AskQuestionAsync(token, word);
+        public System.Threading.Tasks.Task AskQuestionAsync(System.Guid token, string question, string word) {
+            return base.Channel.AskQuestionAsync(token, question, word);
         }
     }
 }

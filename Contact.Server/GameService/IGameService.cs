@@ -36,7 +36,7 @@ namespace Contact.Server
         
         [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]
         [FaultContract(typeof(GameException))]
-        void AskQuestion(Guid token, string word);
+        void AskQuestion(Guid token, string question, string word);
     }
     
     //User callback
@@ -53,6 +53,7 @@ namespace Contact.Server
     [KnownType(typeof(GameState.State))]
     [KnownType(typeof(User.Role))]
     [KnownType(typeof(Tuple<User, User.Role>))]
+    [KnownType(typeof(Tuple<string, string>))]
     public class GameMessage
     {
         public enum ActionType
@@ -63,7 +64,8 @@ namespace Contact.Server
             VarOfCurWordChanged,
             UserRoleChanged,
             PrimaryWordCharOpened,
-            UsedWordAdded
+            UsedWordAdded,
+            QuestionAsked
         }
 
         [DataMember]
@@ -73,6 +75,11 @@ namespace Contact.Server
         public object actionAgrument { get; private set; }
 
         #region Message Constructors
+        public static GameMessage QuestionAsked(string question, string word)
+        {
+            return new GameMessage {actionType = ActionType.QuestionAsked, actionAgrument = new Tuple<string, string>(question, word)};
+        }
+
         public static GameMessage UsedWordAddedMessage(string word)
         {
             return new GameMessage {actionType = ActionType.UsedWordAdded, actionAgrument = word};

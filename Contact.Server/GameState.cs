@@ -77,12 +77,9 @@ namespace Contact.Server
             state = State.NotStarted;
 
             //TODO: remove this
-            PrimaryWord = "жел";
-            NumberOfOpenChars = 2;
-            //Question = "Куй!";
-            CurrentWord = "железо";   
+            PrimaryWord = "железо";
+            NumberOfOpenChars = 1;
         }
-
 
     }
 }

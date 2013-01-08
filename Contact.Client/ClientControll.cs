@@ -89,25 +89,21 @@ namespace Contact.Client
             proxy.StartGame(gameState.Me.Token);
         }
 
-        public static async void AskQuestion(string question)
+        public static async void AskQuestion(string question, string word)
         {
-            if (gameState.Me.role == User.Role.Host)
+            try
             {
-                try
-                {
-                    await proxy.AskQuestionAsync(gameState.Me.Token, question);
-                    gameState.Me.role = User.Role.Qwestioner;
-                    GetState();
-                }
-                catch (Exception e) //TODO: catch real exceptions
-                {
-                    MessageBox.Show(e.Message);
-                }
+                await proxy.AskQuestionAsync(gameState.Me.Token, question, word);
             }
-            else
+            catch (FaultException<GameException> e)
             {
-                MessageBox.Show("Ошибка!", "Вас опередили");
+                MessageBox.Show(e.Detail.Message);
             }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
         }
 
         public static async void GiveCurrentWordVariant(string answer)

@@ -15,8 +15,8 @@ namespace Contact.Server
         private static readonly Dictionary<GameState.State, int> StateDurationTime = new Dictionary<GameState.State, int>
             {
                 {GameState.State.NotStarted, Int32.MaxValue},
-                {GameState.State.HaveNoCurrentWord, 20*10000},
-                {GameState.State.HaveCurrentWord, 20*1000},
+                {GameState.State.HaveNoCurrentWord, 200*1000}, //TODO: check for right timeout
+                {GameState.State.HaveCurrentWord, 200*1000}, //TODO: check for right timeout
                 {GameState.State.HaveCurrentWordVariant, 5*1000},
                 {GameState.State.VotingForPlayersWords, 10*1000},
                 {GameState.State.GameOver, Int32.MaxValue}
@@ -26,7 +26,7 @@ namespace Contact.Server
         {
             if (!StateDurationTime.ContainsKey(state))
             {
-                LogSaver.Log("[!!!] StateDurationTime не установлено! в Timing");
+                LogSaver.Log("[!!!] StateDurationTime не установлено для "+state.ToString());
                 throw new Exception("StateDurationTime не установлено");
             }
             return StateDurationTime[state];
@@ -49,12 +49,14 @@ namespace Contact.Server
                 {GameState.State.HaveCurrentWord, this.HaveCurrentWordTimeout},
                 {GameState.State.HaveCurrentWordVariant, this.HaveCurrentWordVariantTimeout},
                 {GameState.State.VotingForPlayersWords, this.VotingForPlayersWordsTimeout},
+                {GameState.State.HaveNoCurrentWord, this.HaveNoCurrentWordTimeout}
             };
 
             stateTimer = new System.Timers.Timer();
             stateTimer.Elapsed += Timer_Elapsed;
             stateTimer.AutoReset = false;
         }
+
 
         private void SetStateTimer(GameState.State state)
         {
@@ -67,16 +69,28 @@ namespace Contact.Server
         {
             // TODO: check that state that ended is the state that was sheduled
             //Invoke appropriate function
+            if (!timeoutFunctions.ContainsKey(gameState.state))
+            {
+                LogSaver.Log("[!!!] timeoutFunctions не задан для " + gameState.state.ToString());
+                throw new Exception("timeoutFunctions не задан");
+            }
             timeoutFunctions[gameState.state]();
         }
 
         #region State timeout functions
 
+        private void HaveNoCurrentWordTimeout()
+        {
+            LogSaver.Log("HaveNoCurrentWord Timeout");
+            //TODO: remove stub and do actual logic
+            ChangeState(GameState.State.NotStarted);
+        }
+
         private void HaveCurrentWordTimeout()
         {
             LogSaver.Log("HaveCurrentWord Timeout");
             //TODO: remove stub and do actual logic
-            ChangeState(GameState.State.NotStarted);
+            ChangeState(GameState.State.HaveNoCurrentWord);
         }
 
         private void HaveCurrentWordVariantTimeout()
@@ -126,15 +140,14 @@ namespace Contact.Server
                 // сбросить роли
                 contacter = gameState.Users.Single(user => user.role == User.Role.Contacter);
                 contacter.role = User.Role.None;
-                //TODO: раскоментить когда роль вопрошающего будет проставляться
-                //questioner = gameState.Users.Single(user => user.role == User.Role.Qwestioner);
-                //questioner.role = User.Role.None;
+
+                questioner = gameState.Users.Single(user => user.role == User.Role.Qwestioner);
+                questioner.role = User.Role.None;
             }
 
             //разослать изменения
             BroadcastMessage(GameMessage.UserRoleChangedMessage(contacter, User.Role.None));
-            //TODO: раскоментить когда роль вопрошающего будет проставляться
-            //BroadcastMessage(GameMessage.UserRoleChangedMessage(questioner, User.Role.None));
+            BroadcastMessage(GameMessage.UserRoleChangedMessage(questioner, User.Role.None));
 
             //Сообщить о добавленых словах 
             if(CurrentWordAccepted)
@@ -149,7 +162,7 @@ namespace Contact.Server
             if(winGame)
                 ChangeState(GameState.State.GameOver);
             else
-                ChangeState(GameState.State.HaveCurrentWord); // TODO: переходить в нужное состояние
+                ChangeState(GameState.State.HaveNoCurrentWord);
 
             LogSaver.Log("VotingForPlayersWords Timeout end");
         }

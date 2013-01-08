@@ -97,9 +97,9 @@ namespace Contact.Server
             Rooms[user.RoomId].StartGame();
         }
 
-        public static void AskQuestion(User user, string question)
+        public static void AskQuestion(User user, string question, string word)
         {
-            Rooms[user.RoomId].AcceptQuestion(user, question);
+            Rooms[user.RoomId].AcceptQuestion(user, question, word);
         }
 
         public static void GiveCurrentWordVariant(User user, string word)

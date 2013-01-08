@@ -46,11 +46,11 @@ namespace Contact.Server
             RoomControll.StartGame(user);
         }
 
-        public void AskQuestion(Guid token, string question)
+        public void AskQuestion(Guid token, string question, string word)
         {
             var user = RoomControll.GetUserByToken(token);
             LogSaver.Log("AskQuestion userId=" + user.Id);
-            RoomControll.AskQuestion(user, question);
+            RoomControll.AskQuestion(user, question, word);
         }
 
         public void GiveCurrentWordVariant(Guid token, string word)

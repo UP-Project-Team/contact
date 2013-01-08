@@ -25,8 +25,22 @@ namespace Contact.Client
                 {GameMessage.ActionType.VarOfCurWordChanged, CallbackAction_VarOfCurWordChanged},
                 {GameMessage.ActionType.UserRoleChanged, CallbackAction_UserRoleChanged},
                 {GameMessage.ActionType.PrimaryWordCharOpened, CallbackAction_PrimaryWordCharOpened},
-                {GameMessage.ActionType.UsedWordAdded, CallbackAction_UsedWordAdded}
+                {GameMessage.ActionType.UsedWordAdded, CallbackAction_UsedWordAdded},
+                {GameMessage.ActionType.QuestionAsked, CallbackAction_QuestionAsked}
             };
+
+        private static void CallbackAction_QuestionAsked(object arg)
+        {
+            var tuple = (Tuple<string, string>)arg;
+            var question = tuple.Item1;
+            var word = tuple.Item2;
+
+            mainWindow.Dispatcher.Invoke(() =>
+                {
+                    gameState.Question = question;
+                    gameState.CurrentWord = word;
+                });
+        }
 
         private static void CallbackAction_UsedWordAdded(object arg)
         {

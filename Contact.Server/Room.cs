@@ -60,13 +60,29 @@ namespace Contact.Server
             }
         }
 
-        public void AcceptQuestion(User user, string question)
+        public void AcceptQuestion(User user, string question, string word)
         {
+            if (user.role != User.Role.None)
+            {
+                LogSaver.Log("!!! AcceptQuestion invoked user " + user.Id + " role " + user.role.ToString());
+                GameException.Throw("Вы не можете этого делать!");
+            }
+
             lock (gameState)
             {
                 gameState.Question = question;
-                ChangeState(GameState.State.HaveCurrentWord);
+
+                if (!word.StartsWith(gameState.PrimaryWordKnownLetters))
+                    GameException.Throw("Слово должно начинаться с открытых букв");
+
+                gameState.CurrentWord = word;
             }
+            BroadcastMessage(GameMessage.QuestionAsked(question, word));
+
+            user.role = User.Role.Qwestioner;
+            BroadcastMessage(GameMessage.UserRoleChangedMessage(user, User.Role.Qwestioner));
+
+            ChangeState(GameState.State.HaveCurrentWord);
         }
 
         public void AcceptCurrentWordVariant(User user, string word)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Contact.Client.GameService;
 
 namespace Contact.Client
 {
@@ -32,11 +33,14 @@ namespace Contact.Client
         private void btnSubmitAnswer_Click(object sender, RoutedEventArgs e)
         {
             ClientControll.GiveCurrentWordVariant(txtAnswer.Text);
+            txtAnswer.Text = "";
         }
         
         private void btnAskQuestion_Click(object sender, RoutedEventArgs e)
         {
-            ClientControll.AskQuestion(txtQuestion.Text);
+            ClientControll.AskQuestion(txtQuestion.Text, txtCurrentWord.Text);
+            txtQuestion.Text = "";
+            txtCurrentWord.Text = "";
         }
 
         #region States Activate Actions 
@@ -47,12 +51,14 @@ namespace Contact.Client
         {
             StateActivateActionsList = new List<Tuple<UIElement, Func<bool>>>
             {
-                new Tuple<UIElement, Func<bool>>(btnStartGame, () => ClientControll.gameState.State==GameService.GameState.State.NotStarted),
-                new Tuple<UIElement, Func<bool>>(HaveNoCurrentWord, () => ClientControll.gameState.State==GameService.GameState.State.HaveNoCurrentWord),
-                new Tuple<UIElement, Func<bool>>(HaveCurrentWord, () => ClientControll.gameState.State==GameService.GameState.State.HaveCurrentWord),
-                new Tuple<UIElement, Func<bool>>(HaveCurrentWordVariant, () => ClientControll.gameState.State==GameService.GameState.State.HaveCurrentWordVariant),
-                new Tuple<UIElement, Func<bool>>(VotingForPlayersWords, () => ClientControll.gameState.State==GameService.GameState.State.VotingForPlayersWords),
-                new Tuple<UIElement, Func<bool>>(GameOver, () => ClientControll.gameState.State==GameService.GameState.State.GameOver)
+                new Tuple<UIElement, Func<bool>>(btnStartGame, () => ClientControll.gameState.State==GameState.State.NotStarted),
+                new Tuple<UIElement, Func<bool>>(HaveNoCurrentWord, () => ClientControll.gameState.State==GameState.State.HaveNoCurrentWord),
+                new Tuple<UIElement, Func<bool>>(HaveCurrentWord, () => ClientControll.gameState.State==GameState.State.HaveCurrentWord && ClientControll.gameState.Me.role == User.Role.None),
+                new Tuple<UIElement, Func<bool>>(HaveCurrentWordVariant, () => ClientControll.gameState.State==GameState.State.HaveCurrentWordVariant),
+                new Tuple<UIElement, Func<bool>>(VotingForPlayersWords, () => ClientControll.gameState.State==GameState.State.VotingForPlayersWords),
+                new Tuple<UIElement, Func<bool>>(GameOver, () => ClientControll.gameState.State==GameState.State.GameOver),
+                new Tuple<UIElement, Func<bool>>(QwestionerHaveCurrentWord, () => ClientControll.gameState.State==GameState.State.HaveCurrentWord && ClientControll.gameState.Me.role == User.Role.Qwestioner)
+                
             };
             UpdateStatesVisibility();
         }
@@ -91,11 +97,6 @@ namespace Contact.Client
         private void btnVarOfCurWordVoteDown_Click(object sender, RoutedEventArgs e)
         {
             ClientControll.VoteForPlayerWord(1, false);
-        }
-
-        private void Test_OnClick(object sender, RoutedEventArgs e)
-        {
-            ClientControll.gameState.NumberOfOpenChars++;
         }
 
     }
