@@ -90,26 +90,12 @@ namespace Contact.Client
             proxy.StartGame(gameState.Me.Token);
         }
 
-        public static async void GotoLobby()
+        public static void GotoLobby()
         {
-            try
-            {
-                await proxy.GotoRoomAsync(gameState.Me.Token, 0);
-            }
-            catch (FaultException<GameException> e)
-            {
-                MessageBox.Show(e.Detail.Message);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
+            GotoRoom(0);
 
-
-            GetState();
             var rooms = proxy.GetRoomsList(gameState.Me.Token);
             gameState.Rooms = new ObservableCollection<Room>(rooms);
-            gameState.CurrentRoomId = 0;
         }
 
         public static async void GotoRoom(int roomId)
