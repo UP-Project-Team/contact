@@ -2,9 +2,11 @@
 Contact.Server/bin/Debug/log.txt
 Contact.Server/bin/Release/log.txt
 
+!Users.accdb
+
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
-#[Bb]in/*
-#[Oo]bj/
+[Bb]in/*
+[Oo]bj/
 
 # mstest test results
 TestResults
@@ -94,7 +96,7 @@ csx
 AppPackages/
 
 # Others
-#[Bb]in
+[Bb]in
 [Dd]ebug
 *.exe
 *.exe.*
