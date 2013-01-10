@@ -12,6 +12,7 @@ namespace Contact.Server
         static void Main(string[] args)
         {
             // TODO: remove this and do normal room management
+            RoomControll.AddRoom("Lobby");
             RoomControll.AddRoom("First and only room");
 
             var service = new ServiceHost(typeof (GameService));

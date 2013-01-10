@@ -38,6 +38,46 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetRoomsList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q5:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRoomsListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Contact.Server" minOccurs="0" name="GetRoomsListResult" nillable="true" type="q6:ArrayOfRoom" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GotoRoom">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q7:guid" />
+        <xs:element minOccurs="0" name="roomId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GotoRoomResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddRoom">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q8:guid" />
+        <xs:element minOccurs="0" name="roomName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddRoomResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="Registration">
     <xs:complexType>
       <xs:sequence>
@@ -54,14 +94,14 @@
   <xs:element name="StartGame">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q5:guid" />
+        <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q9:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GiveCurrentWordVariant">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q6:guid" />
+        <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q10:guid" />
         <xs:element minOccurs="0" name="word" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -74,7 +114,7 @@
   <xs:element name="VoteForPlayerWord">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q7:guid" />
+        <xs:element xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q11:guid" />
         <xs:element minOccurs="0" name="wordId" type="xs:int" />
         <xs:element minOccurs="0" name="up" type="xs:boolean" />
       </xs:sequence>
@@ -88,7 +128,7 @@
   <xs:element name="AskQuestion">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q8:guid" />
+        <xs:element xmlns:q12="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q12:guid" />
         <xs:element minOccurs="0" name="question" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="word" nillable="true" type="xs:string" />
       </xs:sequence>
@@ -102,7 +142,7 @@
   <xs:element name="Notify">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Contact.Server" minOccurs="0" name="msg" nillable="true" type="q9:GameMessage" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Contact.Server" minOccurs="0" name="msg" nillable="true" type="q13:GameMessage" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

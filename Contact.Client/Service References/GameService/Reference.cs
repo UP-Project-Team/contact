@@ -462,6 +462,67 @@ namespace Contact.Client.GameService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Room", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
+    [System.SerializableAttribute()]
+    public partial class Room : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="GameMessage", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.UserData))]
@@ -471,10 +532,12 @@ namespace Contact.Client.GameService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.User[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.User))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.GameState.State))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.Room[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.Room))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.GameMessage.ActionType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(string[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<string, string>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<Contact.Client.GameService.User, Contact.Client.GameService.User.Role>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<string, string>))]
     public partial class GameMessage : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -584,6 +647,26 @@ namespace Contact.Client.GameService {
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/GetState", ReplyAction="http://tempuri.org/IGameService/GetStateResponse")]
         System.Threading.Tasks.Task<Contact.Client.GameService.GameState> GetStateAsync(System.Guid token);
         
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/GetRoomsList", ReplyAction="http://tempuri.org/IGameService/GetRoomsListResponse")]
+        Contact.Client.GameService.Room[] GetRoomsList(System.Guid token);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/GetRoomsList", ReplyAction="http://tempuri.org/IGameService/GetRoomsListResponse")]
+        System.Threading.Tasks.Task<Contact.Client.GameService.Room[]> GetRoomsListAsync(System.Guid token);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/GotoRoom", ReplyAction="http://tempuri.org/IGameService/GotoRoomResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Contact.Client.GameService.GameException), Action="http://tempuri.org/IGameService/GotoRoomGameExceptionFault", Name="GameException", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
+        void GotoRoom(System.Guid token, int roomId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/GotoRoom", ReplyAction="http://tempuri.org/IGameService/GotoRoomResponse")]
+        System.Threading.Tasks.Task GotoRoomAsync(System.Guid token, int roomId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/AddRoom", ReplyAction="http://tempuri.org/IGameService/AddRoomResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Contact.Client.GameService.GameException), Action="http://tempuri.org/IGameService/AddRoomGameExceptionFault", Name="GameException", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
+        void AddRoom(System.Guid token, string roomName);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/AddRoom", ReplyAction="http://tempuri.org/IGameService/AddRoomResponse")]
+        System.Threading.Tasks.Task AddRoomAsync(System.Guid token, string roomName);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGameService/Registration", ReplyAction="http://tempuri.org/IGameService/RegistrationResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(Contact.Client.GameService.GameException), Action="http://tempuri.org/IGameService/RegistrationGameExceptionFault", Name="GameException", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
         void Registration(string name, string password);
@@ -676,6 +759,30 @@ namespace Contact.Client.GameService {
         
         public System.Threading.Tasks.Task<Contact.Client.GameService.GameState> GetStateAsync(System.Guid token) {
             return base.Channel.GetStateAsync(token);
+        }
+        
+        public Contact.Client.GameService.Room[] GetRoomsList(System.Guid token) {
+            return base.Channel.GetRoomsList(token);
+        }
+        
+        public System.Threading.Tasks.Task<Contact.Client.GameService.Room[]> GetRoomsListAsync(System.Guid token) {
+            return base.Channel.GetRoomsListAsync(token);
+        }
+        
+        public void GotoRoom(System.Guid token, int roomId) {
+            base.Channel.GotoRoom(token, roomId);
+        }
+        
+        public System.Threading.Tasks.Task GotoRoomAsync(System.Guid token, int roomId) {
+            return base.Channel.GotoRoomAsync(token, roomId);
+        }
+        
+        public void AddRoom(System.Guid token, string roomName) {
+            base.Channel.AddRoom(token, roomName);
+        }
+        
+        public System.Threading.Tasks.Task AddRoomAsync(System.Guid token, string roomName) {
+            return base.Channel.AddRoomAsync(token, roomName);
         }
         
         public void Registration(string name, string password) {

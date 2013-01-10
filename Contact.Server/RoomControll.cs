@@ -63,7 +63,7 @@ namespace Contact.Server
                 OnlineUsers.Add(user);
             }
             
-            //TODO: assign user to lobby, not to artificial room
+            // assign user to lobby
             user.RoomId = 0;
             Rooms[0].EnterRoom(user);
         }
@@ -110,6 +110,26 @@ namespace Contact.Server
         public static void VoteForPlayerWord(User user, int wordId, bool up)
         {
             Rooms[user.RoomId].VoteForPlayerWord(user, wordId, up);
+        }
+
+        public static List<Room> GetRoomsList(User user)
+        {
+            return Rooms.Values.ToList();
+        }
+
+        public static void GotoRoom(User user, int roomId)
+        {
+            if (!Rooms.ContainsKey(roomId))
+            {
+                LogSaver.Log("!?! Trying to go to nonexistent room "+roomId+" userId="+user.Id);
+                GameException.Throw("Комнаты с таким нормером нет");
+            }
+
+            if (roomId == user.RoomId) return;
+
+            Rooms[user.RoomId].LeaveRoom(user);
+            user.RoomId = roomId;
+            Rooms[roomId].EnterRoom(user);
         }
     }
 }

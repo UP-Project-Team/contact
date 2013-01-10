@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -58,8 +59,8 @@ namespace Contact.Client
             try
             {
                 gameState.Me = await proxy.LoginAsync(name, password);
-                // TODO: do this not here
-                GetState();
+
+                GotoLobby();
                 mainWindow.IsEnabled = true;
                 loginWindow.Close();
             }
@@ -87,6 +88,47 @@ namespace Contact.Client
         public static void StartGame()
         {
             proxy.StartGame(gameState.Me.Token);
+        }
+
+        public static async void GotoLobby()
+        {
+            try
+            {
+                await proxy.GotoRoomAsync(gameState.Me.Token, 0);
+            }
+            catch (FaultException<GameException> e)
+            {
+                MessageBox.Show(e.Detail.Message);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
+
+            GetState();
+            var rooms = proxy.GetRoomsList(gameState.Me.Token);
+            gameState.Rooms = new ObservableCollection<Room>(rooms);
+            gameState.CurrentRoomId = 0;
+        }
+
+        public static async void GotoRoom(int roomId)
+        {
+            try
+            {
+                await proxy.GotoRoomAsync(gameState.Me.Token, roomId);
+            }
+            catch (FaultException<GameException> e)
+            {
+                MessageBox.Show(e.Detail.Message);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
+            GetState();
+            gameState.CurrentRoomId = roomId;
         }
 
         public static async void AskQuestion(string question, string word)

@@ -19,6 +19,17 @@ namespace Contact.Server
         [OperationContract(IsInitiating = false, IsTerminating = false, IsOneWay=false)]
         GameState GetState(Guid token);
 
+        [OperationContract(IsInitiating = false, IsTerminating = false, IsOneWay = false)]
+        List<Room> GetRoomsList(Guid token);
+
+        [OperationContract(IsInitiating = false, IsTerminating = false)]
+        [FaultContract(typeof(GameException))]
+        void GotoRoom(Guid token, int roomId);
+
+        [OperationContract(IsInitiating = false, IsTerminating = false)]
+        [FaultContract(typeof(GameException))]
+        void AddRoom(Guid token, string roomName);
+
         [OperationContract(IsInitiating = true, IsTerminating = false, IsOneWay=false)]
         [FaultContract(typeof(GameException))]
         void Registration(string name, string password);

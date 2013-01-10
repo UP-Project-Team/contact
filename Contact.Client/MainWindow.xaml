@@ -16,9 +16,20 @@
                     <TextBlock Text="{Binding Path=Name}"></TextBlock>
                 </WrapPanel>
             </DataTemplate>
+            
+            <DataTemplate x:Key="RoomItemTemplate">
+                <WrapPanel>
+                    <TextBlock Text="{Binding Path=Id}"/>
+                    <TextBlock Text=" "/>
+                    <TextBlock Text="{Binding Path=Name}"/>
+                </WrapPanel>
+            </DataTemplate>
         </Grid.Resources>
         
         <Label Grid.Column="0" VerticalAlignment="Bottom" Content="{Binding Path=Me.role}"/>
+        
+        
+        <Label Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="{Binding Path=CurrentRoom.Name}"/>
         
         <Button 
             Grid.Column="0" 
@@ -74,6 +85,8 @@
             </StackPanel>
         </StackPanel>
         
+        <ListBox Name="lstRooms" Margin="10,50,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" MinHeight="200" MinWidth="300" Grid.Column="0" ItemsSource="{Binding Path=Rooms}" ItemTemplate="{StaticResource RoomItemTemplate}" MouseDoubleClick="LstRooms_OnMouseDoubleClick"/>
+        
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -84,7 +97,7 @@
                 <Label Name="lblUsersOnline">Online users</Label>
                 <ListBox Name="lstUsersOnline" MinWidth="100" ItemsSource="{Binding Path=Users}" ItemTemplate="{StaticResource UserItemTemplate}"/>
             </StackPanel>
-            <StackPanel Grid.Row="1">
+            <StackPanel Name="panelUsedWords" Grid.Row="1">
                 <Label Name="lblUsedWords">UsedWords</Label>
                 <ListBox Name="lstUsedWords" MinWidth="100" ItemsSource="{Binding Path=UsedWords}"/>
             </StackPanel>

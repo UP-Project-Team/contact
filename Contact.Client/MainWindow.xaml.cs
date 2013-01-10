@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using Contact.Client.GameService;
 
@@ -57,15 +58,15 @@ namespace Contact.Client
                 new Tuple<UIElement, Func<bool>>(HaveCurrentWordVariant, () => ClientControll.gameState.State==GameState.State.HaveCurrentWordVariant),
                 new Tuple<UIElement, Func<bool>>(VotingForPlayersWords, () => ClientControll.gameState.State==GameState.State.VotingForPlayersWords),
                 new Tuple<UIElement, Func<bool>>(GameOver, () => ClientControll.gameState.State==GameState.State.GameOver),
-                new Tuple<UIElement, Func<bool>>(QwestionerHaveCurrentWord, () => ClientControll.gameState.State==GameState.State.HaveCurrentWord && ClientControll.gameState.Me.role == User.Role.Qwestioner)
-                
+                new Tuple<UIElement, Func<bool>>(QwestionerHaveCurrentWord, () => ClientControll.gameState.State==GameState.State.HaveCurrentWord && ClientControll.gameState.Me.role == User.Role.Qwestioner),
+               new Tuple<UIElement, Func<bool>>(lstRooms, () => ClientControll.gameState.CurrentRoomId==0)
             };
             UpdateStatesVisibility();
         }
 
         public void gameState_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if(e.PropertyName=="State" || e.PropertyName=="Me.role")
+            if(e.PropertyName=="State" || e.PropertyName=="Me.role" || e.PropertyName=="CurrentRoomId")
                 UpdateStatesVisibility();
         }
 
@@ -99,5 +100,12 @@ namespace Contact.Client
             ClientControll.VoteForPlayerWord(1, false);
         }
 
+        private void LstRooms_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var room = (Room)lstRooms.SelectedItem;
+            if (room == null || room.Id==0) return;
+            
+            ClientControll.GotoRoom(room.Id);
+        }
     }
 }

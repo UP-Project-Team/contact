@@ -20,6 +20,18 @@ namespace Contact.Client
             }
         }
 
+        private ObservableCollection<Room> _rooms = new ObservableCollection<Room>();
+        public ObservableCollection<Room> Rooms
+        {
+            get { return _rooms; }
+            set
+            {
+                if(_rooms == value) return;
+                _rooms = value;
+                OnPropertyChanged("Rooms");
+            }
+        }
+
         private GameState.State _state;
         public GameState.State State { 
             get { return _state; }
@@ -136,12 +148,30 @@ namespace Contact.Client
                 OnPropertyChanged("Me");
             }
         }
-
+        // Watch for changes in UserData and notify
         void _me_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             OnPropertyChanged("Me."+e.PropertyName);
         }
 
+
+        private int currentRoomId=-1;
+        public int CurrentRoomId
+        {
+            get { return currentRoomId; }
+            set
+            {
+                if (value == currentRoomId) return;
+                currentRoomId = value;
+                OnPropertyChanged("CurrentRoomId");
+                OnPropertyChanged("CurrentRoom");
+            }
+        }
+
+        public Room CurrentRoom
+        {
+            get { return Rooms.SingleOrDefault(room => room.Id == currentRoomId); }
+        }
 
         #endregion
 

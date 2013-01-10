@@ -67,5 +67,30 @@ namespace Contact.Server
             LogSaver.Log("VoteForPlayerWord userId=" + user.Id + " word=" + wordId + (up ? "up" : "down"));
             RoomControll.VoteForPlayerWord(user, wordId, up);
         }
+
+
+        public List<Room> GetRoomsList(Guid token)
+        {
+            var user = RoomControll.GetUserByToken(token);
+            LogSaver.Log("GetRoomsList userId="+user.Id);
+
+            return RoomControll.GetRoomsList(user);
+        }
+
+        public void GotoRoom(Guid token, int roomId)
+        {
+            var user = RoomControll.GetUserByToken(token);
+            LogSaver.Log("GotoRoom userId="+user.Id+" to room "+roomId);
+
+            RoomControll.GotoRoom(user, roomId);
+        }
+
+        public void AddRoom(Guid token, string roomName)
+        {
+            var user = RoomControll.GetUserByToken(token);
+            LogSaver.Log("AddRoom userId="+user.Id+" roomName="+roomName);
+
+            RoomControll.AddRoom(roomName);
+        }
     }
 }
