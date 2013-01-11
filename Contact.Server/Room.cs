@@ -192,7 +192,7 @@ namespace Contact.Server
                     }
                     catch (Exception e)
                     {
-                        LogSaver.Log("FAIL!! mysterious callback exception");
+                        LogSaver.Log("FAIL!! mysterious callback exception: "+e.Message);
                     }
                 }
             }

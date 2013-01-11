@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace Contact.Server
 {
@@ -10,7 +11,7 @@ namespace Contact.Server
     class RoomControll
     {
         private static int roomsCount;
-        private static readonly Dictionary<int, Room> Rooms = new Dictionary<int, Room>();
+        private static readonly ConcurrentDictionary<int, Room> Rooms = new ConcurrentDictionary<int, Room>();
         private static readonly List<User> OnlineUsers = new List<User>();
 
         public static User GetUserByToken(Guid token)
@@ -29,8 +30,9 @@ namespace Contact.Server
 
         public static int AddRoom(string name)
         {
-            var newRoomId = roomsCount++;
-            Rooms.Add(newRoomId, new Room(newRoomId, name));
+            var newRoomId = roomsCount;
+            Interlocked.Increment(ref roomsCount);
+            Rooms.TryAdd(newRoomId, new Room(newRoomId, name));
             
             return newRoomId;
         }
