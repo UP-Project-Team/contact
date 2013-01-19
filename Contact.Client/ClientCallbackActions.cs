@@ -27,7 +27,8 @@ namespace Contact.Client
                 {GameMessage.ActionType.UserRoleChanged, CallbackAction_UserRoleChanged},
                 {GameMessage.ActionType.PrimaryWordCharOpened, CallbackAction_PrimaryWordCharOpened},
                 {GameMessage.ActionType.UsedWordAdded, CallbackAction_UsedWordAdded},
-                {GameMessage.ActionType.QuestionAsked, CallbackAction_QuestionAsked}
+                {GameMessage.ActionType.QuestionAsked, CallbackAction_QuestionAsked},
+                {GameMessage.ActionType.WeHaveChiefWord, CallbackAction_WeHaveChiefWord}
             };
 
         private static void CallbackAction_QuestionAsked(object arg)
@@ -42,7 +43,11 @@ namespace Contact.Client
                     gameState.CurrentWord = word;
                 });
         }
-
+        private static void CallbackAction_WeHaveChiefWord(object arg)
+        {
+            var word = (string)arg;
+            mainWindow.Dispatcher.Invoke(() => { gameState.ChiefWord = word; });
+        }
         private static void CallbackAction_UsedWordAdded(object arg)
         {
             var word = (string) arg;

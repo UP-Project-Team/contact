@@ -457,6 +457,12 @@ namespace Contact.Client.GameService {
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
             GameOver = 6,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            WeHaveChiefWord = 7,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            HostChiefWord = 8,
         }
     }
     
@@ -624,6 +630,9 @@ namespace Contact.Client.GameService {
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
             LogoffUser = 8,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            WeHaveChiefWord = 9,
         }
     }
     
@@ -662,6 +671,13 @@ namespace Contact.Client.GameService {
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/GotoRoom", ReplyAction="http://tempuri.org/IGameService/GotoRoomResponse")]
         System.Threading.Tasks.Task GotoRoomAsync(System.Guid token, int roomId);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/GiveChiefWord", ReplyAction="http://tempuri.org/IGameService/GiveChiefWordResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Contact.Client.GameService.GameException), Action="http://tempuri.org/IGameService/GiveChiefWordGameExceptionFault", Name="GameException", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
+        void GiveChiefWord(System.Guid token, string word);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/GiveChiefWord", ReplyAction="http://tempuri.org/IGameService/GiveChiefWordResponse")]
+        System.Threading.Tasks.Task GiveChiefWordAsync(System.Guid token, string word);
         
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/AddRoom", ReplyAction="http://tempuri.org/IGameService/AddRoomResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(Contact.Client.GameService.GameException), Action="http://tempuri.org/IGameService/AddRoomGameExceptionFault", Name="GameException", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
@@ -778,6 +794,14 @@ namespace Contact.Client.GameService {
         
         public System.Threading.Tasks.Task GotoRoomAsync(System.Guid token, int roomId) {
             return base.Channel.GotoRoomAsync(token, roomId);
+        }
+        
+        public void GiveChiefWord(System.Guid token, string word) {
+            base.Channel.GiveChiefWord(token, word);
+        }
+        
+        public System.Threading.Tasks.Task GiveChiefWordAsync(System.Guid token, string word) {
+            return base.Channel.GiveChiefWordAsync(token, word);
         }
         
         public void AddRoom(System.Guid token, string roomName) {

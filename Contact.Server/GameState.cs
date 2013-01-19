@@ -16,7 +16,9 @@ namespace Contact.Server
             HaveCurrentWordVariant,
             VotingForHostWord,
             VotingForPlayersWords,
-            GameOver
+            GameOver,
+            WeHaveChiefWord,
+            HostChiefWord
         }
 
         [DataMember]

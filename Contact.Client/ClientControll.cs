@@ -122,6 +122,7 @@ namespace Contact.Client
             try
             {
                 await proxy.AskQuestionAsync(gameState.Me.Token, question, word);
+              
             }
             catch (FaultException<GameException> e)
             {
@@ -133,7 +134,21 @@ namespace Contact.Client
             }
 
         }
-
+        public static async void GiveChiefWord(string chiefword)
+        {
+            try
+            {
+                await proxy.GiveChiefWordAsync(gameState.Me.Token, chiefword);
+            }
+            catch (FaultException<GameException> e)
+            {
+                MessageBox.Show(e.Detail.Message);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
         public static async void GiveCurrentWordVariant(string answer)
         {
             try
@@ -165,6 +180,9 @@ namespace Contact.Client
                 MessageBox.Show(e.Message);
             }
         }
-        
+        public static async void VoteForChiefWord(bool up)
+        {
+
+        }
     }
 }

@@ -29,6 +29,9 @@ namespace Contact.Client
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
             ClientControll.StartGame();
+            // Ведущим становится нажавший эту кнопку.
+            ClientControll.gameState.Me.role = User.Role.Host;
+            txtPrimaryWord.Text = ClientControll.gameState.PrimaryWord;
         }
 
         private void btnSubmitAnswer_Click(object sender, RoutedEventArgs e)
@@ -53,10 +56,13 @@ namespace Contact.Client
             StateActivateActionsList = new List<Tuple<UIElement, Func<bool>>>
             {
                 new Tuple<UIElement, Func<bool>>(btnStartGame, () => ClientControll.gameState.State==GameState.State.NotStarted),
-                new Tuple<UIElement, Func<bool>>(HaveNoCurrentWord, () => ClientControll.gameState.State==GameState.State.HaveNoCurrentWord),
+                new Tuple<UIElement, Func<bool>>(HaveNoCurrentWord, () => ClientControll.gameState.State==GameState.State.HaveNoCurrentWord && ClientControll.gameState.Me.role != User.Role.Host),
+                new Tuple<UIElement, Func<bool>>(HostWaitQuestion, () => ClientControll.gameState.State==GameState.State.HaveNoCurrentWord && ClientControll.gameState.Me.role == User.Role.Host),
+                new Tuple<UIElement, Func<bool>>(HostChiefWord, () => ClientControll.gameState.State==GameState.State.HaveCurrentWord && ClientControll.gameState.Me.role == User.Role.Host),
                 new Tuple<UIElement, Func<bool>>(HaveCurrentWord, () => ClientControll.gameState.State==GameState.State.HaveCurrentWord && ClientControll.gameState.Me.role == User.Role.None),
-                new Tuple<UIElement, Func<bool>>(HaveCurrentWordVariant, () => ClientControll.gameState.State==GameState.State.HaveCurrentWordVariant),
-                new Tuple<UIElement, Func<bool>>(VotingForPlayersWords, () => ClientControll.gameState.State==GameState.State.VotingForPlayersWords),
+                new Tuple<UIElement, Func<bool>>(HaveCurrentWordVariant, () => ClientControll.gameState.State==GameState.State.HaveCurrentWordVariant && ClientControll.gameState.Me.role == User.Role.Contacter),
+                new Tuple<UIElement, Func<bool>>(VotingForChiefWord, () => ClientControll.gameState.State==GameState.State.VotingForHostWord),              
+                new Tuple<UIElement, Func<bool>>(VotingForPlayersWords, () => ClientControll.gameState.State==GameState.State.VotingForPlayersWords),                
                 new Tuple<UIElement, Func<bool>>(GameOver, () => ClientControll.gameState.State==GameState.State.GameOver),
                 new Tuple<UIElement, Func<bool>>(QwestionerHaveCurrentWord, () => ClientControll.gameState.State==GameState.State.HaveCurrentWord && ClientControll.gameState.Me.role == User.Role.Qwestioner),
                new Tuple<UIElement, Func<bool>>(lstRooms, () => ClientControll.gameState.CurrentRoomId==0)
@@ -98,8 +104,7 @@ namespace Contact.Client
         private void btnVarOfCurWordVoteDown_Click(object sender, RoutedEventArgs e)
         {
             ClientControll.VoteForPlayerWord(1, false);
-        }
-
+        }       
         private void LstRooms_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var room = (Room)lstRooms.SelectedItem;
@@ -107,5 +112,22 @@ namespace Contact.Client
             
             ClientControll.GotoRoom(room.Id);
         }
+
+        private void btnHostHaveChiefWord_Click(object sender, RoutedEventArgs e)
+        {
+            ClientControll.GiveChiefWord(txtChiefWord.Text);
+            txtChiefWord.Text = "asd";            
+        }
+
+        private void btnVoteForChiefWord_Agree_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnVoteForChiefWord_Disagree_Click(object sender, RoutedEventArgs e)
+        {
+
+        }        
+        
     }
 }

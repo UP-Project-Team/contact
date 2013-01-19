@@ -19,7 +19,8 @@ namespace Contact.Server
                 {GameState.State.HaveCurrentWord, 200*1000}, //TODO: check for right timeout
                 {GameState.State.HaveCurrentWordVariant, 5*1000},
                 {GameState.State.VotingForPlayersWords, 10*1000},
-                {GameState.State.GameOver, Int32.MaxValue}
+                {GameState.State.GameOver, Int32.MaxValue},
+                {GameState.State.VotingForHostWord, Int32.MaxValue}
             };
 
         public static int Duration(GameState.State state)

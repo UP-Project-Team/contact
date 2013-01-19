@@ -130,9 +130,15 @@ namespace Contact.Server
             Rooms[user.RoomId].AcceptCurrentWordVariant(user, word);
         }
 
-        public static void VoteForPlayerWord(User user, int wordId, bool up)
+        public static void GiveChiefWord(User user, string word)
         {
-            Rooms[user.RoomId].VoteForPlayerWord(user, wordId, up);
+            Rooms[user.RoomId].AcceptChiefWord(user, word);
+        }
+
+
+        public static void VoteForChifWord(User user, bool up)
+        {
+            Rooms[user.RoomId].VoteForChiefWord(user, up);
         }
 
         public static List<Room> GetRoomsList(User user)

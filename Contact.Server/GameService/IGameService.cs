@@ -28,6 +28,10 @@ namespace Contact.Server
 
         [OperationContract(IsInitiating = false, IsTerminating = false)]
         [FaultContract(typeof(GameException))]
+        void GiveChiefWord(Guid token, string word);
+
+        [OperationContract(IsInitiating = false, IsTerminating = false)]
+        [FaultContract(typeof(GameException))]
         void AddRoom(Guid token, string roomName);
 
         [OperationContract(IsInitiating = true, IsTerminating = false, IsOneWay=false)]
@@ -77,7 +81,8 @@ namespace Contact.Server
             PrimaryWordCharOpened,
             UsedWordAdded,
             QuestionAsked,
-            LogoffUser
+            LogoffUser,
+            WeHaveChiefWord
         }
 
         [DataMember]
@@ -90,6 +95,10 @@ namespace Contact.Server
         public static GameMessage QuestionAsked(string question, string word)
         {
             return new GameMessage {actionType = ActionType.QuestionAsked, actionAgrument = new Tuple<string, string>(question, word)};
+        }
+        public static GameMessage WeHaveChiefWord(string word)
+        {
+            return new GameMessage { actionType = ActionType.WeHaveChiefWord, actionAgrument = word }; 
         }
         public static GameMessage LogoffUser()
         {

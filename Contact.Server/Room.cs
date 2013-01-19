@@ -144,6 +144,29 @@ namespace Contact.Server
                 ChangeState(GameState.State.HaveCurrentWordVariant);
             }
         }
+        public void AcceptChiefWord(User user, string word)
+        {
+            if (user.role != User.Role.Host)
+            {
+                LogSaver.Log("!!! AcceptChiefWord invoked user " + user.Id + " role " + user.role.ToString());
+                GameException.Throw("Вы не можете так делать");
+            }
+
+            lock (gameState)
+            {
+                if (gameState.UsedWords.Contains(word))
+                    GameException.Throw("Это слово уже использовалось");
+
+                if (!word.StartsWith(gameState.PrimaryWordKnownLetters))
+                    GameException.Throw("Слово должно начинаться с открытых букв");
+                if (word == gameState.PrimaryWord)
+                    GameException.Throw("Так ты спалишь загаданное слово!");
+
+                gameState.ChiefWord = word;
+                BroadcastMessage(GameMessage.WeHaveChiefWord(word));
+                ChangeState(GameState.State.VotingForHostWord);
+            }
+        }
 
         public void VoteForPlayerWord(User user, int wordId, bool up)
         {
@@ -155,7 +178,15 @@ namespace Contact.Server
                 gameState.votings[wordId].Vote(user, up);
             }
         }
-
+        public void VoteForChiefWord(User user, bool up)
+        {
+            lock (gameState)
+            {
+                if (user.role != User.Role.Host)
+                    GameException.Throw("Вы не можете голосовать");
+                
+            }
+        }
         public void StartGame()
         {
             //TODO: start with normal state

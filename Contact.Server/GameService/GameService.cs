@@ -43,6 +43,8 @@ namespace Contact.Server
         {
             var user = RoomControll.GetUserByToken(token);
             LogSaver.Log("Start Game userId=" + user.Id);
+            //ведущим становится взывавший эту операцию (пока пусть так будет)
+            user.role = User.Role.Host;
             RoomControll.StartGame(user);
         }
 
@@ -60,6 +62,13 @@ namespace Contact.Server
             RoomControll.GiveCurrentWordVariant(user, word);
         }
 
+        public void GiveChiefWord(Guid token, string word)
+        {
+            var user = RoomControll.GetUserByToken(token);
+            LogSaver.Log("GiveChiefWord userId=" + user.Id);
+            RoomControll.GiveChiefWord(user, word);
+        }
+
 
         public void VoteForPlayerWord(Guid token, int wordId, bool up)
         {
@@ -68,6 +77,12 @@ namespace Contact.Server
             RoomControll.VoteForPlayerWord(user, wordId, up);
         }
 
+        public void VoteForChiefWord(Guid token, bool up)
+        {
+            var user = RoomControll.GetUserByToken(token);
+            LogSaver.Log("VoteForChiefWord userId=" + user.Id + (up ? "up" : "down"));
+            RoomControll.
+        }
 
         public List<Room> GetRoomsList(Guid token)
         {

@@ -64,6 +64,8 @@
       <xs:enumeration value="VotingForHostWord" />
       <xs:enumeration value="VotingForPlayersWords" />
       <xs:enumeration value="GameOver" />
+      <xs:enumeration value="WeHaveChiefWord" />
+      <xs:enumeration value="HostChiefWord" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="GameState.State" nillable="true" type="tns:GameState.State" />
@@ -98,6 +100,7 @@
       <xs:enumeration value="UsedWordAdded" />
       <xs:enumeration value="QuestionAsked" />
       <xs:enumeration value="LogoffUser" />
+      <xs:enumeration value="WeHaveChiefWord" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="GameMessage.ActionType" nillable="true" type="tns:GameMessage.ActionType" />
