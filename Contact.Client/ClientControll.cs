@@ -32,7 +32,7 @@ namespace Contact.Client
             mainWindow.Show();
 
             //create login form
-            loginWindow = new LoginWindow(mainWindow);
+            loginWindow = new LoginWindow();
             loginWindow.Show();         
             
             // create and show main window

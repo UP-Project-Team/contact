@@ -56,12 +56,27 @@ namespace Contact.Server
 
             return user;
         }
-
+        public static User GetUserByName(string username)
+        {
+            return OnlineUsers.Find(p => p.Name == username);
+        }
+        public static void LogoffUser(User user)
+        {
+            User us = RoomControll.GetUserByName(user.Name);
+            GameMessage msg = new GameMessage();
+            msg = GameMessage.LogoffUser();           
+            DeleteOnlineUser(us);
+            try { us.Callback.Notify(msg); }
+            catch { }
+        }
         public static void AddOnlineUser(User user)
         {
             lock (OnlineUsers)
             {
-                //TODO: what if user already online?
+                if (RoomControll.CheckUser(user.Name))
+                {                    
+                    LogoffUser(user);            
+                }
                 OnlineUsers.Add(user);
             }
             
@@ -69,7 +84,13 @@ namespace Contact.Server
             user.RoomId = 0;
             Rooms[0].EnterRoom(user);
         }
-        
+        public static bool CheckUser(string username)
+        {
+            if (OnlineUsers.Exists(p => p.Name == username))
+                return true;
+            else
+                return false;
+        }
         public static void DeleteOnlineUser(User user)
         {
             lock (OnlineUsers)

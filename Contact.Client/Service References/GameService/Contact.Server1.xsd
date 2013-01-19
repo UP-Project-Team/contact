@@ -97,6 +97,7 @@
       <xs:enumeration value="PrimaryWordCharOpened" />
       <xs:enumeration value="UsedWordAdded" />
       <xs:enumeration value="QuestionAsked" />
+      <xs:enumeration value="LogoffUser" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="GameMessage.ActionType" nillable="true" type="tns:GameMessage.ActionType" />

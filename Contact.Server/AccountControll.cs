@@ -24,7 +24,7 @@ namespace Contact.Server
         public static UserData LoginUser(string name, string password)
         {
             User user;
-            // TODO: add actual DB support (now it accepts everything and gives consecutive user ids)
+            
             lock (syncObject) //добавлено чтобы не путать OperatinContext, хотя не понятно насколько работает
             {
             #if DEBUG

@@ -76,7 +76,8 @@ namespace Contact.Server
             UserRoleChanged,
             PrimaryWordCharOpened,
             UsedWordAdded,
-            QuestionAsked
+            QuestionAsked,
+            LogoffUser
         }
 
         [DataMember]
@@ -90,7 +91,10 @@ namespace Contact.Server
         {
             return new GameMessage {actionType = ActionType.QuestionAsked, actionAgrument = new Tuple<string, string>(question, word)};
         }
-
+        public static GameMessage LogoffUser()
+        {
+            return new GameMessage { actionType = ActionType.LogoffUser };
+        }
         public static GameMessage UsedWordAddedMessage(string word)
         {
             return new GameMessage {actionType = ActionType.UsedWordAdded, actionAgrument = word};

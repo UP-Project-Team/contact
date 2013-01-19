@@ -19,12 +19,11 @@ namespace Contact.Client
     /// </summary>
     public partial class LoginWindow : Window
     {
-        public LoginWindow(MainWindow mainW)
+        public LoginWindow()
         {
-            InitializeComponent();
-            mai = mainW;
+            InitializeComponent();            
         }
-        MainWindow mai;
+       
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {

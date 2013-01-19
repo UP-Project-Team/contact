@@ -19,6 +19,7 @@ namespace Contact.Client
         private static Dictionary<GameMessage.ActionType, CallbackAction> CallbackActions = new Dictionary
             <GameMessage.ActionType, CallbackAction>
             {
+                {GameMessage.ActionType.LogoffUser,CallbackAction_LogoffUser},
                 {GameMessage.ActionType.UserJoinedRoom, CallbackAction_UserJoinedRoom},
                 {GameMessage.ActionType.UserLeftRoom, CallbackAction_UserLeftRoom},
                 {GameMessage.ActionType.StateChanged, CallbackAction_StateChanged},
@@ -108,7 +109,15 @@ namespace Contact.Client
             LogSaver.Log("State changed. New = " + gameState.State);
         }
 
-
+        private static void CallbackAction_LogoffUser(object arg)
+        {
+            mainWindow.Dispatcher.Invoke(() =>
+            {
+                mainWindow.IsEnabled = false;
+            });
+            loginWindow = new LoginWindow();
+            loginWindow.Show();
+        }
         // Process message
         public static void ChangeClientView(GameMessage message)
         {
