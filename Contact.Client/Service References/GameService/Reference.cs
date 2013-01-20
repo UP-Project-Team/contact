@@ -542,9 +542,9 @@ namespace Contact.Client.GameService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.Room))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.GameMessage.ActionType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(string[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<Contact.Client.GameService.User, Contact.Client.GameService.User.Role>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<string, string>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<string, int>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<string, string>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<Contact.Client.GameService.User, Contact.Client.GameService.User.Role>))]
     public partial class GameMessage : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -703,6 +703,13 @@ namespace Contact.Client.GameService {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, IsInitiating=false, Action="http://tempuri.org/IGameService/StartGame")]
         System.Threading.Tasks.Task StartGameAsync(System.Guid token);
         
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/LeaveRoom", ReplyAction="http://tempuri.org/IGameService/LeaveRoomResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Contact.Client.GameService.GameException), Action="http://tempuri.org/IGameService/LeaveRoomGameExceptionFault", Name="GameException", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
+        void LeaveRoom(System.Guid token);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/LeaveRoom", ReplyAction="http://tempuri.org/IGameService/LeaveRoomResponse")]
+        System.Threading.Tasks.Task LeaveRoomAsync(System.Guid token);
+        
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/GiveCurrentWordVariant", ReplyAction="http://tempuri.org/IGameService/GiveCurrentWordVariantResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(Contact.Client.GameService.GameException), Action="http://tempuri.org/IGameService/GiveCurrentWordVariantGameExceptionFault", Name="GameException", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
         void GiveCurrentWordVariant(System.Guid token, string word);
@@ -837,6 +844,14 @@ namespace Contact.Client.GameService {
         
         public System.Threading.Tasks.Task StartGameAsync(System.Guid token) {
             return base.Channel.StartGameAsync(token);
+        }
+        
+        public void LeaveRoom(System.Guid token) {
+            base.Channel.LeaveRoom(token);
+        }
+        
+        public System.Threading.Tasks.Task LeaveRoomAsync(System.Guid token) {
+            return base.Channel.LeaveRoomAsync(token);
         }
         
         public void GiveCurrentWordVariant(System.Guid token, string word) {

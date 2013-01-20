@@ -128,7 +128,11 @@ namespace Contact.Server
             
             Rooms[user.RoomId].LeaveRoom(user);
         }
-
+        public static void UserLeaveRoom(User user)
+        {
+            DeleteOnlineUser(user);
+            AddOnlineUser(user);
+        }
         public static GameState GetState(User user)
         {
             return Rooms[user.RoomId].GetState();
@@ -138,7 +142,11 @@ namespace Contact.Server
         {
             Rooms[user.RoomId].StartGame();
         }
-
+        public static void LeaveRoom(User user)
+        {
+            DeleteOnlineUser(user);
+            AddOnlineUser(user);
+        }
         public static void AskQuestion(User user, string question, string word)
         {
             Rooms[user.RoomId].AcceptQuestion(user, question, word);

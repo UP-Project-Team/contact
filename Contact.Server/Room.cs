@@ -43,6 +43,17 @@ namespace Contact.Server
 
         public void LeaveRoom(User user)
         {
+            if (user.role == User.Role.Host)
+            {
+                ChangeState(GameState.State.GameOver);
+                ResetRoles();
+            }
+
+            if (user.role == User.Role.Qwestioner)
+            {
+                ChangeState(GameState.State.HaveNoCurrentWord);
+                BroadcastMessage(GameMessage.UserRoleChangedMessage(user, User.Role.None));
+            }
             lock (gameState)
             {
                 gameState.Users.Remove(user);

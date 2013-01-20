@@ -43,6 +43,10 @@ namespace Contact.Server
 
         [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]
         [FaultContract(typeof(GameException))]
+        void LeaveRoom(Guid token);
+
+        [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]
+        [FaultContract(typeof(GameException))]
         void GiveCurrentWordVariant(Guid token, string word);
 
         [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]

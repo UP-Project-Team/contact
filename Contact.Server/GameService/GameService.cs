@@ -38,6 +38,12 @@ namespace Contact.Server
             return RoomControll.GetState(user);
         }
 
+        public void LeaveRoom(Guid token)
+        {
+            var user = RoomControll.GetUserByToken(token);
+            LogSaver.Log("User " + user.Id + "leave room");
+            RoomControll.UserLeaveRoom(user);
+        }
 
         public void StartGame(Guid token)
         {

@@ -65,7 +65,8 @@ namespace Contact.Client
                 new Tuple<UIElement, Func<bool>>(VotingForPlayersWords, () => ClientControll.gameState.State==GameState.State.VotingForPlayersWords),                
                 new Tuple<UIElement, Func<bool>>(GameOver, () => ClientControll.gameState.State==GameState.State.GameOver),
                 new Tuple<UIElement, Func<bool>>(QwestionerHaveCurrentWord, () => ClientControll.gameState.State==GameState.State.HaveCurrentWord && ClientControll.gameState.Me.role == User.Role.Qwestioner),
-               new Tuple<UIElement, Func<bool>>(lstRooms, () => ClientControll.gameState.CurrentRoomId==0)
+                new Tuple<UIElement, Func<bool>>(Lobby, () => ClientControll.gameState.CurrentRoomId==0),
+                new Tuple<UIElement, Func<bool>>(btnLeaveRoom, () => ClientControll.gameState.CurrentRoomId!=0)
             };
             UpdateStatesVisibility();
         }
@@ -109,9 +110,7 @@ namespace Contact.Client
         {
             var room = (Room)lstRooms.SelectedItem;
             if (room == null || room.Id==0) return;            
-            ClientControll.GotoRoom(room.Id);
-            txtRoomName.Visibility = Visibility.Hidden;
-            btnCreateRoom.Visibility = Visibility.Hidden;
+            ClientControll.GotoRoom(room.Id);          
         }
 
         private void btnHostHaveChiefWord_Click(object sender, RoutedEventArgs e)
@@ -132,6 +131,11 @@ namespace Contact.Client
         private void btnCreateRoom_Click(object sender, RoutedEventArgs e)
         {
             ClientControll.CreateNewRoom(txtRoomName.Text);
+        }
+
+        private void btnLeaveRoom_Click(object sender, RoutedEventArgs e)
+        {
+            ClientControll.LeaveRoom();
         }        
         
     }

@@ -98,6 +98,24 @@ namespace Contact.Client
             gameState.Rooms = new ObservableCollection<Room>(rooms);
         }
 
+        public static async void LeaveRoom()
+        {
+            try
+            {
+                await proxy.LeaveRoomAsync(gameState.Me.Token);
+            }
+            catch (FaultException<GameException> e)
+            {
+                MessageBox.Show(e.Detail.Message);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            GetState();
+            gameState.CurrentRoomId = 0;
+        }
+
         public static async void GotoRoom(int roomId)
         {
             try

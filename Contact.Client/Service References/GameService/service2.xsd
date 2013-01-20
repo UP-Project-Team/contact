@@ -111,10 +111,22 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GiveCurrentWordVariant">
+  <xs:element name="LeaveRoom">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q11:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LeaveRoomResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GiveCurrentWordVariant">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q12:guid" />
         <xs:element minOccurs="0" name="word" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -127,7 +139,7 @@
   <xs:element name="VoteForPlayerWord">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q12="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q12:guid" />
+        <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q13:guid" />
         <xs:element minOccurs="0" name="wordId" type="xs:int" />
         <xs:element minOccurs="0" name="up" type="xs:boolean" />
       </xs:sequence>
@@ -141,7 +153,7 @@
   <xs:element name="VoteForChiefWord">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q13:guid" />
+        <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q14:guid" />
         <xs:element minOccurs="0" name="up" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
@@ -154,7 +166,7 @@
   <xs:element name="AskQuestion">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q14:guid" />
+        <xs:element xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="token" type="q15:guid" />
         <xs:element minOccurs="0" name="question" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="word" nillable="true" type="xs:string" />
       </xs:sequence>
@@ -168,7 +180,7 @@
   <xs:element name="Notify">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Contact.Server" minOccurs="0" name="msg" nillable="true" type="q15:GameMessage" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Contact.Server" minOccurs="0" name="msg" nillable="true" type="q16:GameMessage" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
