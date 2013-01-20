@@ -73,6 +73,7 @@ namespace Contact.Server
     [KnownType(typeof(User.Role))]
     [KnownType(typeof(Tuple<User, User.Role>))]
     [KnownType(typeof(Tuple<string, string>))]
+    [KnownType(typeof(Tuple<string, int>))]
     public class GameMessage
     {
         public enum ActionType
@@ -86,7 +87,8 @@ namespace Contact.Server
             UsedWordAdded,
             QuestionAsked,
             LogoffUser,
-            WeHaveChiefWord
+            WeHaveChiefWord,
+            AddedRoom
         }
 
         [DataMember]
@@ -103,6 +105,10 @@ namespace Contact.Server
         public static GameMessage WeHaveChiefWord(string word)
         {
             return new GameMessage { actionType = ActionType.WeHaveChiefWord, actionAgrument = word }; 
+        }
+        public static GameMessage AddedRoom(string Name, int Id)
+        {
+            return new GameMessage { actionType = ActionType.AddedRoom, actionAgrument = new Tuple<string, int>(Name, Id) };
         }
         public static GameMessage LogoffUser()
         {

@@ -108,15 +108,15 @@ namespace Contact.Client
         private void LstRooms_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var room = (Room)lstRooms.SelectedItem;
-            if (room == null || room.Id==0) return;
-            
+            if (room == null || room.Id==0) return;            
             ClientControll.GotoRoom(room.Id);
+            txtRoomName.Visibility = Visibility.Hidden;
+            btnCreateRoom.Visibility = Visibility.Hidden;
         }
 
         private void btnHostHaveChiefWord_Click(object sender, RoutedEventArgs e)
         {
-            ClientControll.GiveChiefWord(txtChiefWord.Text);
-            txtChiefWord.Text = "asd";            
+            ClientControll.GiveChiefWord(txtChiefWord.Text);                  
         }
 
         private void btnVoteForChiefWord_Agree_Click(object sender, RoutedEventArgs e)
@@ -127,6 +127,11 @@ namespace Contact.Client
         private void btnVoteForChiefWord_Disagree_Click(object sender, RoutedEventArgs e)
         {
             ClientControll.VoteForChiefWord(false);
+        }
+
+        private void btnCreateRoom_Click(object sender, RoutedEventArgs e)
+        {
+            ClientControll.CreateNewRoom(txtRoomName.Text);
         }        
         
     }

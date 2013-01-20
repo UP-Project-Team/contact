@@ -101,6 +101,7 @@
       <xs:enumeration value="QuestionAsked" />
       <xs:enumeration value="LogoffUser" />
       <xs:enumeration value="WeHaveChiefWord" />
+      <xs:enumeration value="AddedRoom" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="GameMessage.ActionType" nillable="true" type="tns:GameMessage.ActionType" />

@@ -544,6 +544,7 @@ namespace Contact.Client.GameService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(string[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<Contact.Client.GameService.User, Contact.Client.GameService.User.Role>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<string, string>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<string, int>))]
     public partial class GameMessage : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -633,6 +634,9 @@ namespace Contact.Client.GameService {
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
             WeHaveChiefWord = 9,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            AddedRoom = 10,
         }
     }
     

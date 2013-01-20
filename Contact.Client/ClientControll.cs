@@ -196,5 +196,21 @@ namespace Contact.Client
                 MessageBox.Show(e.Message);
             }
         }
+
+        public static async void CreateNewRoom(string name)
+        {
+            try
+            {
+                await proxy.AddRoomAsync(gameState.Me.Token, name);
+            }
+            catch (FaultException<GameException> e)
+            {
+                MessageBox.Show(e.Detail.Message);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
     }
 }

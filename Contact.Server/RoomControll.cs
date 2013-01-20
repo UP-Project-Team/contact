@@ -28,13 +28,32 @@ namespace Contact.Server
             throw new AccessViolationException("Asked for user with unknown GUID");
         }
 
-        public static int AddRoom(string name)
+        public static void AddRoom(string name)
         {
+            foreach(var asd in Rooms)
+            {
+                if(asd.Value.Name==name)
+                GameException.Throw("Комната с таким именем уже есть");
+            }
+            
             var newRoomId = roomsCount;
             Interlocked.Increment(ref roomsCount);
             Rooms.TryAdd(newRoomId, new Room(newRoomId, name));
-            
-            return newRoomId;
+            GameMessage message = GameMessage.AddedRoom(name, newRoomId);
+            lock (OnlineUsers)
+            {
+                foreach (var user in OnlineUsers)
+                {
+                    try
+                    {
+                        user.Callback.Notify(message);
+                    }
+                    catch (Exception e)
+                    {
+                        LogSaver.Log("FAIL!! mysterious callback exception: " + e.Message);
+                    }
+                }
+            }
         }
 
         private static User GetUserById(int userId)
@@ -154,7 +173,7 @@ namespace Contact.Server
             if (!Rooms.ContainsKey(roomId))
             {
                 LogSaver.Log("!?! Trying to go to nonexistent room "+roomId+" userId="+user.Id);
-                GameException.Throw("Комнаты с таким нормером нет");
+                GameException.Throw("Комнаты с таким номером нет");
             }
 
             if (roomId == user.RoomId) return;

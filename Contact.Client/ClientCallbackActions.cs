@@ -28,8 +28,22 @@ namespace Contact.Client
                 {GameMessage.ActionType.PrimaryWordCharOpened, CallbackAction_PrimaryWordCharOpened},
                 {GameMessage.ActionType.UsedWordAdded, CallbackAction_UsedWordAdded},
                 {GameMessage.ActionType.QuestionAsked, CallbackAction_QuestionAsked},
-                {GameMessage.ActionType.WeHaveChiefWord, CallbackAction_WeHaveChiefWord}
+                {GameMessage.ActionType.WeHaveChiefWord, CallbackAction_WeHaveChiefWord},
+                {GameMessage.ActionType.AddedRoom, CallbackAction_AddedRoom}
             };
+        private static void CallbackAction_AddedRoom(object arg)
+        {
+            LogSaver.Log("asddddddd!!!!");
+            var tuple=(Tuple<string, int>)arg;                              
+            Room room = new Room();
+            room.Id=tuple.Item2;
+            room.Name = tuple.Item1;
+            mainWindow.Dispatcher.Invoke(() =>
+            {
+                gameState.Rooms.Add(room);
+            });
+
+        }
 
         private static void CallbackAction_QuestionAsked(object arg)
         {

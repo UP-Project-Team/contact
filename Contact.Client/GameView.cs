@@ -31,7 +31,7 @@ namespace Contact.Client
                 OnPropertyChanged("Rooms");
             }
         }
-
+       
         private GameState.State _state;
         public GameState.State State { 
             get { return _state; }
