@@ -542,8 +542,8 @@ namespace Contact.Client.GameService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.Room))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Contact.Client.GameService.GameMessage.ActionType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(string[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<string, string>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<Contact.Client.GameService.User, Contact.Client.GameService.User.Role>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<string, string>))]
     public partial class GameMessage : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -713,6 +713,13 @@ namespace Contact.Client.GameService {
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/VoteForPlayerWord", ReplyAction="http://tempuri.org/IGameService/VoteForPlayerWordResponse")]
         System.Threading.Tasks.Task VoteForPlayerWordAsync(System.Guid token, int wordId, bool up);
         
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/VoteForChiefWord", ReplyAction="http://tempuri.org/IGameService/VoteForChiefWordResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Contact.Client.GameService.GameException), Action="http://tempuri.org/IGameService/VoteForChiefWordGameExceptionFault", Name="GameException", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
+        void VoteForChiefWord(System.Guid token, bool up);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/VoteForChiefWord", ReplyAction="http://tempuri.org/IGameService/VoteForChiefWordResponse")]
+        System.Threading.Tasks.Task VoteForChiefWordAsync(System.Guid token, bool up);
+        
         [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IGameService/AskQuestion", ReplyAction="http://tempuri.org/IGameService/AskQuestionResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(Contact.Client.GameService.GameException), Action="http://tempuri.org/IGameService/AskQuestionGameExceptionFault", Name="GameException", Namespace="http://schemas.datacontract.org/2004/07/Contact.Server")]
         void AskQuestion(System.Guid token, string question, string word);
@@ -842,6 +849,14 @@ namespace Contact.Client.GameService {
         
         public System.Threading.Tasks.Task VoteForPlayerWordAsync(System.Guid token, int wordId, bool up) {
             return base.Channel.VoteForPlayerWordAsync(token, wordId, up);
+        }
+        
+        public void VoteForChiefWord(System.Guid token, bool up) {
+            base.Channel.VoteForChiefWord(token, up);
+        }
+        
+        public System.Threading.Tasks.Task VoteForChiefWordAsync(System.Guid token, bool up) {
+            return base.Channel.VoteForChiefWordAsync(token, up);
         }
         
         public void AskQuestion(System.Guid token, string question, string word) {

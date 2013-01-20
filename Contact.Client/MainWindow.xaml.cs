@@ -121,12 +121,12 @@ namespace Contact.Client
 
         private void btnVoteForChiefWord_Agree_Click(object sender, RoutedEventArgs e)
         {
-
+            ClientControll.VoteForChiefWord(true);
         }
 
         private void btnVoteForChiefWord_Disagree_Click(object sender, RoutedEventArgs e)
         {
-
+            ClientControll.VoteForChiefWord(false);
         }        
         
     }

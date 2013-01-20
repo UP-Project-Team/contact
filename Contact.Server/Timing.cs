@@ -20,7 +20,8 @@ namespace Contact.Server
                 {GameState.State.HaveCurrentWordVariant, 5*1000},
                 {GameState.State.VotingForPlayersWords, 10*1000},
                 {GameState.State.GameOver, Int32.MaxValue},
-                {GameState.State.VotingForHostWord, Int32.MaxValue}
+                {GameState.State.VotingForHostWord, 10*1000},
+                {GameState.State.WeHaveChiefWord, 200*1000}
             };
 
         public static int Duration(GameState.State state)
@@ -50,7 +51,9 @@ namespace Contact.Server
                 {GameState.State.HaveCurrentWord, this.HaveCurrentWordTimeout},
                 {GameState.State.HaveCurrentWordVariant, this.HaveCurrentWordVariantTimeout},
                 {GameState.State.VotingForPlayersWords, this.VotingForPlayersWordsTimeout},
-                {GameState.State.HaveNoCurrentWord, this.HaveNoCurrentWordTimeout}
+                {GameState.State.HaveNoCurrentWord, this.HaveNoCurrentWordTimeout},
+                {GameState.State.VotingForHostWord, this.VotingForHostWordTimeout},
+
             };
 
             stateTimer = new System.Timers.Timer();
@@ -105,7 +108,45 @@ namespace Contact.Server
 
             ChangeState(GameState.State.VotingForPlayersWords);
         }
+        private void VotingForHostWordTimeout()
+        {
+            LogSaver.Log("VotingForChiefWord Timeout");
+            User questioner;
+            bool openLetter = false;
+            bool winGame = false;
+            bool ChiefWord= false;
 
+            lock (gameState)
+            {
+                ChiefWord = gameState.votings[0].Accepted(gameState.Users.Count);
+
+                if (ChiefWord)
+                    gameState.UsedWords.Add(gameState.ChiefWord);
+                else
+                {
+                    gameState.NumberOfOpenChars++;
+
+                    if (gameState.NumberOfOpenChars == gameState.PrimaryWord.Length) winGame = true;
+                    else openLetter = true;
+                }
+                questioner = gameState.Users.Single(user => user.role == User.Role.Qwestioner);
+                questioner.role = User.Role.None;        
+            }
+
+            BroadcastMessage(GameMessage.UserRoleChangedMessage(questioner, User.Role.None));
+
+            if (ChiefWord)
+                BroadcastMessage(GameMessage.UsedWordAddedMessage(gameState.ChiefWord));
+            
+            if (openLetter)
+                BroadcastMessage(GameMessage.PrimaryWordCharOpened());
+
+            if (winGame)
+                ChangeState(GameState.State.GameOver);
+            else
+                ChangeState(GameState.State.HaveNoCurrentWord);
+
+        }
         private void VotingForPlayersWordsTimeout()
         {
             LogSaver.Log("VotingForPlayersWords Timeout");

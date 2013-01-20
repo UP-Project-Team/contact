@@ -180,9 +180,21 @@ namespace Contact.Client
                 MessageBox.Show(e.Message);
             }
         }
+
         public static async void VoteForChiefWord(bool up)
         {
-
+            try
+            {
+                await proxy.VoteForChiefWordAsync(gameState.Me.Token, up);
+            }
+            catch (FaultException<GameException> e)
+            {
+                MessageBox.Show(e.Detail.Message);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
     }
 }

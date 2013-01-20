@@ -81,7 +81,7 @@ namespace Contact.Server
         {
             var user = RoomControll.GetUserByToken(token);
             LogSaver.Log("VoteForChiefWord userId=" + user.Id + (up ? "up" : "down"));
-            RoomControll.
+            RoomControll.VoteForChifWord(user, up);
         }
 
         public List<Room> GetRoomsList(Guid token)
