@@ -48,6 +48,10 @@ namespace Contact.Server
         [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]
         [FaultContract(typeof(GameException))]
         void VoteForPlayerWord(Guid token, int wordId, bool up);
+
+        [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]
+        [FaultContract(typeof(GameException))]
+        void VoteForChiefWord(Guid token, bool up);
         
         [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]
         [FaultContract(typeof(GameException))]

@@ -129,6 +129,15 @@
   <wsdl:message name="IGameService_VoteForPlayerWord_GameExceptionFault_FaultMessage">
     <wsdl:part xmlns:q7="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q7:GameException" />
   </wsdl:message>
+  <wsdl:message name="IGameService_VoteForChiefWord_InputMessage">
+    <wsdl:part name="parameters" element="tns:VoteForChiefWord" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_VoteForChiefWord_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VoteForChiefWordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_VoteForChiefWord_GameExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q8="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q8:GameException" />
+  </wsdl:message>
   <wsdl:message name="IGameService_AskQuestion_InputMessage">
     <wsdl:part name="parameters" element="tns:AskQuestion" />
   </wsdl:message>
@@ -136,7 +145,7 @@
     <wsdl:part name="parameters" element="tns:AskQuestionResponse" />
   </wsdl:message>
   <wsdl:message name="IGameService_AskQuestion_GameExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q8="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q8:GameException" />
+    <wsdl:part xmlns:q9="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q9:GameException" />
   </wsdl:message>
   <wsdl:message name="IGameService_Notify_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:Notify" />
@@ -190,6 +199,11 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IGameService/VoteForPlayerWord" message="tns:IGameService_VoteForPlayerWord_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IGameService/VoteForPlayerWordResponse" message="tns:IGameService_VoteForPlayerWord_OutputMessage" />
       <wsdl:fault wsaw:Action="http://tempuri.org/IGameService/VoteForPlayerWordGameExceptionFault" name="GameExceptionFault" message="tns:IGameService_VoteForPlayerWord_GameExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="VoteForChiefWord">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/VoteForChiefWord" message="tns:IGameService_VoteForChiefWord_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/VoteForChiefWordResponse" message="tns:IGameService_VoteForChiefWord_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IGameService/VoteForChiefWordGameExceptionFault" name="GameExceptionFault" message="tns:IGameService_VoteForChiefWord_GameExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="AskQuestion">
       <wsdl:input wsaw:Action="http://tempuri.org/IGameService/AskQuestion" message="tns:IGameService_AskQuestion_InputMessage" />
@@ -308,6 +322,18 @@
     </wsdl:operation>
     <wsdl:operation name="VoteForPlayerWord">
       <soap12:operation soapAction="http://tempuri.org/IGameService/VoteForPlayerWord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GameExceptionFault">
+        <soap12:fault use="literal" name="GameExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="VoteForChiefWord">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/VoteForChiefWord" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -129,7 +129,7 @@ namespace Contact.Server
                     gameState.VarOfCurWord = word;
                     user.role = User.Role.Contacter;
                 }
-
+               
             }
 
             if (epicWin)
@@ -162,6 +162,7 @@ namespace Contact.Server
                 if (word == gameState.PrimaryWord)
                     GameException.Throw("Так ты спалишь загаданное слово!");
 
+                gameState.PrepareForVoting(1);
                 gameState.ChiefWord = word;
                 BroadcastMessage(GameMessage.WeHaveChiefWord(word));
                 ChangeState(GameState.State.VotingForHostWord);
@@ -182,9 +183,10 @@ namespace Contact.Server
         {
             lock (gameState)
             {
-                if (user.role != User.Role.Host)
+                if (user.role == User.Role.Host)
                     GameException.Throw("Вы не можете голосовать");
-                
+
+                gameState.votings[0].Vote(user, up);
             }
         }
         public void StartGame()

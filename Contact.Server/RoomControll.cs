@@ -134,7 +134,10 @@ namespace Contact.Server
         {
             Rooms[user.RoomId].AcceptChiefWord(user, word);
         }
-
+        public static void VoteForPlayerWord(User user, int wordId, bool up)
+        {
+            Rooms[user.RoomId].VoteForPlayerWord(user, wordId, up);
+        }
 
         public static void VoteForChifWord(User user, bool up)
         {
