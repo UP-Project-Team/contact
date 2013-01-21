@@ -156,6 +156,15 @@
   <wsdl:message name="IGameService_AskQuestion_GameExceptionFault_FaultMessage">
     <wsdl:part xmlns:q10="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q10:GameException" />
   </wsdl:message>
+  <wsdl:message name="IGameService_SetPrimaryWord_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetPrimaryWord" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_SetPrimaryWord_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetPrimaryWordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_SetPrimaryWord_GameExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q11="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q11:GameException" />
+  </wsdl:message>
   <wsdl:message name="IGameService_Notify_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:Notify" />
   </wsdl:message>
@@ -223,6 +232,11 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IGameService/AskQuestion" message="tns:IGameService_AskQuestion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IGameService/AskQuestionResponse" message="tns:IGameService_AskQuestion_OutputMessage" />
       <wsdl:fault wsaw:Action="http://tempuri.org/IGameService/AskQuestionGameExceptionFault" name="GameExceptionFault" message="tns:IGameService_AskQuestion_GameExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="SetPrimaryWord">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/SetPrimaryWord" message="tns:IGameService_SetPrimaryWord_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/SetPrimaryWordResponse" message="tns:IGameService_SetPrimaryWord_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IGameService/SetPrimaryWordGameExceptionFault" name="GameExceptionFault" message="tns:IGameService_SetPrimaryWord_GameExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Notify">
       <wsdl:output wsaw:Action="http://tempuri.org/IGameService/Notify" message="tns:IGameService_Notify_OutputCallbackMessage" />
@@ -372,6 +386,18 @@
     </wsdl:operation>
     <wsdl:operation name="AskQuestion">
       <soap12:operation soapAction="http://tempuri.org/IGameService/AskQuestion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GameExceptionFault">
+        <soap12:fault use="literal" name="GameExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SetPrimaryWord">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/SetPrimaryWord" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -54,6 +54,13 @@ namespace Contact.Server
             RoomControll.StartGame(user);
         }
 
+        public void SetPrimaryWord(Guid token, string primaryWord)
+        {
+            var user = RoomControll.GetUserByToken(token);
+            LogSaver.Log("SetPrimaryWord userId=" + user.Id);
+            RoomControll.SetPrimaryWord(user, primaryWord);
+        }
+
         public void AskQuestion(Guid token, string question, string word)
         {
             var user = RoomControll.GetUserByToken(token);

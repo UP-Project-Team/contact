@@ -58,6 +58,7 @@
   <xs:simpleType name="GameState.State">
     <xs:restriction base="xs:string">
       <xs:enumeration value="NotStarted" />
+      <xs:enumeration value="HaveNoPrimaryWord" />
       <xs:enumeration value="HaveNoCurrentWord" />
       <xs:enumeration value="HaveCurrentWord" />
       <xs:enumeration value="HaveCurrentWordVariant" />

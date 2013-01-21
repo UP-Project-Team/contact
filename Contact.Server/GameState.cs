@@ -11,6 +11,7 @@ namespace Contact.Server
         public enum State
         {
             NotStarted,
+            HaveNoPrimaryWord,
             HaveNoCurrentWord,
             HaveCurrentWord,
             HaveCurrentWordVariant,
@@ -79,7 +80,7 @@ namespace Contact.Server
             state = State.NotStarted;
 
             //TODO: remove this
-            PrimaryWord = "железо";
+            //PrimaryWord = "железо";
             NumberOfOpenChars = 1;
         }
 

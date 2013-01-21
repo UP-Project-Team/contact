@@ -60,6 +60,10 @@ namespace Contact.Server
         [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]
         [FaultContract(typeof(GameException))]
         void AskQuestion(Guid token, string question, string word);
+
+        [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]
+        [FaultContract(typeof(GameException))]
+        void SetPrimaryWord(Guid token, string primaryWord);
     }
     
     //User callback
