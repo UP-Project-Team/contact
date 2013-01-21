@@ -25,6 +25,7 @@ namespace Contact.Client
                 {GameMessage.ActionType.StateChanged, CallbackAction_StateChanged},
                 {GameMessage.ActionType.VarOfCurWordChanged, CallbackAction_VarOfCurWordChanged},
                 {GameMessage.ActionType.UserRoleChanged, CallbackAction_UserRoleChanged},
+                {GameMessage.ActionType.PrimaryWordGiven, CallbackAction_PrimaryWordGiven},
                 {GameMessage.ActionType.PrimaryWordCharOpened, CallbackAction_PrimaryWordCharOpened},
                 {GameMessage.ActionType.UsedWordAdded, CallbackAction_UsedWordAdded},
                 {GameMessage.ActionType.QuestionAsked, CallbackAction_QuestionAsked},
@@ -67,7 +68,11 @@ namespace Contact.Client
             var word = (string) arg;
             mainWindow.Dispatcher.Invoke(() => gameState.UsedWords.Add(word));
         }
-
+        private static void CallbackAction_PrimaryWordGiven(object arg)
+        {
+            var word = (string)arg;
+            mainWindow.Dispatcher.Invoke(() => gameState.PrimaryWord = word);
+        }
         private static void CallbackAction_PrimaryWordCharOpened(object arg)
         {
             mainWindow.Dispatcher.Invoke(() => { gameState.NumberOfOpenChars++; });

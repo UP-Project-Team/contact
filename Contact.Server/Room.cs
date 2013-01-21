@@ -82,6 +82,7 @@ namespace Contact.Server
             lock (gameState)
             {
                 gameState.PrimaryWord = primaryWord.ToLower();
+                BroadcastMessage(GameMessage.PrimaryWordGiven(gameState.PrimaryWord));
                 ChangeState(GameState.State.HaveNoCurrentWord);
             }
         }

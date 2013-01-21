@@ -624,22 +624,25 @@ namespace Contact.Client.GameService {
             UserRoleChanged = 4,
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
-            PrimaryWordCharOpened = 5,
+            PrimaryWordGiven = 5,
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
-            UsedWordAdded = 6,
+            PrimaryWordCharOpened = 6,
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
-            QuestionAsked = 7,
+            UsedWordAdded = 7,
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
-            LogoffUser = 8,
+            QuestionAsked = 8,
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
-            WeHaveChiefWord = 9,
+            LogoffUser = 9,
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
-            AddedRoom = 10,
+            WeHaveChiefWord = 10,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            AddedRoom = 11,
         }
     }
     

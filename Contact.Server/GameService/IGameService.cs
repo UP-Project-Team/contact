@@ -91,6 +91,7 @@ namespace Contact.Server
             StateChanged,
             VarOfCurWordChanged,
             UserRoleChanged,
+            PrimaryWordGiven,
             PrimaryWordCharOpened,
             UsedWordAdded,
             QuestionAsked,
@@ -130,6 +131,11 @@ namespace Contact.Server
         public static GameMessage PrimaryWordCharOpened()
         {
             return new GameMessage { actionType = ActionType.PrimaryWordCharOpened };
+        }
+
+        public static GameMessage PrimaryWordGiven(string primaryWord)
+        {
+            return new GameMessage { actionType = ActionType.PrimaryWordGiven, actionAgrument = primaryWord };
         }
 
         public static GameMessage UserRoleChangedMessage(User user, User.Role role)
