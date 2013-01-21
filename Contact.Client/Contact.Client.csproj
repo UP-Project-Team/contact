@@ -157,7 +157,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="have_cont.PNG" />
+    <Content Include="have_cont.PNG" />
     <Content Include="k.PNG" />
   </ItemGroup>
   <ItemGroup>
