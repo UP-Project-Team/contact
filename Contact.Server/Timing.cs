@@ -129,12 +129,8 @@ namespace Contact.Server
 
                     if (gameState.NumberOfOpenChars == gameState.PrimaryWord.Length) winGame = true;
                     else openLetter = true;
-                }
-                questioner = gameState.Users.Single(user => user.role == User.Role.Qwestioner);
-                questioner.role = User.Role.None;
-            }
-
-            BroadcastMessage(GameMessage.UserRoleChangedMessage(questioner, User.Role.None));
+                }                
+            }            
 
             if (ChiefWord)
                 BroadcastMessage(GameMessage.UsedWordAddedMessage(gameState.ChiefWord));
