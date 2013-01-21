@@ -51,10 +51,10 @@
             x:Name="btnStartGame"
             Click="btnStartGame_Click" RenderTransformOrigin="0.88,0.969" Content="Go" Grid.ColumnSpan="3" Margin="0,0,0.4,-0.2" d:IsHidden="True"/>
 
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="GameOver" Grid.Column="2" Margin="63.6,104,132.4,132.8" Height="84" Width="248">
-            <Label HorizontalAlignment="Center" Content="Раунд окончен!"/>
-            <Label Content="{Binding PrimaryWord}" Margin="10,0" Height="24"/>
-            <Button Click="btnStartGame_Click" MaxWidth="200" Content="Начать новый раунд" Margin="59,10,63,0"/>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="GameOver" Grid.Column="2" Margin="63.6,104,132.4,132.8" Height="84" Width="248" d:IsHidden="True">
+            <Label HorizontalAlignment="Center" Content="Раунд окончен!" d:IsHidden="True"/>
+            <Label Content="{Binding PrimaryWord}" Margin="10,0" Height="24" d:IsHidden="True"/>
+            <Button Click="btnStartGame_Click" MaxWidth="200" Content="Начать новый раунд" Margin="59,10,63,0" d:IsHidden="True"/>
         </StackPanel>
 
         <StackPanel Grid.Column="0" x:Name="HaveCurrentWordVariant" Grid.ColumnSpan="3" Margin="0,0,0.4,-0.2" d:IsHidden="True">
@@ -120,12 +120,14 @@
             <TextBox Name="txtPrimaryWord" Height="23" TextWrapping="Wrap" Text="" Margin="125,-25,10.2,0" d:IsHidden="True"/>
 
         </StackPanel>
-        <StackPanel Name="HostChiefWord" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="427" Grid.ColumnSpan="3" Margin="0,0,0,-0.2" d:IsHidden="True">
-            <Label Content="Участник предложил вопрос:" Height="25" Margin="10,10,10.2,0" d:IsHidden="True"/>
-            <TextBox Name="txtCurrentQuestion" Text="{Binding Question}" Height="50" TextWrapping="Wrap" Margin="10,0,10.2,0" d:IsHidden="True"/>
-            <Label Content="Ваш ответ:" Margin="10,10,10.2,0" d:IsHidden="True"/>
-            <TextBox Name="txtChiefWord" Height="23" TextWrapping="Wrap" Text="" Margin="10,10,107.2,0" d:IsHidden="True"/>
-            <Button Name="btnHostHaveChiefWord" Content="Ok" Margin="325,-25,82.2,0" Height="17" RenderTransformOrigin="0.5,0.506" Click="btnHostHaveChiefWord_Click" d:IsHidden="True"/>
+        <StackPanel Name="HostChiefWord" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="427" Grid.ColumnSpan="3" Margin="0,0,0,-0.2">
+            <Label Content="Участник предложил вопрос:" Height="25" Margin="10,10,10.2,0"/>
+            <TextBox Name="txtCurrentQuestion" Text="{Binding Question}" Height="50" TextWrapping="Wrap" Margin="10,0,10.2,0"/>
+            <Label Content="Открытые буквы слова:" Margin="10,10,10.2,0"/>
+            <Label Content="{Binding PrimaryWordKnownLetters}" Margin="10,5,10.2,0"/>
+            <Label Content="Ваш ответ:" Margin="10,10,10.2,0"/>
+            <TextBox Name="txtChiefWord" Height="23" TextWrapping="Wrap" Text="" Margin="10,10,107.2,0"/>
+            <Button Name="btnHostHaveChiefWord" Content="Ok" Margin="325,-25,82.2,0" Height="17" RenderTransformOrigin="0.5,0.506" Click="btnHostHaveChiefWord_Click"/>
         </StackPanel>
         <StackPanel x:Name="VotingForChiefWord" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="427" Grid.ColumnSpan="3" Margin="0,0,0,-0.2" d:IsHidden="True">
             <Label Content="Голосование за слово представленное ведущим" Margin="10,0,10.2,0" d:IsHidden="True"/>
