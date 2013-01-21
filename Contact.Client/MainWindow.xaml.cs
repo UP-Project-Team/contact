@@ -142,6 +142,7 @@ namespace Contact.Client
         private void btnSetPrimaryWord_Click(object sender, RoutedEventArgs e)
         {
             ClientControll.SetPrimaryWord(txtSetPrimaryWord.Text);
+            txtPrimaryWord.Text = txtSetPrimaryWord.Text;
         }
     }
 }
