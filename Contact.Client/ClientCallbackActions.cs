@@ -34,7 +34,7 @@ namespace Contact.Client
             };
         private static void CallbackAction_AddedRoom(object arg)
         {
-            LogSaver.Log("asddddddd!!!!");
+            LogSaver.Log("NewRoomAdded");
             var tuple=(Tuple<string, int>)arg;                              
             Room room = new Room();
             room.Id=tuple.Item2;

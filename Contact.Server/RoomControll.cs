@@ -30,11 +30,9 @@ namespace Contact.Server
 
         public static void AddRoom(string name)
         {
-            foreach(var asd in Rooms)
-            {
-                if(asd.Value.Name==name)
+            if (Rooms.Values.Any(p => p.Name == name))
                 GameException.Throw("Комната с таким именем уже есть");
-            }
+          
             
             var newRoomId = roomsCount;
             Interlocked.Increment(ref roomsCount);
@@ -141,13 +139,7 @@ namespace Contact.Server
         public static void StartGame(User user)
         {
             Rooms[user.RoomId].StartGame();
-        }
-
-        public static void LeaveRoom(User user)
-        {
-            DeleteOnlineUser(user);
-            AddOnlineUser(user);
-        }
+        }        
 
         public static void SetPrimaryWord(User user, string primaryWord)
         {

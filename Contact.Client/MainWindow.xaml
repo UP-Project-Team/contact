@@ -51,11 +51,10 @@
             x:Name="btnStartGame"
             Click="btnStartGame_Click" RenderTransformOrigin="0.88,0.969" Content="Go" Grid.ColumnSpan="3" Margin="0,0,0.4,-0.2" d:IsHidden="True"/>
 
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="GameOver" Grid.Column="2" Margin="133.6,133,193.4,132.8" d:IsHidden="True">
-            <Label HorizontalAlignment="Center" Content="Раунд окончен!" d:IsHidden="True"/>
-            <Label Content="{Binding PrimaryWord}" d:IsHidden="True"/>
-
-            <Button Click="btnStartGame_Click" MaxWidth="200" Content="Начать новый раунд" d:IsHidden="True"/>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="GameOver" Grid.Column="2" Margin="63.6,104,132.4,132.8" Height="84" Width="248">
+            <Label HorizontalAlignment="Center" Content="Раунд окончен!"/>
+            <Label Content="{Binding PrimaryWord}" Margin="10,0" Height="24"/>
+            <Button Click="btnStartGame_Click" MaxWidth="200" Content="Начать новый раунд" Margin="59,10,63,0"/>
         </StackPanel>
 
         <StackPanel Grid.Column="0" x:Name="HaveCurrentWordVariant" Grid.ColumnSpan="3" Margin="0,0,0.4,-0.2" d:IsHidden="True">
@@ -85,21 +84,22 @@
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Grid.Column="2" x:Name="VotingForPlayersWords" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="154.6,136,215.4,136.8" d:IsHidden="True">
-            <StackPanel Orientation="Horizontal" d:IsHidden="True">
-                <Label Content="{Binding CurrentWord}" d:IsHidden="True"/>
-                <Button Margin="5,0,0,0" x:Name="btnCurrentWordVoteUp" Click="btnCurrentWordVoteUp_Click" Content="Up" d:IsHidden="True"/>
-                <Button Margin="5,0,0,0" x:Name="btnCurrentWordVoteDown" Click="btnCurrentWordVoteDown_Click" Content="Down" d:IsHidden="True"/>
+        <StackPanel Grid.Column="2" x:Name="VotingForPlayersWords" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="63.6,88,132.4,112.8" Width="248" Height="120" d:IsHidden="True">
+            <Label Content="Голосование за слова пользователей" Margin="10,0"/>
+            <StackPanel Orientation="Horizontal" Margin="10,15,10,0">
+                <Label Content="{Binding CurrentWord}" Width="148" Height="29"/>
+                <Button Margin="5,0,0,0" x:Name="btnCurrentWordVoteUp" Click="btnCurrentWordVoteUp_Click" Content="Up" Width="32"/>
+                <Button Margin="5,0,0,0" x:Name="btnCurrentWordVoteDown" Click="btnCurrentWordVoteDown_Click" Content="Down"/>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0,10,0,0" d:IsHidden="True">
-                <Label Content="{Binding VarOfCurWord}" d:IsHidden="True"/>
-                <Button Margin="5,0,0,0" x:Name="btnVarOfCurWordVoteUp" Click="btnVarOfCurWordVoteUp_Click" Content="Up" d:IsHidden="True"/>
-                <Button Margin="5,0,0,0" x:Name="btnVarOfCurWordVoteDown" Click="btnVarOfCurWordVoteDown_Click" Content="Down" d:IsHidden="True"/>
+            <StackPanel Orientation="Horizontal" Margin="10,10,9.8,0" Height="28">
+                <Label Content="{Binding VarOfCurWord}" Width="149" Margin="0,0,0,-0.2"/>
+                <Button Margin="5,0,0,-0.2" x:Name="btnVarOfCurWordVoteUp" Click="btnVarOfCurWordVoteUp_Click" Content="Up" Width="32"/>
+                <Button Margin="5,0,0,0" x:Name="btnVarOfCurWordVoteDown" Click="btnVarOfCurWordVoteDown_Click" Content="Down"/>
             </StackPanel>
         </StackPanel>
 
-        <Grid Grid.Column="2" Margin="357.6,0,0.4,-0.2">
+        <Grid Grid.Column="2" Margin="357.6,0,0.4,-0.2" d:IsHidden="True">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -134,14 +134,14 @@
             <Button Name="btnVoteForChiefWord_Disagree" Content="X" Margin="160,-10,242.2,0" Height="20" RenderTransformOrigin="0.504,0.51" Click="btnVoteForChiefWord_Disagree_Click" d:IsHidden="True"/>
         </StackPanel>
         
-        <StackPanel x:Name="Lobby" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="432" Grid.ColumnSpan="3" Margin="0,0,0,-0.2">
+        <StackPanel x:Name="Lobby" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="432" Grid.ColumnSpan="3" Margin="0,0,0,-0.2" d:IsHidden="True">
             <ListBox x:Name="lstRooms" HorizontalAlignment="Right" VerticalAlignment="Top" MinHeight="200" MinWidth="300" ItemsSource="{Binding Rooms}" ItemTemplate="{StaticResource RoomItemTemplate}" MouseDoubleClick="LstRooms_OnMouseDoubleClick" RenderTransformOrigin="0.5,0.5" Height="160" Width="295" Margin="0,50,107,0"/>
             <Button x:Name="btnCreateRoom" Content="Создать новую комнату" Margin="175,10,117,0" Click="btnCreateRoom_Click"/>
             <TextBox Name="txtRoomName" Height="20" TextWrapping="Wrap" Text="" Margin="25,-20,262,0"/>
         </StackPanel>
-        <Button Name="btnLeaveRoom" Content="LeaveRoom" Grid.Column="2" HorizontalAlignment="Left" Margin="133.6,287,0,0" VerticalAlignment="Top" Width="75" Click="btnLeaveRoom_Click"/>
+        <Button Name="btnLeaveRoom" Content="LeaveRoom" Grid.Column="2" HorizontalAlignment="Left" Margin="133.6,287,0,0" VerticalAlignment="Top" Width="75" Click="btnLeaveRoom_Click" d:IsHidden="True"/>
 
-        <StackPanel x:Name="HaveNoPrimaryWord" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="309" VerticalAlignment="Top" Width="410" FlowDirection="RightToLeft">
+        <StackPanel x:Name="HaveNoPrimaryWord" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="309" VerticalAlignment="Top" Width="410" FlowDirection="RightToLeft" d:IsHidden="True">
             <TextBox x:Name="txtSetPrimaryWord" Height="23" TextWrapping="Wrap" Margin="0,0,0,0"/>
             <Button x:Name="btnSetPrimaryWord" Content="Загадать" Height="24" Margin="0,0,358,0" Click="btnSetPrimaryWord_Click"/>
         </StackPanel>

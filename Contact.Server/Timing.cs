@@ -115,7 +115,7 @@ namespace Contact.Server
             User questioner;
             bool openLetter = false;
             bool winGame = false;
-            bool ChiefWord= false;
+            bool ChiefWord = false;
 
             lock (gameState)
             {
@@ -131,14 +131,14 @@ namespace Contact.Server
                     else openLetter = true;
                 }
                 questioner = gameState.Users.Single(user => user.role == User.Role.Qwestioner);
-                questioner.role = User.Role.None;        
+                questioner.role = User.Role.None;
             }
 
             BroadcastMessage(GameMessage.UserRoleChangedMessage(questioner, User.Role.None));
 
             if (ChiefWord)
                 BroadcastMessage(GameMessage.UsedWordAddedMessage(gameState.ChiefWord));
-            
+
             if (openLetter)
                 BroadcastMessage(GameMessage.PrimaryWordCharOpened());
 

@@ -66,7 +66,7 @@ namespace Contact.Client
                 new Tuple<UIElement, Func<bool>>(HaveNoPrimaryWord, () => ClientControll.gameState.State==GameState.State.HaveNoPrimaryWord && ClientControll.gameState.Me.role == User.Role.Host),
                 new Tuple<UIElement, Func<bool>>(HaveNoCurrentWord, () => ClientControll.gameState.State==GameState.State.HaveNoCurrentWord && ClientControll.gameState.Me.role != User.Role.Host),
                 new Tuple<UIElement, Func<bool>>(HostWaitQuestion, () => ClientControll.gameState.State==GameState.State.HaveNoCurrentWord && ClientControll.gameState.Me.role == User.Role.Host),
-                new Tuple<UIElement, Func<bool>>(HostChiefWord, () => ClientControll.gameState.State==GameState.State.HaveCurrentWord && ClientControll.gameState.Me.role == User.Role.Host),
+                new Tuple<UIElement, Func<bool>>(HostChiefWord, () => ClientControll.gameState.State==GameState.State.HaveCurrentWord && ClientControll.gameState.Me.role == User.Role.Host || ClientControll.gameState.State==GameState.State.HaveCurrentWordVariant &&  ClientControll.gameState.Me.role == User.Role.Host),
                 new Tuple<UIElement, Func<bool>>(HaveCurrentWord, () => ClientControll.gameState.State==GameState.State.HaveCurrentWord && ClientControll.gameState.Me.role == User.Role.None),
                 new Tuple<UIElement, Func<bool>>(HaveCurrentWordVariant, () => ClientControll.gameState.State==GameState.State.HaveCurrentWordVariant && ClientControll.gameState.Me.role == User.Role.Contacter),
                 new Tuple<UIElement, Func<bool>>(VotingForChiefWord, () => ClientControll.gameState.State==GameState.State.VotingForHostWord),              
