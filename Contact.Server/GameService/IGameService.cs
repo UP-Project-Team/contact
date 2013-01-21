@@ -60,6 +60,10 @@ namespace Contact.Server
         [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]
         [FaultContract(typeof(GameException))]
         void AskQuestion(Guid token, string question, string word);
+
+        [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]
+        [FaultContract(typeof(GameException))]
+        void SetPrimaryWord(Guid token, string primaryWord);
     }
     
     //User callback
@@ -87,6 +91,7 @@ namespace Contact.Server
             StateChanged,
             VarOfCurWordChanged,
             UserRoleChanged,
+            PrimaryWordGiven,
             PrimaryWordCharOpened,
             UsedWordAdded,
             QuestionAsked,
@@ -126,6 +131,11 @@ namespace Contact.Server
         public static GameMessage PrimaryWordCharOpened()
         {
             return new GameMessage { actionType = ActionType.PrimaryWordCharOpened };
+        }
+
+        public static GameMessage PrimaryWordGiven(string primaryWord)
+        {
+            return new GameMessage { actionType = ActionType.PrimaryWordGiven, actionAgrument = primaryWord };
         }
 
         public static GameMessage UserRoleChangedMessage(User user, User.Role role)

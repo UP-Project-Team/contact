@@ -28,10 +28,17 @@ namespace Contact.Client
 
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
-            ClientControll.StartGame();
-            // Ведущим становится нажавший эту кнопку.
-            ClientControll.gameState.Me.role = User.Role.Host;
-            txtPrimaryWord.Text = ClientControll.gameState.PrimaryWord;
+            if (ClientControll.gameState.Users.Count > 2)
+            {
+                ClientControll.StartGame();
+                // Ведущим становится нажавший эту кнопку.
+                ClientControll.gameState.Me.role = User.Role.Host;
+                txtPrimaryWord.Text = ClientControll.gameState.PrimaryWord;
+            }
+            else
+            {
+                MessageBox.Show("В комнате должно быть не меньше 3 человек");
+            }
         }
 
         private void btnSubmitAnswer_Click(object sender, RoutedEventArgs e)
@@ -56,6 +63,7 @@ namespace Contact.Client
             StateActivateActionsList = new List<Tuple<UIElement, Func<bool>>>
             {
                 new Tuple<UIElement, Func<bool>>(btnStartGame, () => ClientControll.gameState.State==GameState.State.NotStarted),
+                new Tuple<UIElement, Func<bool>>(HaveNoPrimaryWord, () => ClientControll.gameState.State==GameState.State.HaveNoPrimaryWord && ClientControll.gameState.Me.role == User.Role.Host),
                 new Tuple<UIElement, Func<bool>>(HaveNoCurrentWord, () => ClientControll.gameState.State==GameState.State.HaveNoCurrentWord && ClientControll.gameState.Me.role != User.Role.Host),
                 new Tuple<UIElement, Func<bool>>(HostWaitQuestion, () => ClientControll.gameState.State==GameState.State.HaveNoCurrentWord && ClientControll.gameState.Me.role == User.Role.Host),
                 new Tuple<UIElement, Func<bool>>(HostChiefWord, () => ClientControll.gameState.State==GameState.State.HaveCurrentWord && ClientControll.gameState.Me.role == User.Role.Host),
@@ -138,5 +146,10 @@ namespace Contact.Client
             ClientControll.LeaveRoom();
         }        
         
+        private void btnSetPrimaryWord_Click(object sender, RoutedEventArgs e)
+        {
+            ClientControll.SetPrimaryWord(txtSetPrimaryWord.Text);
+            txtPrimaryWord.Text = txtSetPrimaryWord.Text;
+        }
     }
 }

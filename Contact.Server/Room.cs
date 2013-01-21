@@ -71,6 +71,22 @@ namespace Contact.Server
             }
         }
 
+        public void AcceptPrimaryWord(User user, string primaryWord)
+        {
+            if(user.role != User.Role.Host)
+            {
+                LogSaver.Log("!!! AcceptPrimaryWord invoked user " + user.Id + " role " + user.role.ToString());
+                GameException.Throw("Вы не можете этого делать!");
+            }
+
+            lock (gameState)
+            {
+                gameState.PrimaryWord = primaryWord.ToLower();
+                BroadcastMessage(GameMessage.PrimaryWordGiven(gameState.PrimaryWord));
+                ChangeState(GameState.State.HaveNoCurrentWord);
+            }
+        }
+
         public void AcceptQuestion(User user, string question, string word)
         {
             if (user.role != User.Role.None)
@@ -203,7 +219,7 @@ namespace Contact.Server
         public void StartGame()
         {
             //TODO: start with normal state
-            ChangeState(GameState.State.HaveNoCurrentWord);
+            ChangeState(GameState.State.HaveNoPrimaryWord);
         }
 
         public void ChangeState(GameState.State state)

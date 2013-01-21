@@ -135,6 +135,22 @@ namespace Contact.Client
             gameState.CurrentRoomId = roomId;
         }
 
+        public static async void SetPrimaryWord(string primaryWord)
+        {
+            try
+            {
+                await proxy.SetPrimaryWordAsync(gameState.Me.Token, primaryWord);
+            }
+            catch (FaultException<GameException> e)
+            {
+                MessageBox.Show(e.Detail.Message);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
         public static async void AskQuestion(string question, string word)
         {
             try
