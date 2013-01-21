@@ -636,13 +636,16 @@ namespace Contact.Client.GameService {
             QuestionAsked = 8,
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
-            LogoffUser = 9,
+            StartGame = 9,
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
-            WeHaveChiefWord = 10,
+            LogoffUser = 10,
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
-            AddedRoom = 11,
+            WeHaveChiefWord = 11,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            AddedRoom = 12,
         }
     }
     

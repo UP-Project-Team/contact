@@ -79,8 +79,6 @@ namespace Contact.Server
         {
             state = State.NotStarted;
 
-            //TODO: remove this
-            //PrimaryWord = "железо";
             NumberOfOpenChars = 1;
         }
 

@@ -237,10 +237,11 @@ namespace Contact.Server
                 gameState.votings[0].Vote(user, up);
             }
         }
-        public void StartGame()
+        public void StartGame(User user)
         {
             //TODO: start with normal state
             ChangeState(GameState.State.HaveNoPrimaryWord);
+            BroadcastMessage(GameMessage.UserRoleChangedMessage(user, User.Role.Host));
         }
 
         public void ChangeState(GameState.State state)

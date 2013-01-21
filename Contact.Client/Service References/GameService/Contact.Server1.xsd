@@ -101,6 +101,7 @@
       <xs:enumeration value="PrimaryWordCharOpened" />
       <xs:enumeration value="UsedWordAdded" />
       <xs:enumeration value="QuestionAsked" />
+      <xs:enumeration value="StartGame" />
       <xs:enumeration value="LogoffUser" />
       <xs:enumeration value="WeHaveChiefWord" />
       <xs:enumeration value="AddedRoom" />

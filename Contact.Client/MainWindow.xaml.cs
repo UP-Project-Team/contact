@@ -31,9 +31,6 @@ namespace Contact.Client
             if (ClientControll.gameState.Users.Count > 2)
             {
                 ClientControll.StartGame();
-                // Ведущим становится нажавший эту кнопку.
-                ClientControll.gameState.Me.role = User.Role.Host;
-                txtPrimaryWord.Text = ClientControll.gameState.PrimaryWord;
             }
             else
             {
