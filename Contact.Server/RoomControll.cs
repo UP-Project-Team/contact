@@ -138,10 +138,6 @@ namespace Contact.Server
 
         public static void StartGame(User user)
         {
-<<<<<<< HEAD
-            Rooms[user.RoomId].StartGame();
-        }        
-=======
             Rooms[user.RoomId].StartGame(user);
         }
 
@@ -150,7 +146,6 @@ namespace Contact.Server
             DeleteOnlineUser(user);
             AddOnlineUser(user);
         }
->>>>>>> Начало игры
 
         public static void SetPrimaryWord(User user, string primaryWord)
         {
