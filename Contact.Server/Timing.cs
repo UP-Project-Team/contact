@@ -111,8 +111,7 @@ namespace Contact.Server
         }
         private void VotingForHostWordTimeout()
         {
-            LogSaver.Log("VotingForChiefWord Timeout");
-            User questioner;
+            LogSaver.Log("VotingForChiefWord Timeout");         
             bool openLetter = false;
             bool winGame = false;
             bool ChiefWord = false;
