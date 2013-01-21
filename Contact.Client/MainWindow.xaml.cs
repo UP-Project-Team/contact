@@ -28,10 +28,17 @@ namespace Contact.Client
 
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
-            ClientControll.StartGame();
-            // Ведущим становится нажавший эту кнопку.
-            ClientControll.gameState.Me.role = User.Role.Host;
-            txtPrimaryWord.Text = ClientControll.gameState.PrimaryWord;
+            if (ClientControll.gameState.Users.Count > 2)
+            {
+                ClientControll.StartGame();
+                // Ведущим становится нажавший эту кнопку.
+                ClientControll.gameState.Me.role = User.Role.Host;
+                txtPrimaryWord.Text = ClientControll.gameState.PrimaryWord;
+            }
+            else
+            {
+                MessageBox.Show("В комнате должно быть не меньше 3 человек");
+            }
         }
 
         private void btnSubmitAnswer_Click(object sender, RoutedEventArgs e)
