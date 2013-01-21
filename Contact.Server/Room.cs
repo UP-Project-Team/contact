@@ -48,15 +48,22 @@ namespace Contact.Server
                 ChangeState(GameState.State.GameOver);
                 ResetRoles();
             }
-
-            if (user.role == User.Role.Qwestioner)
+            else
             {
-                ChangeState(GameState.State.HaveNoCurrentWord);
+                if (user.role == User.Role.Qwestioner)
+                {
+                    ChangeState(GameState.State.HaveNoCurrentWord);
+                }
                 BroadcastMessage(GameMessage.UserRoleChangedMessage(user, User.Role.None));
             }
             lock (gameState)
             {
                 gameState.Users.Remove(user);
+            }
+            if (gameState.Users.Count < 3 && gameState.state != GameState.State.NotStarted)
+            {
+                ChangeState(GameState.State.GameOver);
+                ResetRoles();
             }
 
             BroadcastMessage(GameMessage.UserLeftRoomMessage(user));
