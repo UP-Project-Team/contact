@@ -114,7 +114,7 @@
                 <ListBox x:Name="lstUsedWords" MinWidth="100" ItemsSource="{Binding UsedWords}" d:IsHidden="True"/>
             </StackPanel>
         </Grid>
-        <StackPanel x:Name="HostWaitQuestion" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="427" Grid.ColumnSpan="3" Margin="0,0,0,-0.2" d:IsHidden="True">
+        <StackPanel x:Name="HostWaitQuestion" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="427" Grid.ColumnSpan="3" Margin="0,0,0,-0.2" d:IsHidden="True" Visibility="Visible">
             <Label Content="Ожидаем участников." Margin="10,0,0.2,0" d:IsHidden="True"/>
             <Label Content="Вы загадали слово:" Margin="10,40,302.2,0" d:IsHidden="True"/>
             <TextBox Name="txtPrimaryWord" Height="23" TextWrapping="Wrap" Text="" Margin="125,-25,10.2,0" d:IsHidden="True"/>
