@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Contact.Client.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Есть контакт!" Height="327" Width="582" Background="#FFCADADA" Icon="pack://siteoforigin:,,,/k.png">
+        Title="Есть контакт!" Height="327" Width="582" Background="#FFCADADA" Icon="k.PNG">
     <Grid Margin="0,0,-6,-1">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="142*"/>
@@ -14,7 +14,7 @@
         <TextBox x:Name="PasswordTB" HorizontalAlignment="Left" Height="23" Margin="35,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Grid.Column="1"/>
         <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Войти" HorizontalAlignment="Left" Height="27" Margin="164,193,0,0" VerticalAlignment="Top" Width="103" Click="Button_Click_1" Grid.ColumnSpan="2" FontSize="16"/>
         <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Зарегистрироваться" HorizontalAlignment="Left" Height="27" Margin="52,193,0,0" VerticalAlignment="Top" Width="162" Click="Button_Click_2" Grid.Column="1" FontSize="16" Grid.ColumnSpan="2"/>
-        <Image Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Top" Source="pack://siteoforigin:,,,/have_cont.png"/>
+        <Image Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Top" Source="have_cont.PNG"/>
 
     </Grid>
 </Window>

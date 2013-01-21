@@ -63,7 +63,7 @@ namespace Contact.Client
             StateActivateActionsList = new List<Tuple<UIElement, Func<bool>>>
             {
                 new Tuple<UIElement, Func<bool>>(btnStartGame, () => ClientControll.gameState.State==GameState.State.NotStarted),
-                new Tuple<UIElement, Func<bool>>(HaveNoPrimaryWord, () => ClientControll.gameState.State==GameState.State.HaveNoPrimaryWord && ClientControll.gameState.Me.role == User.Role.Host),
+                //new Tuple<UIElement, Func<bool>>(HaveNoPrimaryWord, () => ClientControll.gameState.State==GameState.State.HaveNoPrimaryWord && ClientControll.gameState.Me.role == User.Role.Host),
                 new Tuple<UIElement, Func<bool>>(HaveNoCurrentWord, () => ClientControll.gameState.State==GameState.State.HaveNoCurrentWord && ClientControll.gameState.Me.role != User.Role.Host),
                 new Tuple<UIElement, Func<bool>>(HostWaitQuestion, () => ClientControll.gameState.State==GameState.State.HaveNoCurrentWord && ClientControll.gameState.Me.role == User.Role.Host),
                 new Tuple<UIElement, Func<bool>>(HostChiefWord, () => ClientControll.gameState.State==GameState.State.HaveCurrentWord && ClientControll.gameState.Me.role == User.Role.Host),
@@ -146,10 +146,10 @@ namespace Contact.Client
             ClientControll.LeaveRoom();
         }        
         
-        private void btnSetPrimaryWord_Click(object sender, RoutedEventArgs e)
-        {
-            ClientControll.SetPrimaryWord(txtSetPrimaryWord.Text);
-            txtPrimaryWord.Text = txtSetPrimaryWord.Text;
-        }
+        //private void btnSetPrimaryWord_Click(object sender, RoutedEventArgs e)
+        //{
+        //    ClientControll.SetPrimaryWord(txtSetPrimaryWord.Text);
+        //    txtPrimaryWord.Text = txtSetPrimaryWord.Text;
+        //}
     }
 }
