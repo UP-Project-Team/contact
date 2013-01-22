@@ -42,7 +42,12 @@ namespace Contact.Server
         }
 
         public void LeaveRoom(User user)
-        {
+        {            
+            lock (gameState)
+            {
+                gameState.Users.Remove(user);
+            }
+
             if (user.role == User.Role.Host)
             {
                 ChangeState(GameState.State.GameOver);
@@ -56,10 +61,7 @@ namespace Contact.Server
                 }
                 BroadcastMessage(GameMessage.UserRoleChangedMessage(user, User.Role.None));
             }
-            lock (gameState)
-            {
-                gameState.Users.Remove(user);
-            }
+
             if (gameState.Users.Count < 3 && gameState.state != GameState.State.NotStarted)
             {
                 ChangeState(GameState.State.GameOver);
@@ -200,20 +202,6 @@ namespace Contact.Server
                 gameState.ChiefWord = word;
                 BroadcastMessage(GameMessage.WeHaveChiefWord(word));
                 ChangeState(GameState.State.VotingForHostWord);
-
-                User contacter = gameState.Users.Single(use => use.role == User.Role.Contacter);
-                if (contacter != null)
-                {
-                    contacter.role = User.Role.None;
-                    BroadcastMessage(GameMessage.UserRoleChangedMessage(contacter, User.Role.None));
-                }
-
-                User questioner = gameState.Users.Single(use => use.role == User.Role.Qwestioner);
-                if (questioner != null)
-                {
-                    questioner.role = User.Role.None;
-                    BroadcastMessage(GameMessage.UserRoleChangedMessage(questioner, User.Role.None));
-                }
             }
         }
 

@@ -61,7 +61,6 @@ namespace Contact.Client
             StateActivateActionsList = new List<Tuple<UIElement, Func<bool>>>
             {
                 new Tuple<UIElement, Func<bool>>(btnStartGame, () => ClientControll.gameState.State==GameState.State.NotStarted),
-                new Tuple<UIElement, Func<bool>>(panelUsedWords, () => ClientControll.gameState.CurrentRoomId!=0),
                 new Tuple<UIElement, Func<bool>>(HaveNoPrimaryWord, () => ClientControll.gameState.State==GameState.State.HaveNoPrimaryWord && ClientControll.gameState.Me.role == User.Role.Host),
                 new Tuple<UIElement, Func<bool>>(HaveNoCurrentWord, () => ClientControll.gameState.State==GameState.State.HaveNoCurrentWord && ClientControll.gameState.Me.role != User.Role.Host),
                 new Tuple<UIElement, Func<bool>>(HostWaitQuestion, () => ClientControll.gameState.State==GameState.State.HaveNoCurrentWord && ClientControll.gameState.Me.role == User.Role.Host),
@@ -73,7 +72,8 @@ namespace Contact.Client
                 new Tuple<UIElement, Func<bool>>(GameOver, () => ClientControll.gameState.State==GameState.State.GameOver),
                 new Tuple<UIElement, Func<bool>>(QwestionerHaveCurrentWord, () => ClientControll.gameState.State==GameState.State.HaveCurrentWord && ClientControll.gameState.Me.role == User.Role.Qwestioner),
                 new Tuple<UIElement, Func<bool>>(Lobby, () => ClientControll.gameState.CurrentRoomId==0),
-                new Tuple<UIElement, Func<bool>>(btnLeaveRoom, () => ClientControll.gameState.CurrentRoomId!=0)
+                new Tuple<UIElement, Func<bool>>(InsideRoom, () => ClientControll.gameState.CurrentRoomId!=0),
+                new Tuple<UIElement, Func<bool>>(PrimaryWordKnownLetters, () => ClientControll.gameState.State!=GameState.State.NotStarted && ClientControll.gameState.State!=GameState.State.GameOver)
             };
             UpdateStatesVisibility();
         }
@@ -168,7 +168,6 @@ namespace Contact.Client
         private void btnSetPrimaryWord_Click(object sender, RoutedEventArgs e)
         {
             ClientControll.SetPrimaryWord(txtSetPrimaryWord.Text);
-            txtPrimaryWord.Text = txtSetPrimaryWord.Text;
         }
     }
 }
