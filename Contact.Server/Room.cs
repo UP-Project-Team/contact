@@ -255,7 +255,7 @@ namespace Contact.Server
             BroadcastMessage(GameMessage.StateChangedMessage(state));
         }
 
-        private void BroadcastMessage(GameMessage message)
+        public void BroadcastMessage(GameMessage message)
         {
             var deadUsers = new List<User>();
             lock (gameState)

@@ -31,27 +31,13 @@ namespace Contact.Server
         public static void AddRoom(string name)
         {
             if (Rooms.Values.Any(p => p.Name == name))
-                GameException.Throw("Комната с таким именем уже есть");
-          
+                GameException.Throw("Комната с таким именем уже есть");          
             
             var newRoomId = roomsCount;
             Interlocked.Increment(ref roomsCount);
             Rooms.TryAdd(newRoomId, new Room(newRoomId, name));
             GameMessage message = GameMessage.AddedRoom(name, newRoomId);
-            lock (OnlineUsers)
-            {
-                foreach (var user in OnlineUsers)
-                {
-                    try
-                    {
-                        user.Callback.Notify(message);
-                    }
-                    catch (Exception e)
-                    {
-                        LogSaver.Log("FAIL!! mysterious callback exception: " + e.Message);
-                    }
-                }
-            }
+            Rooms[0].BroadcastMessage(message);
         }
 
         private static User GetUserById(int userId)

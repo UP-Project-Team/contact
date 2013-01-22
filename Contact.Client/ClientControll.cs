@@ -114,6 +114,20 @@ namespace Contact.Client
             }
             GetState();
             gameState.CurrentRoomId = 0;
+
+            try
+            {
+                var rooms = proxy.GetRoomsList(gameState.Me.Token);
+                gameState.Rooms = new ObservableCollection<Room>(rooms);
+            }
+            catch (FaultException<GameException> e)
+            {
+                MessageBox.Show(e.Detail.Message);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         public static async void GotoRoom(int roomId)
