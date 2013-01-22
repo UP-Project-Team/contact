@@ -264,10 +264,16 @@ namespace Contact.Client
             paraInlines.Add(run2);
 
             paraInlines.Add(new Run(System.Environment.NewLine));
-            
+
             rtbChatMessages.ScrollToEnd();
 
             // ChatMessages.Add(username + ": " + message);
+        }
+
+        public void ClearChat()
+        {
+            var rtbChatMessages = ClientControll.mainWindow.rtbChatMessages;
+            rtbChatMessages.Document = new FlowDocument();
         }
 
         private void _chatMessages_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
