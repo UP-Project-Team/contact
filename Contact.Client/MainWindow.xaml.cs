@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Documents;
 using Contact.Client.GameService;
 
 namespace Contact.Client
@@ -114,8 +115,11 @@ namespace Contact.Client
         private void LstRooms_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var room = (Room)lstRooms.SelectedItem;
-            if (room == null || room.Id==0) return;            
-            ClientControll.GotoRoom(room.Id);          
+            if (room == null || room.Id==0) return;
+
+            // Clear chat area before entering the room
+            ClientControll.gameState.ClearChat();
+            ClientControll.GotoRoom(room.Id);
         }
 
         private void btnHostHaveChiefWord_Click(object sender, RoutedEventArgs e)
@@ -140,6 +144,7 @@ namespace Contact.Client
 
         private void btnLeaveRoom_Click(object sender, RoutedEventArgs e)
         {
+            ClientControll.gameState.ClearChat();
             ClientControll.LeaveRoom();
         }
 
