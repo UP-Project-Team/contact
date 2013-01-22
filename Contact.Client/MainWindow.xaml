@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Contact.Client.MainWindow"
-        Title="Есть контакт!" Height="387" Width="525" Background="#FFCADADA" Icon="k.PNG">
+        Title="Есть контакт!" Height="387" Width="652" Background="#FFCADADA" Icon="k.PNG">
     <Window.Resources>
 
         <DataTemplate x:Key="RoomItemTemplate">
@@ -41,10 +41,10 @@
         </Grid.ColumnDefinitions>
 
         <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic"
-            Grid.Column="0" 
+            Grid.Column="2" 
             MaxHeight="30" MaxWidth="100" 
             x:Name="btnStartGame"
-            Click="btnStartGame_Click" RenderTransformOrigin="0.88,0.969" Content="Начать!" Grid.ColumnSpan="3" Foreground="#FF1237DE" FontSize="16" Margin="0,154,0,149" d:IsHidden="True">
+            Click="btnStartGame_Click" RenderTransformOrigin="0.88,0.969" Content="Начать!" Foreground="#FF1237DE" FontSize="16" Margin="0,170,268,133" d:IsHidden="True">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -56,10 +56,10 @@
         </Button>
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="GameOver" Grid.Column="2" Margin="134,145,179,145" Width="130" d:IsHidden="True">
-            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" HorizontalAlignment="Center" Content="Раунд окончен!" FontSize="16" Foreground="#FF0615AA" d:IsHidden="True"/>
-            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="{Binding PrimaryWord}" d:IsHidden="True"/>
+            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" HorizontalAlignment="Center" Content="Раунд окончен!" FontSize="16" Foreground="#FF0615AA"/>
+            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="{Binding PrimaryWord}"/>
 
-            <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Click="btnStartGame_Click" MaxWidth="200" Content="Начать новый раунд" Height="26" Width="128" Foreground="#FF070793" d:IsHidden="True">
+            <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Click="btnStartGame_Click" MaxWidth="200" Content="Начать новый раунд" Height="26" Width="128" Foreground="#FF070793">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -76,22 +76,22 @@
         </StackPanel>
 
         <StackPanel Grid.Column="0" x:Name="HaveCurrentWord" Grid.ColumnSpan="3" Margin="0,0,0.4,-0.2" d:IsHidden="True">
-            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="{Binding PrimaryWordKnownLetters}" Margin="0,80,0,0" Height="9" d:IsHidden="True"/>
-            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="{Binding Question}" d:IsHidden="True"/>
-            <StackPanel Orientation="Horizontal" Margin="0,40,110,0" d:IsHidden="True">
+            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="{Binding PrimaryWordKnownLetters}" Margin="0,80,0,0" Height="9"/>
+            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="{Binding Question}"/>
+            <StackPanel Orientation="Horizontal" Margin="0,40,110,0">
                 <TextBox x:Name="txtAnswer" MinWidth="300"/>
                 <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" x:Name="btnSubmitAnswer" Padding="10,0,10,0" Margin="20,0,0,0" Click="btnSubmitAnswer_Click" Content="Отправить"/>
             </StackPanel>
         </StackPanel>
 
         <StackPanel Grid.Column="0" x:Name="QwestionerHaveCurrentWord" Grid.ColumnSpan="3" Margin="0,0,0.4,-0.2" d:IsHidden="True">
-            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="{Binding PrimaryWordKnownLetters}" Margin="0,80,0,0" d:IsHidden="True"/>
-            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="{Binding CurrentWord}" d:IsHidden="True"/>
+            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="{Binding PrimaryWordKnownLetters}" Margin="0,80,0,0"/>
+            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="{Binding CurrentWord}"/>
         </StackPanel>
 
         <StackPanel Grid.Column="0" x:Name="HaveNoCurrentWord" Margin="0,39,0.4,9.8" Grid.ColumnSpan="3" d:IsHidden="True">
-            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="{Binding PrimaryWordKnownLetters}" Margin="0,40,0,0" d:IsHidden="True"/>
-            <StackPanel Orientation="Vertical" Height="185" d:IsHidden="True">
+            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="{Binding PrimaryWordKnownLetters}" Margin="0,40,0,0"/>
+            <StackPanel Orientation="Vertical" Height="185">
                 <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Задайте вопрос:" Margin="130,0,259,0" FontSize="16" Foreground="#FF030E83" d:IsHidden="True"/>
                 <TextBox x:Name="txtQuestion" MinWidth="300" Margin="0,0,117,0" d:IsHidden="True"/>
                 <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Введите свой вариант ответа:" Margin="90,0,203,0" FontSize="16" Foreground="#FF040F83" d:IsHidden="True"/>
@@ -109,10 +109,11 @@
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Grid.Column="2" x:Name="VotingForPlayersWords" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="155,151,197,152" Width="91" d:IsHidden="True">
-            <StackPanel Orientation="Horizontal" Width="96" d:IsHidden="True">
-                <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="{Binding CurrentWord}" FontWeight="Bold" Foreground="Black" d:IsHidden="True"/>
-                <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Margin="5,0,0,0" x:Name="btnCurrentWordVoteUp" Click="btnCurrentWordVoteUp_Click" Content="Up" Foreground="#FF040A8D" d:IsHidden="True">
+        <StackPanel Grid.Column="2" x:Name="VotingForPlayersWords" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="44,124,252,133" Width="256" Height="100" d:IsHidden="True">
+            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Текущие слова введены. Голосуем!" Height="34" RenderTransformOrigin="0.5,0.5" Foreground="#FF011383" FontSize="16"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
+                <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="{Binding CurrentWord}" FontWeight="Bold" Foreground="Black"/>
+                <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Margin="5,0,0,0" x:Name="btnCurrentWordVoteUp" Click="btnCurrentWordVoteUp_Click" Content="Up" Foreground="#FF040A8D">
                     <Button.Background>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                             <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -122,7 +123,7 @@
                         </LinearGradientBrush>
                     </Button.Background>
                 </Button>
-                <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Margin="5,0,0,0" x:Name="btnCurrentWordVoteDown" Click="btnCurrentWordVoteDown_Click" Content="Down" Foreground="#FF010785" d:IsHidden="True">
+                <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Margin="5,0,0,0" x:Name="btnCurrentWordVoteDown" Click="btnCurrentWordVoteDown_Click" Content="Down" Foreground="#FF010785">
                     <Button.Background>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                             <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -134,9 +135,9 @@
                 </Button>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0,10,0,0" d:IsHidden="True">
-                <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="{Binding VarOfCurWord}" FontWeight="Bold" d:IsHidden="True"/>
-                <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Margin="5,0,0,0" x:Name="btnVarOfCurWordVoteUp" Click="btnVarOfCurWordVoteUp_Click" Content="Up" Foreground="#FF030D7A" d:IsHidden="True">
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="{Binding VarOfCurWord}" FontWeight="Bold"/>
+                <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Margin="5,0,0,0" x:Name="btnVarOfCurWordVoteUp" Click="btnVarOfCurWordVoteUp_Click" Content="Up" Foreground="#FF030D7A">
                     <Button.Background>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                             <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -146,7 +147,7 @@
                         </LinearGradientBrush>
                     </Button.Background>
                 </Button>
-                <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Margin="5,0,0,0" x:Name="btnVarOfCurWordVoteDown" Click="btnVarOfCurWordVoteDown_Click" Content="Down" Foreground="#FF030E7C" d:IsHidden="True">
+                <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Margin="5,0,0,0" x:Name="btnVarOfCurWordVoteDown" Click="btnVarOfCurWordVoteDown_Click" Content="Down" Foreground="#FF030E7C">
                     <Button.Background>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                             <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -165,32 +166,28 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0" Margin="0,72,0,150" Grid.RowSpan="2">
+            <StackPanel Grid.Row="0" Margin="0,72,0,10" Grid.RowSpan="2">
                 <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" x:Name="lblUsersOnline" Content="Online users" Foreground="#FF05157A" FontWeight="Bold"/>
-                <ListBox FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" x:Name="lstUsersOnline" MinWidth="100" ItemsSource="{Binding Users}" ItemTemplate="{StaticResource UserItemTemplate}"/>
-            </StackPanel>
-            <StackPanel x:Name="panelUsedWords" Grid.Row="1" Margin="0,30,0,0">
-                <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" x:Name="lblUsedWords" Content="UsedWords" Foreground="#FF05157A" FontWeight="Bold"/>
-                <ListBox FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" x:Name="lstUsedWords" MinWidth="100" ItemsSource="{Binding UsedWords}"/>
+                <ListBox FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" x:Name="lstUsersOnline" MinWidth="100" ItemsSource="{Binding Users}" ItemTemplate="{StaticResource UserItemTemplate}" Height="242" HorizontalAlignment="Left" Width="170"/>
             </StackPanel>
         </Grid>
-        <StackPanel x:Name="HostWaitQuestion" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="427" Grid.ColumnSpan="3" Margin="0,0,0,-0.2" Visibility="Visible">
+        <StackPanel x:Name="HostWaitQuestion" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="427" Grid.ColumnSpan="3" Margin="0,0,0,-0.2" Visibility="Visible" d:IsHidden="True">
             <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Ожидаем участников." Margin="10,90,0.2,0" FontSize="16" Foreground="#FF03037C"/>
             <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Вы загадали слово:" Margin="10,30,281,0" FontSize="16" Foreground="#FF03037E"/>
             <TextBox Name="txtPrimaryWord" Height="23" TextWrapping="Wrap" Text="" Margin="159,-25,10,0"/>
 
         </StackPanel>
         <StackPanel Name="HostChiefWord" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="427" Grid.ColumnSpan="3" Margin="0,0,0,-0.2" d:IsHidden="True">
-            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Участник предложил вопрос:" Height="31" Margin="10,80,10,0" FontSize="16" Foreground="#FF031A80" d:IsHidden="True"/>
-            <TextBox FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Name="txtCurrentQuestion" Text="{Binding Question}" Height="50" TextWrapping="Wrap" Margin="10,0,10.2,0" d:IsHidden="True"/>
-            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Ваш ответ:" Margin="10,10,10.2,0" FontSize="16" Foreground="#FF051974" d:IsHidden="True"/>
-            <TextBox Name="txtChiefWord" Height="23" TextWrapping="Wrap" Text="" Margin="10,10,107.2,0" d:IsHidden="True"/>
-            <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Name="btnHostHaveChiefWord" Content="Ok" Margin="325,-25,57,0" Height="23" RenderTransformOrigin="0.5,0.506" Click="btnHostHaveChiefWord_Click" d:IsHidden="True"/>
+            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Участник предложил вопрос:" Height="31" Margin="10,80,10,0" FontSize="16" Foreground="#FF031A80"/>
+            <TextBox FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Name="txtCurrentQuestion" Text="{Binding Question}" Height="50" TextWrapping="Wrap" Margin="10,0,10.2,0"/>
+            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Ваш ответ:" Margin="10,10,10.2,0" FontSize="16" Foreground="#FF051974"/>
+            <TextBox Name="txtChiefWord" Height="23" TextWrapping="Wrap" Text="" Margin="10,10,107.2,0"/>
+            <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Name="btnHostHaveChiefWord" Content="Ok" Margin="325,-25,57,0" Height="23" RenderTransformOrigin="0.5,0.506" Click="btnHostHaveChiefWord_Click"/>
         </StackPanel>
         <StackPanel x:Name="VotingForChiefWord" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="427" Grid.ColumnSpan="3" Margin="0,0,0,-0.2" d:IsHidden="True">
-            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Голосование за слово, представленное ведущим" Margin="10,80,10.2,0" FontSize="16" Foreground="#FF040489" d:IsHidden="True"/>
-            <TextBox FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Name="txtChiefVote" Height="24" TextWrapping="Wrap" Text="{Binding ChiefWord}" Margin="10,35,277.2,0" d:IsHidden="True"/>
-            <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Name="btnVoteForChiefWord_Agree" Content="V" Margin="160,-54,242,0" Height="22" RenderTransformOrigin="0.504,0.5" Click="btnVoteForChiefWord_Agree_Click" FontSize="16" Foreground="#FF139706" FontWeight="Bold" d:IsHidden="True">
+            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Голосование за слово, представленное ведущим" Margin="10,80,10.2,0" FontSize="16" Foreground="#FF040489"/>
+            <TextBox FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Name="txtChiefVote" Height="24" TextWrapping="Wrap" Text="{Binding ChiefWord}" Margin="10,35,277.2,0"/>
+            <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Name="btnVoteForChiefWord_Agree" Content="V" Margin="160,-54,242,0" Height="22" RenderTransformOrigin="0.504,0.5" Click="btnVoteForChiefWord_Agree_Click" FontSize="16" Foreground="#FF139706" FontWeight="Bold">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -200,7 +197,7 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
-            <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Name="btnVoteForChiefWord_Disagree" Content="X" Margin="160,-10,242,0" Height="24" RenderTransformOrigin="0.504,0.51" Click="btnVoteForChiefWord_Disagree_Click" FontSize="16" Foreground="#FFF90404" FontWeight="Bold" d:IsHidden="True">
+            <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Name="btnVoteForChiefWord_Disagree" Content="X" Margin="160,-10,242,0" Height="24" RenderTransformOrigin="0.504,0.51" Click="btnVoteForChiefWord_Disagree_Click" FontSize="16" Foreground="#FFF90404" FontWeight="Bold">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -226,7 +223,7 @@
             </Button>
             <TextBox x:Name="txtRoomName" Height="20" TextWrapping="Wrap" Text="" Margin="32,-20,255,0"/>
         </StackPanel>
-        <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Name="btnLeaveRoom" Content="LeaveRoom" Grid.Column="2" HorizontalAlignment="Left" Margin="358,320,0,0" VerticalAlignment="Top" Width="75" Click="btnLeaveRoom_Click" Foreground="#FF081566">
+        <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Name="btnLeaveRoom" Content="LeaveRoom" HorizontalAlignment="Left" Margin="10,325,0,0" VerticalAlignment="Top" Width="75" Click="btnLeaveRoom_Click" Foreground="#FF081566" Grid.ColumnSpan="2" d:IsHidden="True">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -236,7 +233,27 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
+
+        <StackPanel x:Name="HaveNoPrimaryWord" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="309" VerticalAlignment="Top" Width="410" FlowDirection="RightToLeft" d:IsHidden="True">
+            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Загадайте слово" Margin="0,100,0,0" HorizontalAlignment="Center" FontSize="16" Foreground="#FF010D83"/>
+            <TextBox x:Name="txtSetPrimaryWord" Height="23" TextWrapping="Wrap" Margin="0,30,10,0"/>
+            <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" x:Name="btnSetPrimaryWord" Content="Загадать" Height="24" Margin="144,20,144,0" Click="btnSetPrimaryWord_Click" Foreground="#FF040985" FontSize="16">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                        <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                        <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                        <GradientStop Color="#FF9DAAFB" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </StackPanel>
+
         <Image Grid.ColumnSpan="3" Margin="0,0,0,279" Source="have_cont.PNG" Stretch="UniformToFill"/>
+        <StackPanel x:Name="panelUsedWords" Margin="7,229,234,30" Grid.ColumnSpan="3">
+            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" x:Name="lblUsedWords" Content="UsedWords" Foreground="#FF05157A" FontWeight="Bold"/>
+            <ListBox FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" x:Name="lstUsedWords" MinWidth="100" ItemsSource="{Binding UsedWords}" Height="63"/>
+        </StackPanel>
 
 
 
