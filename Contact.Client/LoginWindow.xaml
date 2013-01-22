@@ -8,12 +8,30 @@
             <ColumnDefinition Width="110*"/>
             <ColumnDefinition Width="89*"/>
         </Grid.ColumnDefinitions>
-        <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Логин" HorizontalAlignment="Left" Height="27" Margin="173,100,0,0" VerticalAlignment="Top" Width="69" FontSize="18"/>
-        <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Пароль" HorizontalAlignment="Left" Height="32" Margin="173,141,0,0" VerticalAlignment="Top" Width="84" FontSize="18" Grid.ColumnSpan="2"/>
+        <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Логин" HorizontalAlignment="Left" Height="27" Margin="173,100,0,0" VerticalAlignment="Top" Width="69" FontSize="18" Foreground="#FF090E81"/>
+        <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Пароль" HorizontalAlignment="Left" Height="32" Margin="173,141,0,0" VerticalAlignment="Top" Width="84" FontSize="18" Grid.ColumnSpan="2" Foreground="#FF050A80"/>
         <TextBox x:Name="LoginTB" HorizontalAlignment="Left" Height="23" Margin="35,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Grid.Column="1"/>
         <TextBox x:Name="PasswordTB" HorizontalAlignment="Left" Height="23" Margin="35,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" Grid.Column="1"/>
-        <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Войти" HorizontalAlignment="Left" Height="27" Margin="164,193,0,0" VerticalAlignment="Top" Width="103" Click="Button_Click_1" Grid.ColumnSpan="2" FontSize="16"/>
-        <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Зарегистрироваться" HorizontalAlignment="Left" Height="27" Margin="52,193,0,0" VerticalAlignment="Top" Width="162" Click="Button_Click_2" Grid.Column="1" FontSize="16" Grid.ColumnSpan="2"/>
+        <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Войти" HorizontalAlignment="Left" Height="27" Margin="164,193,0,0" VerticalAlignment="Top" Width="103" Click="Button_Click_1" Grid.ColumnSpan="2" FontSize="16" Foreground="#FF0A0D55">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FF849AE4" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Зарегистрироваться" HorizontalAlignment="Left" Height="27" Margin="52,193,0,0" VerticalAlignment="Top" Width="162" Click="Button_Click_2" Grid.Column="1" FontSize="16" Grid.ColumnSpan="2" Foreground="#FF1F0D55">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FF849AE4" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
         <Image Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Top" Source="have_cont.PNG"/>
 
     </Grid>

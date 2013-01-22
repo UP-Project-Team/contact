@@ -37,7 +37,7 @@ namespace Contact.Client
             }
             else
             {
-                MessageBox.Show("В комнате должно быть не меньше 3 человек");
+                MessageBox.Show("В комнате должно быть не меньше 3 человек", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

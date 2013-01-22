@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Contact.Client.MainWindow"
-        Title="Есть контакт!" Height="379" Width="525" Background="#FFCADADA" Icon="k.PNG">
+        Title="Есть контакт!" Height="387" Width="525" Background="#FFCADADA" Icon="k.PNG">
     <Window.Resources>
 
         <DataTemplate x:Key="RoomItemTemplate">
@@ -40,16 +40,20 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Column="0" VerticalAlignment="Bottom" Content="{Binding Me.role}" Grid.ColumnSpan="3" Margin="0,0,0.4,-0.2" d:IsHidden="True"/>
-
-
-        <Label Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="{Binding CurrentRoom.Name}" Margin="0,0,0.4,-0.2" d:IsHidden="True"/>
-
-        <Button 
+        <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic"
             Grid.Column="0" 
-            MaxHeight="20" MaxWidth="100" 
+            MaxHeight="30" MaxWidth="100" 
             x:Name="btnStartGame"
-            Click="btnStartGame_Click" RenderTransformOrigin="0.88,0.969" Content="Go" Grid.ColumnSpan="3" Margin="0,0,0.4,-0.2" d:IsHidden="True"/>
+            Click="btnStartGame_Click" RenderTransformOrigin="0.88,0.969" Content="Начать!" Grid.ColumnSpan="3" Foreground="#FF1237DE" FontSize="16" Margin="0,154,0,149" d:IsHidden="True">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FF8B96FD" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="GameOver" Grid.Column="2" Margin="133.6,133,193.4,132.8" d:IsHidden="True">
             <Label HorizontalAlignment="Center" Content="Раунд окончен!" d:IsHidden="True"/>
@@ -106,11 +110,11 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Margin="0,72,0,150" Grid.RowSpan="2">
-                <Label x:Name="lblUsersOnline" Content="Online users"/>
+                <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" x:Name="lblUsersOnline" Content="Online users" Foreground="#FF05157A" FontWeight="Bold"/>
                 <ListBox x:Name="lstUsersOnline" MinWidth="100" ItemsSource="{Binding Users}" ItemTemplate="{StaticResource UserItemTemplate}"/>
             </StackPanel>
             <StackPanel x:Name="panelUsedWords" Grid.Row="1" Margin="0,30,0,0">
-                <Label x:Name="lblUsedWords" Content="UsedWords"/>
+                <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" x:Name="lblUsedWords" Content="UsedWords" Foreground="#FF05157A" FontWeight="Bold"/>
                 <ListBox x:Name="lstUsedWords" MinWidth="100" ItemsSource="{Binding UsedWords}"/>
             </StackPanel>
         </Grid>
@@ -133,12 +137,31 @@
             <Button Name="btnVoteForChiefWord_Agree" Content="V" Margin="160,-54,242.2,0" Height="19" RenderTransformOrigin="0.504,0.5" Click="btnVoteForChiefWord_Agree_Click" d:IsHidden="True"/>
             <Button Name="btnVoteForChiefWord_Disagree" Content="X" Margin="160,-10,242.2,0" Height="20" RenderTransformOrigin="0.504,0.51" Click="btnVoteForChiefWord_Disagree_Click" d:IsHidden="True"/>
         </StackPanel>
-        <StackPanel x:Name="Lobby" HorizontalAlignment="Left" Height="302" VerticalAlignment="Top" Width="432" Grid.ColumnSpan="3" Margin="0,32,0,0">
-            <ListBox FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" x:Name="lstRooms" HorizontalAlignment="Right" VerticalAlignment="Top" MinHeight="200" MinWidth="300" ItemsSource="{Binding Rooms}" ItemTemplate="{StaticResource RoomItemTemplate}" MouseDoubleClick="LstRooms_OnMouseDoubleClick" RenderTransformOrigin="0.5,0.5" Margin="0,50,100,0"/>
-            <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" x:Name="btnCreateRoom" Content="Создать новую комнату" Margin="184,10,108,0" Click="btnCreateRoom_Click"/>
+        <StackPanel x:Name="Lobby" HorizontalAlignment="Left" Height="250" VerticalAlignment="Top" Width="432" Grid.ColumnSpan="3" Margin="-5,75,0,0" Background="#FF959EF7">
+            <Label FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Content="Комнаты" HorizontalAlignment="Left" Height="28" VerticalAlignment="Top" Width="88" Margin="35,15,0,5" FontSize="18" FontWeight="Bold" Foreground="#FF05157A"/>
+            <ListBox FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" x:Name="lstRooms" HorizontalAlignment="Right" VerticalAlignment="Top" ItemsSource="{Binding Rooms}" ItemTemplate="{StaticResource RoomItemTemplate}" MouseDoubleClick="LstRooms_OnMouseDoubleClick" RenderTransformOrigin="0.5,0.5" Margin="0,0,108,0" Height="164" Width="292"/>
+            <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" x:Name="btnCreateRoom" Content="Создать новую комнату" Margin="184,10,108,0" Click="btnCreateRoom_Click" Foreground="#FF071259">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                        <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                        <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                        <GradientStop Color="#FF7F88E2" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
             <TextBox x:Name="txtRoomName" Height="20" TextWrapping="Wrap" Text="" Margin="32,-20,255,0"/>
         </StackPanel>
-        <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Name="btnLeaveRoom" Content="LeaveRoom" Grid.Column="2" HorizontalAlignment="Left" Margin="134,321,0,0" VerticalAlignment="Top" Width="75" Click="btnLeaveRoom_Click"/>
+        <Button FontFamily="/Contact.Client;component/#Tempus Sans Cyrillic" Name="btnLeaveRoom" Content="LeaveRoom" Grid.Column="2" HorizontalAlignment="Left" Margin="358,320,0,0" VerticalAlignment="Top" Width="75" Click="btnLeaveRoom_Click" Foreground="#FF081566">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FF7D87E6" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
         <Image Grid.ColumnSpan="3" Margin="0,0,0,279" Source="have_cont.PNG" Stretch="UniformToFill"/>
 
 
