@@ -217,6 +217,14 @@ namespace Contact.Server
             BroadcastMessage(GameMessage.StateChangedMessage(state));
         }
 
+        /*
+        *   If user argument is null then the type of the message is system.
+        */
+        public void BroadcastChatMessage(string message, User user = null)
+        {
+            BroadcastMessage(GameMessage.ChatMessage(user != null ? user.Name : null, message));
+        }
+
         private void BroadcastMessage(GameMessage message)
         {
             var deadUsers = new List<User>();

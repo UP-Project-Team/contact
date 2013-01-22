@@ -136,6 +136,22 @@ namespace Contact.Client
         private void btnLeaveRoom_Click(object sender, RoutedEventArgs e)
         {
             ClientControll.LeaveRoom();
+        }
+
+        private void btnChatSend_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtChatInput.Text != "")
+            {
+                ClientControll.SendChatMessage(txtChatInput.Text);
+                txtChatInput.Text = "";
+            }
+            txtChatInput.Focus();
+        }
+
+        private void txtChatInput_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                btnChatSend_Click(null, null);
         }        
         
     }

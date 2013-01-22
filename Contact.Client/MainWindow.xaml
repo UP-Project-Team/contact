@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Contact.Client.MainWindow"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="610" Width="525">
     <Window.Resources>
 
         <DataTemplate x:Key="RoomItemTemplate">
@@ -34,35 +34,33 @@
         </Grid.Resources>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="27*"/>
-            <ColumnDefinition Width="222*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="256*"/>
+            <ColumnDefinition Width="261*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Column="0" VerticalAlignment="Bottom" Content="{Binding Me.role}" Grid.ColumnSpan="3" Margin="0,0,0.4,-0.2" d:IsHidden="True"/>
-
-
-        <Label Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="{Binding CurrentRoom.Name}" Margin="0,0,0.4,-0.2" d:IsHidden="True"/>
+        <Label Grid.Column="0" VerticalAlignment="Bottom" Content="{Binding Me.role}" Grid.ColumnSpan="3" Height="32" Margin="0,0,188,0"/>
+        <Label Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="{Binding CurrentRoom.Name}" Height="33" Width="60"/>
 
         <Button 
-            Grid.Column="0" 
             MaxHeight="20" MaxWidth="100" 
             x:Name="btnStartGame"
-            Click="btnStartGame_Click" RenderTransformOrigin="0.88,0.969" Content="Go" Grid.ColumnSpan="3" Margin="0,0,0.4,-0.2" d:IsHidden="True"/>
+            Click="btnStartGame_Click" RenderTransformOrigin="0.88,0.969" Content="Go" Grid.ColumnSpan="4" Margin="0,0,0,408" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="20" d:IsHidden="True"/>
 
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="GameOver" Grid.Column="2" Margin="133.6,133,193.4,132.8" d:IsHidden="True">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="GameOver" Grid.Column="2" Margin="176,251,223,250" Height="58" Width="118" d:IsHidden="True" Grid.ColumnSpan="2">
             <Label HorizontalAlignment="Center" Content="Раунд окончен!" d:IsHidden="True"/>
             <Label Content="{Binding PrimaryWord}" d:IsHidden="True"/>
 
             <Button Click="btnStartGame_Click" MaxWidth="200" Content="Начать новый раунд" d:IsHidden="True"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="0" x:Name="HaveCurrentWordVariant" Grid.ColumnSpan="3" Margin="0,0,0.4,-0.2" d:IsHidden="True">
+        <StackPanel Grid.Column="0" x:Name="HaveCurrentWordVariant" Grid.ColumnSpan="4" d:IsHidden="True">
             <Label Content="Есть контакт!" d:IsHidden="True"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="0" x:Name="HaveCurrentWord" Grid.ColumnSpan="3" Margin="0,0,0.4,-0.2" d:IsHidden="True">
+        <StackPanel Grid.Column="0" x:Name="HaveCurrentWord" Grid.ColumnSpan="4" d:IsHidden="True">
             <Label Content="{Binding PrimaryWordKnownLetters}" d:IsHidden="True"/>
             <Label Content="{Binding Question}" d:IsHidden="True"/>
             <StackPanel Orientation="Horizontal" d:IsHidden="True">
@@ -71,12 +69,12 @@
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Grid.Column="0" x:Name="QwestionerHaveCurrentWord" Grid.ColumnSpan="3" Margin="0,0,0.4,-0.2" d:IsHidden="True">
+        <StackPanel Grid.Column="0" x:Name="QwestionerHaveCurrentWord" Grid.ColumnSpan="4" d:IsHidden="True">
             <Label Content="{Binding PrimaryWordKnownLetters}" d:IsHidden="True"/>
             <Label Content="{Binding CurrentWord}" d:IsHidden="True"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="0" x:Name="HaveNoCurrentWord" Margin="0,39,0.4,9.8" Grid.ColumnSpan="3" d:IsHidden="True">
+        <StackPanel Grid.Column="0" x:Name="HaveNoCurrentWord" Margin="0,39,0,10" Grid.ColumnSpan="4" d:IsHidden="True">
             <Label Content="{Binding PrimaryWordKnownLetters}" d:IsHidden="True"/>
             <StackPanel Orientation="Vertical" d:IsHidden="True">
                 <TextBox x:Name="txtQuestion" MinWidth="300" d:IsHidden="True"/>
@@ -85,7 +83,7 @@
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Grid.Column="2" x:Name="VotingForPlayersWords" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="154.6,136,215.4,136.8" d:IsHidden="True">
+        <StackPanel Grid.Column="2" x:Name="VotingForPlayersWords" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="198,252,245,253" Height="54" Width="74" d:IsHidden="True" Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal" d:IsHidden="True">
                 <Label Content="{Binding CurrentWord}" d:IsHidden="True"/>
                 <Button Margin="5,0,0,0" x:Name="btnCurrentWordVoteUp" Click="btnCurrentWordVoteUp_Click" Content="Up" d:IsHidden="True"/>
@@ -99,7 +97,7 @@
             </StackPanel>
         </StackPanel>
 
-        <Grid Grid.Column="2" Margin="357.6,0,0.4,-0.2">
+        <Grid Grid.Column="3" Margin="102,0,0,0" d:IsHidden="True">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -114,31 +112,39 @@
                 <ListBox x:Name="lstUsedWords" MinWidth="100" ItemsSource="{Binding UsedWords}" d:IsHidden="True"/>
             </StackPanel>
         </Grid>
-        <StackPanel x:Name="HostWaitQuestion" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="427" Grid.ColumnSpan="3" Margin="0,0,0,-0.2" d:IsHidden="True">
+        <StackPanel x:Name="HostWaitQuestion" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="427" Grid.ColumnSpan="4" d:IsHidden="True">
             <Label Content="Ожидаем участников." Margin="10,0,0.2,0" d:IsHidden="True"/>
             <Label Content="Вы загадали слово:" Margin="10,40,302.2,0" d:IsHidden="True"/>
             <TextBox Name="txtPrimaryWord" Height="23" TextWrapping="Wrap" Text="" Margin="125,-25,10.2,0" d:IsHidden="True"/>
 
         </StackPanel>
-        <StackPanel Name="HostChiefWord" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="427" Grid.ColumnSpan="3" Margin="0,0,0,-0.2" d:IsHidden="True">
+        <StackPanel Name="HostChiefWord" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="427" Grid.ColumnSpan="4" d:IsHidden="True">
             <Label Content="Участник предложил вопрос:" Height="25" Margin="10,10,10.2,0" d:IsHidden="True"/>
             <TextBox Name="txtCurrentQuestion" Text="{Binding Question}" Height="50" TextWrapping="Wrap" Margin="10,0,10.2,0" d:IsHidden="True"/>
             <Label Content="Ваш ответ:" Margin="10,10,10.2,0" d:IsHidden="True"/>
             <TextBox Name="txtChiefWord" Height="23" TextWrapping="Wrap" Text="" Margin="10,10,107.2,0" d:IsHidden="True"/>
             <Button Name="btnHostHaveChiefWord" Content="Ok" Margin="325,-25,82.2,0" Height="17" RenderTransformOrigin="0.5,0.506" Click="btnHostHaveChiefWord_Click" d:IsHidden="True"/>
         </StackPanel>
-        <StackPanel x:Name="VotingForChiefWord" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="427" Grid.ColumnSpan="3" Margin="0,0,0,-0.2" d:IsHidden="True">
+        <StackPanel x:Name="VotingForChiefWord" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="427" Grid.ColumnSpan="4" d:IsHidden="True">
             <Label Content="Голосование за слово представленное ведущим" Margin="10,0,10.2,0" d:IsHidden="True"/>
             <TextBox Name="txtChiefVote" Height="24" TextWrapping="Wrap" Text="{Binding ChiefWord}" Margin="10,35,277.2,0" d:IsHidden="True"/>
             <Button Name="btnVoteForChiefWord_Agree" Content="V" Margin="160,-54,242.2,0" Height="19" RenderTransformOrigin="0.504,0.5" Click="btnVoteForChiefWord_Agree_Click" d:IsHidden="True"/>
             <Button Name="btnVoteForChiefWord_Disagree" Content="X" Margin="160,-10,242.2,0" Height="20" RenderTransformOrigin="0.504,0.51" Click="btnVoteForChiefWord_Disagree_Click" d:IsHidden="True"/>
         </StackPanel>
-        <StackPanel x:Name="Lobby" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="432" Grid.ColumnSpan="3" Margin="0,0,0,-0.2">
+        <StackPanel x:Name="Lobby" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="432" Grid.ColumnSpan="4">
             <ListBox x:Name="lstRooms" HorizontalAlignment="Right" VerticalAlignment="Top" MinHeight="200" MinWidth="300" ItemsSource="{Binding Rooms}" ItemTemplate="{StaticResource RoomItemTemplate}" MouseDoubleClick="LstRooms_OnMouseDoubleClick" RenderTransformOrigin="0.5,0.5" Height="160" Width="295" Margin="0,50,107,0"/>
             <Button x:Name="btnCreateRoom" Content="Создать новую комнату" Margin="175,10,117,0" Click="btnCreateRoom_Click"/>
             <TextBox Name="txtRoomName" Height="20" TextWrapping="Wrap" Text="" Margin="25,-20,262,0"/>
         </StackPanel>
-        <Button Name="btnLeaveRoom" Content="LeaveRoom" Grid.Column="2" HorizontalAlignment="Left" Margin="133.6,287,0,0" VerticalAlignment="Top" Width="75" Click="btnLeaveRoom_Click"/>
+        <Button Name="btnLeaveRoom" Content="LeaveRoom" Grid.Column="2" HorizontalAlignment="Left" Margin="134,288,0,0" VerticalAlignment="Top" Width="75" Click="btnLeaveRoom_Click" Height="22" d:IsHidden="True"/>
+        <StackPanel x:Name="Chat" Grid.ColumnSpan="4" Margin="0,323,0,0" Height="231" VerticalAlignment="Top" HorizontalAlignment="Left" Width="432">
+            <RichTextBox x:Name="rtbChatMessages" Margin="25,20,0,0" Height="159" Width="298" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Visible" IsReadOnly="True">
+                <FlowDocument/>
+            </RichTextBox>            
+            <Button x:Name="btnChatSend" Content="Отправить" Margin="239,10,0,0" VerticalContentAlignment="Top" HorizontalAlignment="Left" Width="85" RenderTransformOrigin="0.506,0.545" VerticalAlignment="Top" Click="btnChatSend_Click"/>
+            <TextBox x:Name="txtChatInput" Margin="27,-20,0,0" TextWrapping="Wrap" Height="23" Width="206" HorizontalAlignment="Left" PreviewKeyDown="txtChatInput_PreviewKeyDown"/>
+        </StackPanel>
+
 
 
 
