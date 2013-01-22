@@ -3,6 +3,8 @@ Contact.Server/bin/Debug/log.txt
 Contact.Server/bin/Release/log.txt
 
 !Users.accdb
+!k.PNG
+!have_cont.PNG
 
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 [Bb]in/*

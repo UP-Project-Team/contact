@@ -35,7 +35,7 @@ namespace Contact.Client
             }
             else
             {
-                MessageBox.Show("В комнате должно быть не меньше 3 человек");
+                MessageBox.Show("В комнате должно быть не меньше 3 человек", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -61,6 +61,7 @@ namespace Contact.Client
             StateActivateActionsList = new List<Tuple<UIElement, Func<bool>>>
             {
                 new Tuple<UIElement, Func<bool>>(btnStartGame, () => ClientControll.gameState.State==GameState.State.NotStarted),
+                new Tuple<UIElement, Func<bool>>(panelUsedWords, () => ClientControll.gameState.CurrentRoomId!=0),
                 new Tuple<UIElement, Func<bool>>(HaveNoPrimaryWord, () => ClientControll.gameState.State==GameState.State.HaveNoPrimaryWord && ClientControll.gameState.Me.role == User.Role.Host),
                 new Tuple<UIElement, Func<bool>>(HaveNoCurrentWord, () => ClientControll.gameState.State==GameState.State.HaveNoCurrentWord && ClientControll.gameState.Me.role != User.Role.Host),
                 new Tuple<UIElement, Func<bool>>(HostWaitQuestion, () => ClientControll.gameState.State==GameState.State.HaveNoCurrentWord && ClientControll.gameState.Me.role == User.Role.Host),

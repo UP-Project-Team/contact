@@ -133,6 +133,7 @@
     <None Include="Service References\GameService\System.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Resource Include="TempusSansCyrillic.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -154,6 +155,13 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="have_cont.PNG" />
+    <Resource Include="k.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
