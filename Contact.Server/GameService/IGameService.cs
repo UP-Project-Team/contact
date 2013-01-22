@@ -63,6 +63,10 @@ namespace Contact.Server
 
         [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]
         [FaultContract(typeof(GameException))]
+        void ReceiveChatMessage(Guid token, string message);
+
+        [OperationContract(IsInitiating = false, IsOneWay = false, IsTerminating = false)]
+        [FaultContract(typeof(GameException))]
         void SetPrimaryWord(Guid token, string primaryWord);
     }
     
@@ -97,7 +101,8 @@ namespace Contact.Server
             QuestionAsked,
             LogoffUser,
             WeHaveChiefWord,
-            AddedRoom
+            AddedRoom,
+            ChatMessage
         }
 
         [DataMember]
@@ -162,6 +167,12 @@ namespace Contact.Server
         {
             return new GameMessage {actionType = ActionType.VarOfCurWordChanged, actionAgrument = word};
         }
+
+        public static GameMessage ChatMessage(string username, string message)
+        {
+            return new GameMessage { actionType = ActionType.ChatMessage, actionAgrument = new Tuple<string, string>(username, message) };
+        }
+
         #endregion
     }
 }

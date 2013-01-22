@@ -13,7 +13,7 @@ namespace Contact.Client
     public static partial class ClientControll
     {
         private static GameServiceClient proxy;
-        private static MainWindow mainWindow;
+        public static MainWindow mainWindow;
         public static GameView gameState;
         public static LoginWindow loginWindow;
 
@@ -260,5 +260,22 @@ namespace Contact.Client
                 MessageBox.Show(e.Message);
             }
         }
+
+        public static async void SendChatMessage(string message)
+        {
+            try
+            {
+                await proxy.ReceiveChatMessageAsync(gameState.Me.Token, message);
+            }
+            catch (FaultException<GameException> e)
+            {
+                MessageBox.Show(e.Detail.Message);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
     }
 }

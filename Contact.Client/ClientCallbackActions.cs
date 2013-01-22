@@ -30,7 +30,8 @@ namespace Contact.Client
                 {GameMessage.ActionType.UsedWordAdded, CallbackAction_UsedWordAdded},
                 {GameMessage.ActionType.QuestionAsked, CallbackAction_QuestionAsked},
                 {GameMessage.ActionType.WeHaveChiefWord, CallbackAction_WeHaveChiefWord},
-                {GameMessage.ActionType.AddedRoom, CallbackAction_AddedRoom}
+                {GameMessage.ActionType.AddedRoom, CallbackAction_AddedRoom},
+                {GameMessage.ActionType.ChatMessage, CallbackAction_ChatMessage}
             };
         private static void CallbackAction_AddedRoom(object arg)
         {
@@ -112,6 +113,7 @@ namespace Contact.Client
         {
             var user = (User) arg;
             mainWindow.Dispatcher.Invoke(() => gameState.AddUser(user));
+            gameState.AddChatMessage(null, "В комнату заходит " + user.Name);
             LogSaver.Log("User entered room ");
         }
 
@@ -119,6 +121,7 @@ namespace Contact.Client
         {
             var user = (User) arg;
             mainWindow.Dispatcher.Invoke(() => gameState.RemoveUser(user));
+            gameState.AddChatMessage(null, user.Name + " покидает комнату");
             LogSaver.Log("User left room");
         }
 
@@ -142,6 +145,18 @@ namespace Contact.Client
             loginWindow = new LoginWindow();
             loginWindow.Show();
         }
+
+        private static void CallbackAction_ChatMessage(object arg)
+        {
+            var tuple = (Tuple<string, string>)arg;
+
+            mainWindow.Dispatcher.Invoke(() =>
+            {
+                gameState.AddChatMessage(tuple.Item1, tuple.Item2);
+            });
+
+        }
+
         // Process message
         public static void ChangeClientView(GameMessage message)
         {

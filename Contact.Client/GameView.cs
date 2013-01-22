@@ -2,6 +2,8 @@
 using System.Linq;
 using Contact.Client.GameService;
 using System.ComponentModel;
+using System.Windows.Documents;
+using System.Windows.Media;
 
 namespace Contact.Client
 {
@@ -52,6 +54,20 @@ namespace Contact.Client
                 if (value == _usedWords) return;
                 _usedWords = value;
                 OnPropertyChanged("UsedWords");
+            }
+        }
+
+
+        private ObservableCollection<string> _chatMessages = new ObservableCollection<string>();
+        public ObservableCollection<string> ChatMessages
+        {
+            get { return _chatMessages; }
+            set
+            {
+                if (value == _chatMessages) return;
+                    _chatMessages = value;
+                    _chatMessages.CollectionChanged += _chatMessages_CollectionChanged;
+                OnPropertyChanged("ChatMessages");
             }
         }
 
@@ -209,6 +225,7 @@ namespace Contact.Client
             PrimaryWord = state.PrimaryWord;
         }
 
+
         public void AddUser(User user)
         {
             // TODO: synchronization?
@@ -220,6 +237,45 @@ namespace Contact.Client
             var res = from t in Users where t.Id == user.Id select t;
             Users.Remove(res.First());
         }
+
+        public void AddChatMessage(string username, string message)
+        {
+            var rtbChatMessages = ClientControll.mainWindow.rtbChatMessages;
+
+            var usernameColor = Brushes.Green;
+
+            if (username == null)
+            {
+                username = "[System]";
+                usernameColor = Brushes.Red;
+            }
+
+            if (rtbChatMessages.Document.Blocks.FirstBlock == null)
+                rtbChatMessages.Document.Blocks.Add(new Paragraph());
+
+            var paraInlines = ((Paragraph)(rtbChatMessages.Document.Blocks.FirstBlock)).Inlines;
+
+            var run1 = new Run(username + ": ");
+            run1.Foreground = usernameColor;
+            paraInlines.Add(run1);
+
+            var run2 = new Run(message);
+            run2.Foreground = Brushes.Black;
+            paraInlines.Add(run2);
+
+            paraInlines.Add(new Run(System.Environment.NewLine));
+            
+            rtbChatMessages.ScrollToEnd();
+
+            // ChatMessages.Add(username + ": " + message);
+        }
+
+        private void _chatMessages_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            // var lstChatMessages = ClientControll.mainWindow.lstChatMessages;
+            // lstChatMessages.ScrollIntoView(lstChatMessages.Items[lstChatMessages.Items.Count - 1]);
+        }
+
 
     }
 }

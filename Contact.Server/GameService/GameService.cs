@@ -120,5 +120,15 @@ namespace Contact.Server
 
             RoomControll.AddRoom(roomName);
         }
+
+        public void ReceiveChatMessage(Guid token, string message)
+        {
+            var user = RoomControll.GetUserByToken(token);
+            if (message == "")
+                return;
+            LogSaver.Log("Chat message from " + user.Name + ": " + message);
+            RoomControll.BroadcastChatMessageToRoom(user, message);
+
+        }
     }
 }

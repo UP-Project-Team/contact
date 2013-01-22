@@ -123,11 +123,11 @@
     <None Include="Service References\GameService\Contact.Server1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\GameService\service1.wsdl" />
-    <None Include="Service References\GameService\service2.xsd">
+    <None Include="Service References\GameService\service.wsdl" />
+    <None Include="Service References\GameService\service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\GameService\service21.xsd">
+    <None Include="Service References\GameService\service1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\GameService\System.xsd">

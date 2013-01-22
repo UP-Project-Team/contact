@@ -1,0 +1,455 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="GameService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBindingEndPoint_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsrm:RMAssertion xmlns:wsrm="http://schemas.xmlsoap.org/ws/2005/02/rm/policy">
+          <wsrm:InactivityTimeout Milliseconds="1200000">
+          </wsrm:InactivityTimeout>
+          <wsrm:AcknowledgementInterval Milliseconds="200">
+          </wsrm:AcknowledgementInterval>
+        </wsrm:RMAssertion>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256>
+                </sp:Basic256>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict>
+                </sp:Strict>
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Contact.Server" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/System" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IGameService_Login_InputMessage">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_Login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_Login_GameExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q1:GameException" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_Logoff_InputMessage">
+    <wsdl:part name="parameters" element="tns:Logoff" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_GetState_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetState" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_GetState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_GetRoomsList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRoomsList" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_GetRoomsList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRoomsListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_GotoRoom_InputMessage">
+    <wsdl:part name="parameters" element="tns:GotoRoom" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_GotoRoom_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GotoRoomResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_GotoRoom_GameExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q2:GameException" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_GiveChiefWord_InputMessage">
+    <wsdl:part name="parameters" element="tns:GiveChiefWord" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_GiveChiefWord_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GiveChiefWordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_GiveChiefWord_GameExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q3:GameException" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_AddRoom_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddRoom" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_AddRoom_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddRoomResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_AddRoom_GameExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q4:GameException" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_Registration_InputMessage">
+    <wsdl:part name="parameters" element="tns:Registration" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_Registration_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_Registration_GameExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q5="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q5:GameException" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_StartGame_InputMessage">
+    <wsdl:part name="parameters" element="tns:StartGame" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_LeaveRoom_InputMessage">
+    <wsdl:part name="parameters" element="tns:LeaveRoom" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_LeaveRoom_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LeaveRoomResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_LeaveRoom_GameExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q6:GameException" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_GiveCurrentWordVariant_InputMessage">
+    <wsdl:part name="parameters" element="tns:GiveCurrentWordVariant" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_GiveCurrentWordVariant_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GiveCurrentWordVariantResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_GiveCurrentWordVariant_GameExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q7="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q7:GameException" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_VoteForPlayerWord_InputMessage">
+    <wsdl:part name="parameters" element="tns:VoteForPlayerWord" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_VoteForPlayerWord_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VoteForPlayerWordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_VoteForPlayerWord_GameExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q8="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q8:GameException" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_VoteForChiefWord_InputMessage">
+    <wsdl:part name="parameters" element="tns:VoteForChiefWord" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_VoteForChiefWord_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VoteForChiefWordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_VoteForChiefWord_GameExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q9="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q9:GameException" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_AskQuestion_InputMessage">
+    <wsdl:part name="parameters" element="tns:AskQuestion" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_AskQuestion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AskQuestionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_AskQuestion_GameExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q10="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q10:GameException" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_ReceiveChatMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReceiveChatMessage" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_ReceiveChatMessage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReceiveChatMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_ReceiveChatMessage_GameExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q11="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q11:GameException" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_SetPrimaryWord_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetPrimaryWord" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_SetPrimaryWord_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetPrimaryWordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_SetPrimaryWord_GameExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q12="http://schemas.datacontract.org/2004/07/Contact.Server" name="detail" element="q12:GameException" />
+  </wsdl:message>
+  <wsdl:message name="IGameService_Notify_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:Notify" />
+  </wsdl:message>
+  <wsdl:portType msc:usingSession="true" name="IGameService">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Login">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/Login" message="tns:IGameService_Login_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/LoginResponse" message="tns:IGameService_Login_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IGameService/LoginGameExceptionFault" name="GameExceptionFault" message="tns:IGameService_Login_GameExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="true" name="Logoff">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/Logoff" message="tns:IGameService_Logoff_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetState">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/GetState" message="tns:IGameService_GetState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/GetStateResponse" message="tns:IGameService_GetState_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetRoomsList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/GetRoomsList" message="tns:IGameService_GetRoomsList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/GetRoomsListResponse" message="tns:IGameService_GetRoomsList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GotoRoom">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/GotoRoom" message="tns:IGameService_GotoRoom_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/GotoRoomResponse" message="tns:IGameService_GotoRoom_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IGameService/GotoRoomGameExceptionFault" name="GameExceptionFault" message="tns:IGameService_GotoRoom_GameExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GiveChiefWord">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/GiveChiefWord" message="tns:IGameService_GiveChiefWord_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/GiveChiefWordResponse" message="tns:IGameService_GiveChiefWord_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IGameService/GiveChiefWordGameExceptionFault" name="GameExceptionFault" message="tns:IGameService_GiveChiefWord_GameExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="AddRoom">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/AddRoom" message="tns:IGameService_AddRoom_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/AddRoomResponse" message="tns:IGameService_AddRoom_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IGameService/AddRoomGameExceptionFault" name="GameExceptionFault" message="tns:IGameService_AddRoom_GameExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Registration">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/Registration" message="tns:IGameService_Registration_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/RegistrationResponse" message="tns:IGameService_Registration_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IGameService/RegistrationGameExceptionFault" name="GameExceptionFault" message="tns:IGameService_Registration_GameExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="StartGame">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/StartGame" message="tns:IGameService_StartGame_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="LeaveRoom">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/LeaveRoom" message="tns:IGameService_LeaveRoom_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/LeaveRoomResponse" message="tns:IGameService_LeaveRoom_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IGameService/LeaveRoomGameExceptionFault" name="GameExceptionFault" message="tns:IGameService_LeaveRoom_GameExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GiveCurrentWordVariant">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/GiveCurrentWordVariant" message="tns:IGameService_GiveCurrentWordVariant_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/GiveCurrentWordVariantResponse" message="tns:IGameService_GiveCurrentWordVariant_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IGameService/GiveCurrentWordVariantGameExceptionFault" name="GameExceptionFault" message="tns:IGameService_GiveCurrentWordVariant_GameExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="VoteForPlayerWord">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/VoteForPlayerWord" message="tns:IGameService_VoteForPlayerWord_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/VoteForPlayerWordResponse" message="tns:IGameService_VoteForPlayerWord_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IGameService/VoteForPlayerWordGameExceptionFault" name="GameExceptionFault" message="tns:IGameService_VoteForPlayerWord_GameExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="VoteForChiefWord">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/VoteForChiefWord" message="tns:IGameService_VoteForChiefWord_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/VoteForChiefWordResponse" message="tns:IGameService_VoteForChiefWord_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IGameService/VoteForChiefWordGameExceptionFault" name="GameExceptionFault" message="tns:IGameService_VoteForChiefWord_GameExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="AskQuestion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/AskQuestion" message="tns:IGameService_AskQuestion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/AskQuestionResponse" message="tns:IGameService_AskQuestion_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IGameService/AskQuestionGameExceptionFault" name="GameExceptionFault" message="tns:IGameService_AskQuestion_GameExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="ReceiveChatMessage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/ReceiveChatMessage" message="tns:IGameService_ReceiveChatMessage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/ReceiveChatMessageResponse" message="tns:IGameService_ReceiveChatMessage_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IGameService/ReceiveChatMessageGameExceptionFault" name="GameExceptionFault" message="tns:IGameService_ReceiveChatMessage_GameExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="SetPrimaryWord">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGameService/SetPrimaryWord" message="tns:IGameService_SetPrimaryWord_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/SetPrimaryWordResponse" message="tns:IGameService_SetPrimaryWord_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IGameService/SetPrimaryWordGameExceptionFault" name="GameExceptionFault" message="tns:IGameService_SetPrimaryWord_GameExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Notify">
+      <wsdl:output wsaw:Action="http://tempuri.org/IGameService/Notify" message="tns:IGameService_Notify_OutputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBindingEndPoint" type="tns:IGameService">
+    <wsp:PolicyReference URI="#NetTcpBindingEndPoint_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="Login">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GameExceptionFault">
+        <soap12:fault use="literal" name="GameExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Logoff">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/Logoff" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="GetState">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/GetState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRoomsList">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/GetRoomsList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GotoRoom">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/GotoRoom" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GameExceptionFault">
+        <soap12:fault use="literal" name="GameExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GiveChiefWord">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/GiveChiefWord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GameExceptionFault">
+        <soap12:fault use="literal" name="GameExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AddRoom">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/AddRoom" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GameExceptionFault">
+        <soap12:fault use="literal" name="GameExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Registration">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/Registration" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GameExceptionFault">
+        <soap12:fault use="literal" name="GameExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="StartGame">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/StartGame" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="LeaveRoom">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/LeaveRoom" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GameExceptionFault">
+        <soap12:fault use="literal" name="GameExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GiveCurrentWordVariant">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/GiveCurrentWordVariant" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GameExceptionFault">
+        <soap12:fault use="literal" name="GameExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="VoteForPlayerWord">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/VoteForPlayerWord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GameExceptionFault">
+        <soap12:fault use="literal" name="GameExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="VoteForChiefWord">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/VoteForChiefWord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GameExceptionFault">
+        <soap12:fault use="literal" name="GameExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AskQuestion">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/AskQuestion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GameExceptionFault">
+        <soap12:fault use="literal" name="GameExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveChatMessage">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/ReceiveChatMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GameExceptionFault">
+        <soap12:fault use="literal" name="GameExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SetPrimaryWord">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/SetPrimaryWord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GameExceptionFault">
+        <soap12:fault use="literal" name="GameExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Notify">
+      <soap12:operation soapAction="http://tempuri.org/IGameService/Notify" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GameService">
+    <wsdl:port name="NetTcpBindingEndPoint" binding="tns:NetTcpBindingEndPoint">
+      <soap12:address location="net.tcp://localhost:4342/ContactGameService/tcp" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:4342/ContactGameService/tcp</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Dns>localhost</Dns>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

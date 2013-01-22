@@ -167,6 +167,11 @@ namespace Contact.Server
             return Rooms.Values.ToList();
         }
 
+        public static void BroadcastChatMessageToRoom(User user, string message)
+        {
+            Rooms[user.RoomId].BroadcastChatMessage(message, user);
+        }
+
         public static void GotoRoom(User user, int roomId)
         {
             if (!Rooms.ContainsKey(roomId))
