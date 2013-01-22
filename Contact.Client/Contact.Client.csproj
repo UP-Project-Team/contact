@@ -157,8 +157,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="have_cont.PNG" />
-    <Content Include="k.PNG" />
+    <Resource Include="have_cont.PNG" />
+    <Resource Include="k.PNG" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />
